@@ -8,6 +8,8 @@ import android.widget.TextView;
 public class ViewDate extends AppCompatActivity {
     private TextView lblDate;
     private String selectedDate;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +23,6 @@ public class ViewDate extends AppCompatActivity {
         selectedDate = extras.get("SelectedDate").toString();
 
         //lblDate.setText(selectedDate);
-        lblDate.setText(dbCommunicator.getUserNames());
+        dbCommunicator.request("https://studev.groept.be/api/a21pt411/getAllUsernames", "username", lblDate);
     }
 }
