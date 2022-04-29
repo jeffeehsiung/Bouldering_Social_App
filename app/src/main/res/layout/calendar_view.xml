@@ -1,0 +1,20 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <CalendarView
+        android:id="@+id/calendar"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_margin="10dp" />
+
+    <Button
+        android:id="@+id/btnViewDate"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:onClick="onBtnViewDate_Clicked"
+        android:text="View date"/>
+</LinearLayout>
