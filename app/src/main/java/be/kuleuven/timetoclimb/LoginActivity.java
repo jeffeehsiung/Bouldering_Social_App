@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
             txtvMessage.setText("Please enter your data.");
         }*/
         else if(userExist && !pwdCorrect){ //user exist, password incorrect
-            txtvMessage.setText("yoyoyoyoyoyoy");
+            txtvMessage.setText("Incorrect Password");
         }
         else{
             txtvMessage.setText("No user found");//no user data in database
