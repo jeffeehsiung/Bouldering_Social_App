@@ -26,4 +26,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, Calendar.class);
         startActivity(intent);
     }
+
+    public void btnLogin_Clicked(){
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
 }
