@@ -52,7 +52,7 @@ public class Calendar extends Activity{
     public void onBtnViewDate_Clicked(View caller) {
         // Intent to start ViewDate and pass selected date from calendar
         Intent intentViewDate = new Intent(this, ViewDate.class);
-        intentViewDate.putExtra("SelectedDateTest", selectedDate);
+        intentViewDate.putExtra("SelectedDate", selectedDate);
         startActivity(intentViewDate);
     }
 }
