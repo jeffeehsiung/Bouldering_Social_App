@@ -1,6 +1,6 @@
 package be.kuleuven.timetoclimb;
 
-import android.app.Activity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -13,7 +13,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-public class Login extends Activity {
+public class LoginActivity extends AppCompatActivity {
 
     private Button btnLoginNow = findViewById(R.id.btnLoginNow);
     private EditText txtUsername = findViewById(R.id.txtUsername);
@@ -30,26 +30,13 @@ public class Login extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //sets the main layout of the activity
-        setContentView(R.layout.fragment_login);
-
-        //initializes the calendarview
-        try {
-            initializeCalendar();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        setContentView(R.layout.activity_login);
     }
 
-    public void initializeCalendar() throws IOException {
-
-        checkLogin();
-    }
     /* data base connection and comparison */
     public boolean compareUserDB (String username, String password, String serverName) throws IOException {
         //database connection
-        DBConnector dbConnector = new DBConnector();
+        DBConnector dbConnector = new DBConnector(getApplicationContext());
         JSONArray dbJSON = dbConnector.JSONRequest(serverName);
         //iterate and compare to JSONarray
         try {
@@ -78,14 +65,10 @@ public class Login extends Activity {
             txtvMessage.setText("Please enter your data.");
         }*/
         else if(userExist && !pwdCorrect){ //user exist, password incorrect
-            txtvMessage.setText("yoyoyoyoyoyoy");
+            txtvMessage.setText("Incorrect Password");
         }
         else{
             txtvMessage.setText("No user found");//no user data in database
         }
     }
-
-
-
-
 }

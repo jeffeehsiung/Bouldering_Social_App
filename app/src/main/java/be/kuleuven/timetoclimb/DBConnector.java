@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.ContentLoadingProgressBar;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -17,11 +18,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class DBConnector extends AppCompatActivity {
+public class DBConnector<jsonArrayResponse> extends AppCompatActivity {
 
     private RequestQueue requestQueue;
     private TextView txtResponse;
     private Context context;
+    private JSONArray jsonArrayResponse;
+    private ContentLoadingProgressBar loader = (ContentLoadingProgressBar)findViewById(R.id.loader);
     String serverURL = "https://studev.groept.be/api/a21pt411/";
 
     public DBConnector(Context context){
@@ -32,7 +35,6 @@ public class DBConnector extends AppCompatActivity {
      */
     public JSONArray JSONRequest(String extendedURL)
     {
-        JSONArray jsonArrayResponse = new JSONArray();
         //sending simple request
         //instantiate the requestQueue
         requestQueue = Volley.newRequestQueue(context);
@@ -46,18 +48,8 @@ public class DBConnector extends AppCompatActivity {
                     public void onResponse(JSONArray response)
                     {
                         //make a copy of the response and store it
-                        try {
-                            for( int i = 0; i < response.length(); i++ )
-                            {
-                                JSONObject curObject = response.getJSONObject( i );
-                                jsonArrayResponse.put(curObject);
-                                txtResponse.setText("Connection Successful");
-                            }
-                        }
-                        catch( JSONException e )
-                        {
-                            Log.e( "Database Connection", e.getMessage(), e );
-                        }
+                        jsonArrayResponse = response;
+                        loader.hide();
                     }
                 },
 
@@ -70,6 +62,7 @@ public class DBConnector extends AppCompatActivity {
                     }
                 }
         );
+        loader.show();
         requestQueue.add(jsonArrayRequest);
         return jsonArrayResponse;
     }
