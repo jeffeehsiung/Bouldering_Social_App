@@ -15,10 +15,10 @@ import java.io.IOException;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private Button btnLoginNow = findViewById(R.id.btnLoginNow);
-    private EditText txtUsername = findViewById(R.id.txtUsername);
-    private EditText txtPassword = findViewById(R.id.txtPassword);
-    private TextView txtvMessage = findViewById(R.id.txtvMessage);
+    private Button btnLoginNow = findViewById(R.id.btnLogin);
+    private EditText txtUsername = findViewById(R.id.email);
+    private EditText txtPassword = findViewById(R.id.password);
+    private TextView txtvMessage = findViewById(R.id.message);
 
     private String userDBserver = "getUserComplete";
     private String userkey = "username";
@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login2);
     }
 
     /* data base connection and comparison */
