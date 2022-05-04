@@ -24,7 +24,7 @@ public class DBConnector<jsonArrayResponse> extends AppCompatActivity {
     private TextView txtResponse;
     private Context context;
     private JSONArray jsonArrayResponse;
-    private ContentLoadingProgressBar loader = (ContentLoadingProgressBar)findViewById(R.id.loader);
+    private ContentLoadingProgressBar loader = (ContentLoadingProgressBar)findViewById(R.id.progressBar);
     String serverURL = "https://studev.groept.be/api/a21pt411/";
 
     public DBConnector(Context context){
