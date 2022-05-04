@@ -7,6 +7,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ProgressBar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -41,16 +42,16 @@ public class LoginActivity extends AppCompatActivity {
         // the view_pager needs the adapter that we load inside
         ViewPagerAdapter adapter = new ViewPagerAdapter(LoginActivity.this);
         viewPager2.setAdapter(adapter);
+        Log.d("viewPager2", "onCreate: " + adapter.getItemCount());
 
-
-        /*// if there is no tabs
+        // if there is no tabs
         new TabLayoutMediator(tabLayout, viewPager2,
                 new TabLayoutMediator.TabConfigurationStrategy() {
                     @Override
                     public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                         tab.setText("Tab " + (position + 1));
                     }
-                }).attach();*/
+                }).attach();
 
         google.setTranslationY(300);
         tabLayout.setTranslationY(300);

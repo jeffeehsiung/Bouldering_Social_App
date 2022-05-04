@@ -22,10 +22,11 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
+        Fragment fragment;
         switch(position){
             case 0: LoginTabFragment loginTabFragment = new LoginTabFragment();return loginTabFragment;
             case 1: SignupTabFragment signupTabFragment = new SignupTabFragment();return signupTabFragment;
-            default: return null;
+            default: fragment = new LoginTabFragment(); return fragment;
         }
     }
 
