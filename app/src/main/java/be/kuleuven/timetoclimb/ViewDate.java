@@ -27,7 +27,6 @@ public class ViewDate extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DBCommunicator dbCommunicator = new DBCommunicator(getApplicationContext());
-        DBConnector dbConnector = new DBConnector(getApplicationContext());
 
         setContentView(R.layout.view_date);
         lblDate = (TextView) findViewById(R.id.lblDate);

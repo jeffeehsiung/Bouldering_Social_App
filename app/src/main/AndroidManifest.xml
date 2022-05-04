@@ -10,11 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TimeToClimb">
         <activity
-            android:name=".LoginActivity2"
-            android:exported="false" />
-        <activity
-            android:name=".LoginActivity"
-            android:exported="false" />
+            android:name=".LoginActivity"/>
         <activity
             android:name=".CreateEvent"
             android:exported="false" />

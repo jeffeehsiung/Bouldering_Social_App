@@ -12,7 +12,6 @@
         android:layout_height="0dp"
         android:src="@drawable/login_background"
         android:scaleType="centerCrop"
-        app:layout_constrainedHeight_percent=".27"
         app:layout_constraintVertical_bias="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,7 +25,9 @@
         app:layout_constraintTop_toTopOf="@+id/tab_layout"
         app:layout_constraintBottom_toBottomOf="@+id/view_pager"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <com.google.android.material.tabs.TabLayout
@@ -44,7 +45,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@drawable/view_page"
-            app:layout_constrainedHeight_percent=".7"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -65,8 +65,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tab_layout" />
 
-        <ImageView
-            android:id="@+id/imageView2"
+
+    <ImageView
+            android:id="@+id/icon"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@drawable/cave"
@@ -88,6 +89,19 @@
         app:layout_constraintBottom_toTopOf="@+id/view_pager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/icon" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fab_google"
+        app:layout_constraintVertical_bias="0.1" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

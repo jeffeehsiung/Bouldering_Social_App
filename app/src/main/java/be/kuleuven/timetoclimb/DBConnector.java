@@ -2,10 +2,11 @@ package be.kuleuven.timetoclimb;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.ContentLoadingProgressBar;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -15,16 +16,13 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class DBConnector<jsonArrayResponse> extends AppCompatActivity {
 
     private RequestQueue requestQueue;
-    private TextView txtResponse;
     private Context context;
     private JSONArray jsonArrayResponse;
-    private ContentLoadingProgressBar loader = (ContentLoadingProgressBar)findViewById(R.id.progressBar);
+    private ProgressBar loader;
     String serverURL = "https://studev.groept.be/api/a21pt411/";
 
     public DBConnector(Context context){
@@ -41,6 +39,8 @@ public class DBConnector<jsonArrayResponse> extends AppCompatActivity {
 
         String requestURL = serverURL+extendedURL;
 
+        loader = findViewById(R.id.progressBar);
+
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, requestURL, null,
                 new Response.Listener<JSONArray>()
                 {
@@ -49,7 +49,7 @@ public class DBConnector<jsonArrayResponse> extends AppCompatActivity {
                     {
                         //make a copy of the response and store it
                         jsonArrayResponse = response;
-                        loader.hide();
+                        loader.setVisibility(View.INVISIBLE);
                     }
                 },
 
@@ -58,11 +58,12 @@ public class DBConnector<jsonArrayResponse> extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error)
                     {
-                        txtResponse.setText( error.getLocalizedMessage() );
+                        Log.d( "Database Connection Error",error.getLocalizedMessage() );
+                        loader.setVisibility(View.GONE);
                     }
                 }
         );
-        loader.show();
+        loader.setVisibility(View.VISIBLE);
         requestQueue.add(jsonArrayRequest);
         return jsonArrayResponse;
     }
