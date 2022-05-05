@@ -10,10 +10,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Activity;
 
-public class Calendar extends Activity{
+public class CalendarActivity extends Activity{
     private CalendarView calendar;
     private String selectedDate;        // Format: DD/MM/YYYY
     private Button btnViewDate;
+    private Button btnCreateActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,15 @@ public class Calendar extends Activity{
         // Intent to start ViewDate and pass selected date from calendar
         Intent intentViewDate = new Intent(this, ViewDate.class);
         intentViewDate.putExtra("SelectedDate", selectedDate);
+
         startActivity(intentViewDate);
+    }
+
+    public void onBtnCreateEvent_Clicked(View caller) {
+        // Intent to start CreateEvent and pass selected date from calendar
+        Intent intentCreateEvent = new Intent(this, CreateEvent.class);
+        intentCreateEvent.putExtra("SelectedDate", selectedDate);
+
+        startActivity(intentCreateEvent);
     }
 }
