@@ -21,29 +21,45 @@ public class CreateEvent extends AppCompatActivity {
     private Button btnEditEndTime;
     private TextView lblStartTime;
     private TextView lblEndTime;
+    private TextView lblSelectedDate;
+    private String selectedDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_event_view);
+
         btnEditEndTime = (Button) findViewById(R.id.btnEditEndTime);
         btnEditStartTime = (Button) findViewById(R.id.btnEditStartTime);
         lblStartTime = (TextView) findViewById(R.id.lblStartTime);
         lblEndTime = (TextView) findViewById(R.id.lblEndTime);
+        lblSelectedDate =(TextView) findViewById(R.id.lblSelectedDate);
+
+        Bundle extras = getIntent().getExtras();
+        selectedDate = extras.getString("SelectedDate");
+        lblSelectedDate.setText(selectedDate);
+
     }
 
     public void onBtnEditStartTime_Click(View v) {
-        DialogFragment newFragment = new TimePickerFragment();
+        TimePickerFragment newFragment = new TimePickerFragment();
+        newFragment.setLbl(lblStartTime);
         newFragment.show(getSupportFragmentManager(), "timePicker");
     }
 
     public void onBtnEditEndTime_Click(View V) {
-        DialogFragment newFragment = new TimePickerFragment();
+        TimePickerFragment newFragment = new TimePickerFragment();
+        newFragment.setLbl(lblEndTime);
         newFragment.show(getSupportFragmentManager(), "timePicker");
+
     }
 
     public static class TimePickerFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
+
+        private TextView lbl;
+
+        public void setLbl(TextView lbl) {this.lbl = lbl;}
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -59,6 +75,7 @@ public class CreateEvent extends AppCompatActivity {
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             // Do something with the time chosen by the user
+            lbl.setText(Integer.toString(hourOfDay) + ":" + Integer.toString(minute));
         }
     }
 }
