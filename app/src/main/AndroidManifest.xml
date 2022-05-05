@@ -25,6 +25,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".CalendarActivity" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>

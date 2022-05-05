@@ -26,14 +26,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void onBtnCalendar_Clicked(View caller) {
         // Create intent to start the calendar
-        Intent intent = new Intent(this, CalendarActivity.class);
-        startActivity(intent);
+        Intent intentCalendar = new Intent(this, CalendarActivity.class);
+        startActivity(intentCalendar);
     }
 
     public void onBtnLogin_Clicked(View caller) {
         // Create intent to start the calendar
-        Intent intent = new Intent(caller.getContext(), LoginActivity.class);
-        startActivity(intent);
+        Intent intentLogin = new Intent(this, LoginActivity.class);
+        startActivity(intentLogin);
     }
 
 }
