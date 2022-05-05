@@ -11,13 +11,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
+
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class LoginTabFragment extends Fragment {
+
+    public static final String ARG_OBJECT = "object";
 
     EditText email, password;
     Button btnLogin;
     TextView message;
+
     float opacityf;
+
+    ViewPagerAdapter viewPagerAdapter;
+    ViewPager2 viewPager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
@@ -65,5 +75,12 @@ public class LoginTabFragment extends Fragment {
         });
 
         return root;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        Bundle args = getArguments();
+        ((TextView) view.findViewById(android.R.id.text1))
+                .setText(Integer.toString(args.getInt(ARG_OBJECT)));
     }
 }

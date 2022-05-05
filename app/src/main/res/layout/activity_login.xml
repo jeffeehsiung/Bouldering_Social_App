@@ -29,7 +29,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
@@ -64,8 +63,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tab_layout" />
-
-
     <ImageView
             android:id="@+id/icon"
             android:layout_width="60dp"
@@ -102,6 +99,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fab_google"
         app:layout_constraintVertical_bias="0.1" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package be.kuleuven.timetoclimb;
 
 import android.content.Context;
+import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -23,9 +24,10 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         Fragment fragment;
+        Bundle args = new Bundle();
         switch(position){
-            case 0: LoginTabFragment loginTabFragment = new LoginTabFragment();return loginTabFragment;
-            case 1: SignupTabFragment signupTabFragment = new SignupTabFragment();return signupTabFragment;
+            case 0: fragment = new LoginTabFragment(); fragment.setArguments(args);return fragment;
+            case 1: fragment = new SignupTabFragment();fragment.setArguments(args);return fragment;
             default: fragment = new LoginTabFragment(); return fragment;
         }
     }
