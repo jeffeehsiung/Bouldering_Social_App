@@ -25,11 +25,10 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         Fragment fragment;
-        Bundle args = new Bundle();
         switch(position){
-            case 0: fragment = new LoginTabFragment(); fragment.setArguments(args);return fragment;
-            case 1: fragment = new SignupTabFragment();fragment.setArguments(args);return fragment;
-            default: fragment = new LoginTabFragment(); return fragment;
+            case 0: fragment = new LoginTabFragment();return fragment;
+            case 1: fragment = new SignupTabFragment();return fragment;
+            default: return null;
         }
     }
 

@@ -46,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(this);
         viewPager2.setAdapter(adapter);
         Log.d("viewPager2", "onCreate: " + adapter.getItemCount());
+        viewPager2.addOnLayoutChangeListener();
 
         // if there is no tabs
         new TabLayoutMediator(tabLayout, viewPager2,
