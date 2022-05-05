@@ -1,4 +1,4 @@
-package be.kuleuven.timetoclimb;
+package be.kuleuven.timetoclimb.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,8 +13,12 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
+import org.json.JSONArray;
+
+import be.kuleuven.timetoclimb.dbConnection.DBConnector;
+import be.kuleuven.timetoclimb.dbConnection.ServerCallback;
+import be.kuleuven.timetoclimb.R;
+import be.kuleuven.timetoclimb.adapter.ViewPagerAdapter;
 
 public class LoginTabFragment extends Fragment {
 
@@ -25,6 +29,7 @@ public class LoginTabFragment extends Fragment {
     TextView message;
 
     float opacityf;
+    String databaseUrl = "getUserComplete";
 
     ViewPagerAdapter viewPagerAdapter;
     ViewPager2 viewPager;
@@ -48,30 +53,36 @@ public class LoginTabFragment extends Fragment {
         message.animate().translationX(0).alpha(1).setDuration(800).setStartDelay(300).start();
         btnLogin.animate().translationX(0).alpha(1).setDuration(800).setStartDelay(300).start();
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String strUser = email.getText().toString().trim();
-                String strPass = password.getText().toString().trim();
+        btnLogin.setOnClickListener(view -> {
+            String strUser = email.getText().toString().trim();
+            String strPass = password.getText().toString().trim();
 
-                Toast.makeText(getContext(),
-                        "Email: "+strUser+"Password: "+ strPass,
-                        Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(),
+                    "Email: "+strUser+"Password: "+ strPass,
+                    Toast.LENGTH_LONG).show();
 
-                if(TextUtils.isEmpty(strUser)){
-                    email.setError("Email is required");
-                    return;
-                }
-                if(TextUtils.isEmpty(strPass)){
-                    password.setError("Password is required");
-                    return;
-                }
-                if(strPass.length() < 6){
-                    password.setError("Password length Must be larger than 6  Characters");
-                    return;
-                }
-
+            if(TextUtils.isEmpty(strUser)){
+                email.setError("Email is required");
+                return;
             }
+            if(TextUtils.isEmpty(strPass)){
+                password.setError("Password is required");
+                return;
+            }
+            if(strPass.length() < 6){
+                password.setError("Password length Must be larger than 6  Characters");
+                return;
+            }
+
+            //connect to database
+            DBConnector dbConnector = new DBConnector(this.getContext());
+            dbConnector.JSONRequest(databaseUrl, new ServerCallback() {
+                @Override
+                public void onSuccess(JSONArray jsonArrayResponse) {
+                    System.out.println(jsonArrayResponse.length());
+                }
+            });
+
         });
 
         return root;

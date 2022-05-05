@@ -1,10 +1,7 @@
-package be.kuleuven.timetoclimb;
+package be.kuleuven.timetoclimb.dbConnection;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,34 +9,34 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
-public class DBConnector<jsonArrayResponse> extends AppCompatActivity {
+public class DBConnector extends AppCompatActivity {
 
     private RequestQueue requestQueue;
     private Context context;
     private JSONArray jsonArrayResponse;
-    private ProgressBar loader;
-    String serverURL = "https://studev.groept.be/api/a21pt411/";
-
+    private String serverURL = "https://studev.groept.be/api/a21pt411/";
+    private static final String VOLLEY_TAG = DBConnector.class.getSimpleName();
     public DBConnector(Context context){
         this.context = context;
     }
     /**
      * Retrieve information from DB with Volley JSONRequest
      */
-    public JSONArray JSONRequest(String extendedURL)
+    public void JSONRequest(String extendedURL, ServerCallback callback)
     {
         //sending simple request
         //instantiate the requestQueue
         requestQueue = Volley.newRequestQueue(context);
 
         String requestURL = serverURL+extendedURL;
-
-        loader = findViewById(R.id.progressBar);
+        System.out.println(requestURL);
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, requestURL, null,
                 new Response.Listener<JSONArray>()
@@ -48,23 +45,33 @@ public class DBConnector<jsonArrayResponse> extends AppCompatActivity {
                     public void onResponse(JSONArray response)
                     {
                         //make a copy of the response and store it
-                        jsonArrayResponse = response;
-                        loader.setVisibility(View.INVISIBLE);
+                        try {
+                            //response pushed into parameter v in volley log, which can be access through external document.
+                            VolleyLog.v("Response:%n %s", response.toString(4));
+                            //do wanted call back action here
+                            setJsonArrayResponse(response);
+                            callback.onSuccess(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
-
                 new Response.ErrorListener()
                 {
                     @Override
                     public void onErrorResponse(VolleyError error)
                     {
-                        Log.d( "Database Connection Error",error.getLocalizedMessage() );
-                        loader.setVisibility(View.GONE);
+                        Log.d( VOLLEY_TAG,error.getLocalizedMessage() );
                     }
                 }
         );
-        loader.setVisibility(View.VISIBLE);
         requestQueue.add(jsonArrayRequest);
+    }
+
+    public JSONArray getJsonArrayResponse() {
         return jsonArrayResponse;
+    }
+    public void setJsonArrayResponse(JSONArray jsonArrayResponse) {
+        this.jsonArrayResponse = jsonArrayResponse;
     }
 }
