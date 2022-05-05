@@ -31,9 +31,43 @@ public class DBCommunicator {
         this.c = c;
     }
 
+    public JSONArray requestJSONTest() {
+        String requestURL = "https://studev.groept.be/api/a21pt411/getAllUsernames";
+        requestQueue = Volley.newRequestQueue(c);
+        JSONArray testResult;
+        // request method can be GET or POST
+        JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, requestURL, null,
+
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        result = response;
+                        DBCommunicator.this.returnResult();
+                        testResult = response;
+
+                        /*
+                        try {
+
+                        } catch (JSONException e) {
+                            Log.e( "Database", e.getMessage(), e );
+                        }
+                         */
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Database", error.getLocalizedMessage(), error);
+                    }
+                }
+        );
+        requestQueue.add(submitRequest);
+    }
 
 
-    public void request(String requestURL, String field, TextView textView) {
+
+    public void request(String requestURL, String field, TextView textView, AppCompatActivity activity) {
 
         requestQueue = Volley.newRequestQueue(c);
 
@@ -44,12 +78,14 @@ public class DBCommunicator {
                     @Override
                     public void onResponse(JSONArray response) {
                         allUsernames = "";
+
                         try {
                             //result = new JSONArray(response.length());
                             //result = response;
                             for(int i = 0; i < response.length(); i++)
                             {
                                 allUsernames += response.getJSONObject(i).getString(field);
+                                //DBCommunicator.this.returnResult();
                             }
                             textView.setText(allUsernames);
                         } catch (JSONException e) {
@@ -73,9 +109,9 @@ public class DBCommunicator {
         return result;
     }
 
-    /*
+
     public String getUserNames() {
-        JSONArray usernameArray = request(urlGetAllUsernames);
+        JSONArray usernameArray = requestJSONTest();
         String allUsernames = "";
         try {
             for(int i = 0; i < usernameArray.length(); i++)
@@ -87,6 +123,4 @@ public class DBCommunicator {
             }
         return allUsernames;
     }
-
-     */
 }
