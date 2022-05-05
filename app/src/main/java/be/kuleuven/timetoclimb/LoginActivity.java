@@ -1,74 +1,88 @@
 package be.kuleuven.timetoclimb;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.widget.ViewPager2;
+
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class LoginActivity extends AppCompatActivity {
+    TabLayout tabLayout;
+    ViewPager2 viewPager2;
+    FloatingActionButton google;
+    ProgressBar progressBar;
 
-    private Button btnLoginNow = findViewById(R.id.btnLoginNow);
-    private EditText txtUsername = findViewById(R.id.txtUsername);
-    private EditText txtPassword = findViewById(R.id.txtPassword);
-    private TextView txtvMessage = findViewById(R.id.txtvMessage);
-
-    private String userDBserver = "getUserComplete";
-    private String userkey = "username";
-    private String passwordvalue = "password";
-    private boolean loginSucceed = false;
-    private boolean userExist = false;
-    private boolean pwdCorrect = false;
+    float opacityf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // c create:
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-    }
 
-    /* data base connection and comparison */
-    public boolean compareUserDB (String username, String password, String serverName) throws IOException {
-        //database connection
-        DBConnector dbConnector = new DBConnector(getApplicationContext());
-        JSONArray dbJSON = dbConnector.JSONRequest(serverName);
-        //iterate and compare to JSONarray
-        try {
-            for (int i = 0; i < dbJSON.length(); i++) {
-                JSONObject curObject = dbJSON.getJSONObject(i);
-                if (username.equals(curObject.getString(userkey))) {
-                    userExist = true; //userName incorrect, userExist remains false
-                    if (password.equals(curObject.getString(passwordvalue))) {
-                        pwdCorrect = true; //password incorrect, pwdCorrect remains false
-                        loginSucceed = true;
+        //c get elements
+        tabLayout = findViewById(R.id.tab_layout);
+        viewPager2 = findViewById(R.id.view_pager);
+        google = findViewById(R.id.fab_google);
+        progressBar = findViewById(R.id.progressBar);
+
+        tabLayout.addTab(tabLayout.newTab().setText("Login"));
+        tabLayout.addTab(tabLayout.newTab().setText("Signup"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        // the view_pager needs the adapter that we load inside
+        ViewPagerAdapter adapter = new ViewPagerAdapter(this);
+        viewPager2.setAdapter(adapter);
+        Log.d("viewPager2", "onCreate: " + adapter.getItemCount());
+
+        // if there is no tabs
+        new TabLayoutMediator(tabLayout, viewPager2,
+                new TabLayoutMediator.TabConfigurationStrategy() {
+                    @Override
+                    public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                        tab.setText("Tab " + (position + 1));
                     }
-                }
-            }
-        } catch (JSONException e) {
-            Log.e("userDataBase", e.getMessage());
-        }
-        return loginSucceed;
+                }).attach();
+
+        google.setTranslationY(300);
+        tabLayout.setTranslationY(300);
+        google.setAlpha(opacityf);
+        tabLayout.setAlpha(opacityf);
+        google.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(400).start();
+
     }
 
-    public void checkLogin() throws IOException {
-        compareUserDB("jeffee","hsiung",userDBserver); //user exist, pwd correct
-        if(loginSucceed){
-            txtvMessage.setText("Login successful");
+    public class CollectionDemoFragment extends Fragment {
+        // When requested, this adapter returns a DemoObjectFragment,
+        // representing an object in the collection.
+        ViewPagerAdapter viewPagerAdapter;
+        ViewPager2 viewPager;
+
+        @Nullable
+        @Override
+        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                                 @Nullable Bundle savedInstanceState) {
+            return inflater.inflate(R.layout.activity_login, container, false);
         }
-        /*else if(txtUsername.getText() && txtPassword.getText()) { //no input
-            txtvMessage.setText("Please enter your data.");
-        }*/
-        else if(userExist && !pwdCorrect){ //user exist, password incorrect
-            txtvMessage.setText("Incorrect Password");
-        }
-        else{
-            txtvMessage.setText("No user found");//no user data in database
+
+        @Override
+        public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+            viewPagerAdapter = new ViewPagerAdapter(this.getActivity());
+            viewPager = view.findViewById(R.id.view_pager);
+            viewPager.setAdapter(viewPagerAdapter);
         }
     }
 }
