@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onBtnCalendar_Clicked(View caller) {
         // Create intent to start the calendar
-        Intent intent = new Intent(this, Calendar.class);
+        Intent intent = new Intent(this, CalendarActivity.class);
         startActivity(intent);
     }
 

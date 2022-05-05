@@ -34,7 +34,7 @@ public class DBCommunicator {
     public JSONArray requestJSONTest() {
         String requestURL = "https://studev.groept.be/api/a21pt411/getAllUsernames";
         requestQueue = Volley.newRequestQueue(c);
-        JSONArray testResult;
+        final JSONArray[] testResult = new JSONArray[1];
         // request method can be GET or POST
         JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, requestURL, null,
 
@@ -43,7 +43,7 @@ public class DBCommunicator {
                     public void onResponse(JSONArray response) {
                         result = response;
                         DBCommunicator.this.returnResult();
-                        testResult = response;
+                        testResult[0] = response;
 
                         /*
                         try {
@@ -63,6 +63,7 @@ public class DBCommunicator {
                 }
         );
         requestQueue.add(submitRequest);
+        return result;
     }
 
 
