@@ -1,5 +1,6 @@
 package be.kuleuven.timetoclimb.fragment;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -10,66 +11,65 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager2.widget.ViewPager2;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import be.kuleuven.timetoclimb.dbConnection.DBConnector;
 import be.kuleuven.timetoclimb.dbConnection.ServerCallback;
 import be.kuleuven.timetoclimb.R;
-import be.kuleuven.timetoclimb.adapter.ViewPagerAdapter;
 
 public class LoginTabFragment extends Fragment {
-
-    public static final String ARG_OBJECT = "object";
 
     EditText email, password;
     Button btnLogin;
     TextView message;
 
-    float opacityf;
     String databaseUrl = "getUserComplete";
 
-    ViewPagerAdapter viewPagerAdapter;
-    ViewPager2 viewPager;
+    public LoginTabFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
+        //inflate the layout for this fragment
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.login_tab_fragment,container,false);
+        return root;
+    }
 
-        email.setTranslationX(800);
-        password.setTranslationX(800);
-        message.setTranslationX(800);
-        btnLogin.setTranslationX(800);
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view,savedInstanceState);
 
-        email.setAlpha(opacityf);
-        password.setAlpha(opacityf);
-        message.setAlpha(opacityf);
-        btnLogin.setAlpha(opacityf);
+        email = view.findViewById(R.id.email);
+        password = view.findViewById(R.id.password);
+        btnLogin = view.findViewById(R.id.btnLogin);
+        message= view.findViewById(R.id.message);
 
-        email.animate().translationX(0).alpha(1).setDuration(800).setStartDelay(300).start();
-        password.animate().translationX(0).alpha(1).setDuration(800).setStartDelay(300).start();
-        message.animate().translationX(0).alpha(1).setDuration(800).setStartDelay(300).start();
-        btnLogin.animate().translationX(0).alpha(1).setDuration(800).setStartDelay(300).start();
-
-        btnLogin.setOnClickListener(view -> {
+        btnLogin.setOnClickListener(e -> {
             String strUser = email.getText().toString().trim();
             String strPass = password.getText().toString().trim();
 
             Toast.makeText(getContext(),
-                    "Email: "+strUser+"Password: "+ strPass,
+                    "Email: " + strUser + "Password: " + strPass,
                     Toast.LENGTH_LONG).show();
 
-            if(TextUtils.isEmpty(strUser)){
+            if (TextUtils.isEmpty(strUser)) {
                 email.setError("Email is required");
                 return;
             }
-            if(TextUtils.isEmpty(strPass)){
+            if (TextUtils.isEmpty(strPass)) {
                 password.setError("Password is required");
                 return;
             }
-            if(strPass.length() < 6){
+            if (strPass.length() < 6) {
                 password.setError("Password length Must be larger than 6  Characters");
                 return;
             }
@@ -77,21 +77,48 @@ public class LoginTabFragment extends Fragment {
             //connect to database
             DBConnector dbConnector = new DBConnector(this.getContext());
             dbConnector.JSONRequest(databaseUrl, new ServerCallback() {
+                String userkey = "username";
+                String passwordvalue = "password";
+
+                boolean userExist = false;
+                boolean loginSucceed = false;
+                boolean pwdCorrect = false;
+
+                @RequiresApi(api = Build.VERSION_CODES.N)
                 @Override
                 public void onSuccess(JSONArray jsonArrayResponse) {
                     System.out.println(jsonArrayResponse.length());
+                    List<JSONObject> data = IntStream.range(0,jsonArrayResponse.length()).mapToObj(i-> {
+                        try {
+                            return jsonArrayResponse.getJSONObject(i);
+                        } catch (JSONException jsonException) {
+                            jsonException.printStackTrace();
+                        }
+                        return null;
+                    }).collect(Collectors.toList());
+                    data.forEach(object -> {
+                        try {
+                            if (object.getString(userkey).equals(strUser)) {
+                                userExist = true; //userName incorrect, userExist remains false
+                                if (passwordvalue.equals(object.getString(strPass))) {
+                                    pwdCorrect = true; //password incorrect, pwdCorrect remains false
+                                    loginSucceed = true;
+                                }
+                            }
+                        } catch (JSONException jsonException) {
+                            jsonException.printStackTrace();
+                        }
+                    });
+                    //check login
+                    if (loginSucceed) {
+                        message.setText("Login successful");
+                    } else if (userExist && !pwdCorrect) { //user exist, password incorrect
+                        message.setText("Incorrect password");
+                    } else {
+                        message.setText("No user found");//no user data in database
+                    }
                 }
             });
-
         });
-
-        return root;
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        Bundle args = getArguments();
-        ((TextView) view.findViewById(android.R.id.text1))
-                .setText(Integer.toString(args.getInt(ARG_OBJECT)));
     }
 }

@@ -7,12 +7,12 @@
         <entry key="app/src/main/res/drawable/edit_text_bg.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/view_page.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.21049346923828127" />
-        <entry key="app/src/main/res/layout/activity_login2.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_login2.xml" value="0.2508941650390625" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2703125" />
         <entry key="app/src/main/res/layout/create_event_view.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.125" />
-        <entry key="app/src/main/res/layout/login_tab_fragment.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/signup_tab_fragment.xml" value="0.13816833496093747" />
+        <entry key="app/src/main/res/layout/login_tab_fragment.xml" value="0.382452392578125" />
+        <entry key="app/src/main/res/layout/signup_tab_fragment.xml" value="0.21275939941406252" />
       </map>
     </option>
   </component>
