@@ -20,7 +20,7 @@
         app:layout_constraintHorizontal_bias=".5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".3"
+        app:layout_constraintVertical_bias=".2"
         app:layout_constraintWidth_percent=".8" />
 
     <EditText
@@ -53,7 +53,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password"
         app:layout_constraintVertical_bias=".7"
         app:layout_constraintWidth_percent=".8" />
 
