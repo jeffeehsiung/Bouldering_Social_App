@@ -41,8 +41,20 @@ public class CalendarActivity extends Activity{
             //show the selected date as a toast
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
-                Toast.makeText(getApplicationContext(), day + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
-                selectedDate = Integer.toString(day) + "/" + Integer.toString(month) + "/" + Integer.toString(year);
+                String selectedMonth = "";
+                String selectedDay = "";
+                if(month < 10) {
+                    selectedMonth = "0" + Integer.toString(month + 1);
+                } else {
+                    selectedMonth = Integer.toString(month+1);
+                }
+                if(day < 10) {
+                    selectedDay = "0" + Integer.toString(day);
+                } else {
+                    selectedDay = Integer.toString(day);
+                }
+                Toast.makeText(getApplicationContext(), selectedDay + "/" + selectedMonth + "/" + year, Toast.LENGTH_LONG).show();
+                selectedDate = selectedDay + "/" + selectedMonth + "/" + Integer.toString(year);
             }
         });
     }

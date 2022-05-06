@@ -23,5 +23,7 @@ public class ViewDate extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         selectedDate = extras.get("SelectedDate").toString();
         user = (User) getIntent().getSerializableExtra("User");
+
+        lblDate.setText(selectedDate);
     }
 }
