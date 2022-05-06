@@ -3,6 +3,7 @@ package be.kuleuven.timetoclimb.fragment;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,19 +24,21 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import be.kuleuven.timetoclimb.adapter.ViewPagerAdapter;
 import be.kuleuven.timetoclimb.dbConnection.DBConnector;
 import be.kuleuven.timetoclimb.dbConnection.ServerCallback;
 import be.kuleuven.timetoclimb.R;
 
 public class LoginTabFragment extends Fragment {
 
-    EditText email, password;
-    Button btnLogin;
-    TextView message;
+    private EditText username, password;
+    private Button btnLogin;
+    private TextView message;
+    private static final String LoginFragment_TAG = LoginTabFragment.class.getSimpleName();
 
-    String databaseUrl = "getUserComplete";
+    private String databaseUrl = "getUserComplete";
 
-    public LoginTabFragment() { }
+    public LoginTabFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
@@ -48,21 +51,21 @@ public class LoginTabFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view,savedInstanceState);
 
-        email = view.findViewById(R.id.email);
+        username = view.findViewById(R.id.username);
         password = view.findViewById(R.id.password);
         btnLogin = view.findViewById(R.id.btnLogin);
         message= view.findViewById(R.id.message);
 
         btnLogin.setOnClickListener(e -> {
-            String strUser = email.getText().toString().trim();
-            String strPass = password.getText().toString().trim();
+            String strUser = username.getText().toString().trim();
+            String strPass = password.getText().toString().trim().replaceAll("\\s","+");
 
             Toast.makeText(getContext(),
-                    "Email: " + strUser + "Password: " + strPass,
+                    "Username: " + strUser + "Password: " + strPass,
                     Toast.LENGTH_LONG).show();
 
             if (TextUtils.isEmpty(strUser)) {
-                email.setError("Email is required");
+                username.setError("Username is required");
                 return;
             }
             if (TextUtils.isEmpty(strPass)) {
@@ -100,7 +103,7 @@ public class LoginTabFragment extends Fragment {
                         try {
                             if (object.getString(userkey).equals(strUser)) {
                                 userExist = true; //userName incorrect, userExist remains false
-                                if (passwordvalue.equals(object.getString(strPass))) {
+                                if (object.getString(passwordvalue).equals(strPass)) {
                                     pwdCorrect = true; //password incorrect, pwdCorrect remains false
                                     loginSucceed = true;
                                 }
@@ -111,10 +114,17 @@ public class LoginTabFragment extends Fragment {
                     });
                     //check login
                     if (loginSucceed) {
+                        //clear edit text
+                        username.getText().clear();
+                        password.getText().clear();
                         message.setText("Login successful");
                     } else if (userExist && !pwdCorrect) { //user exist, password incorrect
+                        //clear edit text
+                        password.getText().clear();
                         message.setText("Incorrect password");
-                    } else {
+                    } else {//clear edit text
+                        username.getText().clear();
+                        password.getText().clear();
                         message.setText("No user found");//no user data in database
                     }
                 }
