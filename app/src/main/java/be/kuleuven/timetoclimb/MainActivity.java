@@ -13,6 +13,8 @@ public class MainActivity extends AppCompatActivity {
     private Button btnCalendar;
     private TextView lblIcon;
     private Button btnLogin;
+    private String username;
+    private String password;
     public final static String MainActivity_TAG = MainActivity.class.getSimpleName();
 
     @Override
@@ -24,13 +26,6 @@ public class MainActivity extends AppCompatActivity {
         btnCalendar = findViewById(R.id.btnCalendar);
         lblIcon = findViewById(R.id.lblIcon);
         btnLogin = findViewById(R.id.btnLogin);
-
-        //Extracting the stored data from the bundle
-        Bundle extras = getIntent().getExtras();
-        String username = extras.getString("username");
-        String password = extras.getString("password");
-        Log.d(MainActivity_TAG,"username: "+ username + " password: " + password);
-
     }
 
     public void onBtnCalendar_Clicked(View caller) {
@@ -43,6 +38,20 @@ public class MainActivity extends AppCompatActivity {
         // Create intent to start the calendar
         Intent intentLogin = new Intent(this, LoginActivity.class);
         startActivity(intentLogin);
+    }
+
+
+    public void setUserAndPassword() {
+        Bundle extras = getIntent().getExtras();
+        this.username = extras.getString("username");
+        this.password = extras.getString("password");
+        Log.d(MainActivity_TAG,"username: "+ username + " password: " + password);
+    }
+    public String getPassword() {
+        return password;
+    }
+    public String getUsername() {
+        return username;
     }
 
 }
