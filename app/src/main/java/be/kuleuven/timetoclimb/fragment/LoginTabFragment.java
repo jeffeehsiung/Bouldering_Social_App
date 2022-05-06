@@ -1,5 +1,6 @@
 package be.kuleuven.timetoclimb.fragment;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
@@ -22,6 +24,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import be.kuleuven.timetoclimb.CreateEvent;
+import be.kuleuven.timetoclimb.MainActivity;
 import be.kuleuven.timetoclimb.R;
 import be.kuleuven.timetoclimb.dbConnection.DBConnector;
 import be.kuleuven.timetoclimb.dbConnection.ServerCallback;
@@ -129,6 +133,15 @@ public class LoginTabFragment extends Fragment {
                         password.getText().clear();
                         message.setText("No user found");//no user data in database
                     }
+                    //create a Bundle object
+                    Bundle extras = new Bundle();
+                    //Adding key value pairs to this bundle
+                    extras.putString("username",strUser);
+                    extras.putString("password",strPass);
+
+                    Intent intentLoginSucceed= new Intent(getContext(), MainActivity.class);
+                    intentLoginSucceed.putExtras(extras);
+                    startActivity(intentLoginSucceed);
                 }
             });
         });
