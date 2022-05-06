@@ -8,10 +8,10 @@ public class Event {
     private int climbingHallID;
     private String description;
     private String title;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private String startTime;
+    private String endTime;
 
-    public Event(String organiser, int climbingHallID, String description, String title, LocalDateTime startTime, LocalDateTime endTime) {
+    public Event(String organiser, int climbingHallID, String description, String title, String startTime, String endTime) {
         this.organiser = organiser;
         this.climbingHallID = climbingHallID;
         this.description = description;
@@ -55,19 +55,17 @@ public class Event {
         this.title = title;
     }
 
-    public LocalDateTime getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
-    }
+    public void setStartTime(String  startTime) {this.startTime = startTime;}
 
-    public LocalDateTime getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 

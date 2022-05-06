@@ -56,7 +56,7 @@ public class EventCreator extends AppCompatActivity {
         selectedDate = extras.getString("SelectedDate");
         user = (User) getIntent().getSerializableExtra("User");
         lblSelectedDate.setText(selectedDate);
-        date = selectedDate.substring(0, 2) + "-" + selectedDate.substring(3, 5) + "-" + selectedDate.substring(6, 10);
+        date = selectedDate.substring(6, 10) + "-" + selectedDate.substring(3, 5) + "-" + selectedDate.substring(0, 2);
 
         // add values for db
         title = "";
@@ -84,6 +84,12 @@ public class EventCreator extends AppCompatActivity {
         endTime = date + " " + lblEndTime.getText().toString();
         title = txtTitle.getText().toString();
         description = txtDescription.getText().toString();
+
+        // Create event
+        Event event = new Event(organiser, climbingHallID, description, title, startTime, endTime);
+
+        // Add event to db
+        user.addEvent(event, this.getApplicationContext());
     }
 
     public static class TimePickerFragment extends DialogFragment
