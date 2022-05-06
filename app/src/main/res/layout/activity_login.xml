@@ -16,9 +16,9 @@
         app:layout_constraintStart_toStartOf="parent">
 
     <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/loginImage"
             android:layout_width="wrap_content"
-            android:layout_height="240dp"
+            android:layout_height="237dp"
             android:scaleType="centerCrop"
             android:src="@drawable/login_background"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -39,7 +39,7 @@
             app:layout_constraintVertical_bias="0.57" />
 
         <TextView
-            android:id="@+id/textview"
+            android:id="@+id/lblLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/welcome_to_climbing_app"
@@ -54,7 +54,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/constraintLayoutViewPage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -64,7 +64,7 @@
         android:background="@color/white">
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout"
+            android:id="@+id/login_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintVertical_bias="0"
@@ -75,7 +75,7 @@
         </com.google.android.material.tabs.TabLayout>
 
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/view_pager"
+            android:id="@+id/login_view_pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintHeight_percent=".7"
@@ -83,7 +83,7 @@
             android:background="@drawable/view_page"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tab_layout"
+            app:layout_constraintTop_toBottomOf="@+id/login_tab_layout"
             app:layout_constraintBottom_toBottomOf="parent">
         </androidx.viewpager2.widget.ViewPager2>
 
@@ -98,7 +98,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_pager"
+            app:layout_constraintTop_toBottomOf="@+id/login_view_pager"
             android:contentDescription="@string/todo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -30,8 +30,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         //c get elements
-        tabLayout = findViewById(R.id.tab_layout);
-        viewPager2 = findViewById(R.id.view_pager);
+        tabLayout = findViewById(R.id.login_tab_layout);
+        viewPager2 = findViewById(R.id.login_view_pager);
         google = findViewById(R.id.fab_google);
 
         tabList.add("LOGIN");

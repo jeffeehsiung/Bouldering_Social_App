@@ -36,7 +36,7 @@ public class SignupTabFragment extends Fragment {
         super.onViewCreated(view,savedInstanceState);
         signupUserName = view.findViewById(R.id.username);
         //mobileNum= view.findViewById(R.id.mobileNum);
-        signupPassword = view.findViewById(R.id.password);
+        signupPassword = view.findViewById(R.id.signupPassword);
         confirmPassword = view.findViewById(R.id.confirmPassword);
         btnSignup = view.findViewById(R.id.btnSignup);
 
