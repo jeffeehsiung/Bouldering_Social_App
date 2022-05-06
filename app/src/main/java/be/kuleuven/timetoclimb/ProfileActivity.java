@@ -1,28 +1,13 @@
 package be.kuleuven.timetoclimb;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import be.kuleuven.timetoclimb.databinding.ActivityProfileBinding;
 
@@ -47,49 +32,62 @@ public class ProfileActivity extends AppCompatActivity {
         this.username.setText(extras.getString("username"));
 
         username.setOnClickListener(new View.OnClickListener() {
+            @SuppressWarnings("deprecation")
             @Override
             public void onClick(View v) {
                 String name_ = username.getText().toString();
                 Intent intent = new Intent(ProfileActivity.this, EditNameActivity.class);
                 intent.putExtra("userName", name_);
-                startActivity(intent);
+                //startActivity(intent);
+                startActivityForResult(intent,0);
             }
 
         });
         bio.setOnClickListener(new View.OnClickListener() {
+            @SuppressWarnings("deprecation")
             @Override
             public void onClick(View v) {
                 String bio_ = bio.getText().toString();
                 Intent intent = new Intent(ProfileActivity.this, BioEditActivity.class);
                 intent.putExtra("bio", bio_);
-                startActivity(intent);
+                //startActivity(intent);
+                startActivityForResult(intent,1);
             }
         });
         profileImage.setOnClickListener(new View.OnClickListener() {
+            @SuppressWarnings("deprecation")
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent();
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
                 //not finished yet
+                startActivityForResult(intent,2);
             }
         });
 
     }
 
-    public ActivityProfileBinding getBinding() {
-        return binding;
-    }
-
-    public TextView getUsername() {
-        return username;
-    }
-
-    public TextView getBio() {
-        return bio;
-    }
-
-    public ImageView getProfileImage() {
-        return profileImage;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case 0:
+                if (resultCode == RESULT_OK){
+                    this.username.setText(data.getStringExtra("profileName"));
+                }
+                break;
+            case 1:
+                if (resultCode == RESULT_OK){
+                    this.bio.setText(data.getStringExtra("bio"));
+                }
+                break;
+            case 2:
+                if (resultCode == RESULT_OK){
+                    return;
+                    //still needs to be implemented
+                }
+                break;
+        }
     }
 }

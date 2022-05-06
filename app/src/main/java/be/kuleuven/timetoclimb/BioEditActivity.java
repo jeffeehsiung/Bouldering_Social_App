@@ -9,8 +9,6 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import be.kuleuven.timetoclimb.dbConnection.DBConnector;
-
 public class BioEditActivity extends AppCompatActivity {
 
     Button update;
@@ -47,11 +45,9 @@ public class BioEditActivity extends AppCompatActivity {
 
     private void onClickOpenProfileActivity() {
         Intent intent = new Intent(this, ProfileActivity.class);
-        String bio_ = bio.getText().toString().trim();
-        intent.putExtra("Bio", bio_);
-        //set new bio
-        ProfileActivity profileActivity = new ProfileActivity();
-        profileActivity.getBio().setText(bio_);
+        String bio = this.bio.getText().toString().trim();
+        intent.putExtra("bio", bio);
+        setResult(RESULT_OK, intent);
         finish();
     }
 }

@@ -31,7 +31,7 @@ public class EditNameActivity extends AppCompatActivity {
     private String oldProfileName;
     private String readUsers = "getAllUsernames";
     private String databaseUrl= "changeUsername";
-
+    public final static String EditNameActivity_TAG = EditNameActivity.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,17 +97,14 @@ public class EditNameActivity extends AppCompatActivity {
                             databaseUrl + String.format("/%s/%s", txtprofileName.getText().toString().trim(), oldProfileName), new ServerCallback() {
                                 @Override
                                 public void onSuccess(JSONArray jsonArrayResponse) {
-                                    //set new username
-                                    ProfileActivity profileActivity = new ProfileActivity();
-                                    profileActivity.getUsername().setText(txtprofileName.getText().toString().trim());
                                     //system message
                                     Toast.makeText(getApplicationContext(),
                                             "Updated Username: "+txtprofileName.getText(),
                                             Toast.LENGTH_LONG).show();
                                     //new intent start
                                     Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-                                    String profileName = txtprofileName.getText().toString().trim();
-                                    intent.putExtra("profileName", profileName);
+                                    intent.putExtra("profileName", txtprofileName.getText().toString().trim());
+                                    setResult(RESULT_OK, intent);
                                     startActivity(intent);
                                 }
                             });
