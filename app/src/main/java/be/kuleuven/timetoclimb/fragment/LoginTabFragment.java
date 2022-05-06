@@ -3,7 +3,6 @@ package be.kuleuven.timetoclimb.fragment;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,15 +18,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import be.kuleuven.timetoclimb.adapter.ViewPagerAdapter;
+import be.kuleuven.timetoclimb.R;
 import be.kuleuven.timetoclimb.dbConnection.DBConnector;
 import be.kuleuven.timetoclimb.dbConnection.ServerCallback;
-import be.kuleuven.timetoclimb.R;
 
 public class LoginTabFragment extends Fragment {
 
@@ -40,22 +37,25 @@ public class LoginTabFragment extends Fragment {
 
     public LoginTabFragment() {}
 
+    /*oncreate view is automatically called*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
         //inflate the layout for this fragment
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.login_tab_fragment,container,false);
         return root;
     }
-
+    /*once layout is inflated, view should also be created*/
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view,savedInstanceState);
 
+        /*instantiate elements that shall be accessed*/
         username = view.findViewById(R.id.username);
         password = view.findViewById(R.id.password);
         btnLogin = view.findViewById(R.id.btnLogin);
         message= view.findViewById(R.id.message);
 
+        /*configure btn with onClick mehtod*/
         btnLogin.setOnClickListener(e -> {
             String strUser = username.getText().toString().trim();
             String strPass = password.getText().toString().trim().replaceAll("\\s","+");
@@ -64,6 +64,7 @@ public class LoginTabFragment extends Fragment {
                     "Username: " + strUser + "Password: " + strPass,
                     Toast.LENGTH_LONG).show();
 
+            /*validate input null and length*/
             if (TextUtils.isEmpty(strUser)) {
                 username.setError("Username is required");
                 return;
@@ -77,7 +78,7 @@ public class LoginTabFragment extends Fragment {
                 return;
             }
 
-            //connect to database
+            /*connect to database*/
             DBConnector dbConnector = new DBConnector(this.getContext());
             dbConnector.JSONRequest(databaseUrl, new ServerCallback() {
                 String userkey = "username";
@@ -87,6 +88,7 @@ public class LoginTabFragment extends Fragment {
                 boolean loginSucceed = false;
                 boolean pwdCorrect = false;
 
+                /*dedine what to do with the jsonArray response once connection succeeded*/
                 @RequiresApi(api = Build.VERSION_CODES.N)
                 @Override
                 public void onSuccess(JSONArray jsonArrayResponse) {
@@ -112,7 +114,7 @@ public class LoginTabFragment extends Fragment {
                             jsonException.printStackTrace();
                         }
                     });
-                    //check login
+                    /*check if login succeed or else sends appropriate error*/
                     if (loginSucceed) {
                         //clear edit text
                         username.getText().clear();
