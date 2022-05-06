@@ -4,11 +4,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Event {
+    private String organiser;
     private String title;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private ArrayList<User> invitedPeople;
-    private ArrayList<User> attendees;
+
 
     public String getTitle() {
         return title;

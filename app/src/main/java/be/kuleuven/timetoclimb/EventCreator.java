@@ -17,6 +17,7 @@ import org.w3c.dom.Text;
 import java.util.Calendar;
 
 public class EventCreator extends AppCompatActivity {
+    private User user;
     private Button btnEditStartTime;
     private Button btnEditEndTime;
     private TextView lblStartTime;
@@ -37,6 +38,7 @@ public class EventCreator extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         selectedDate = extras.getString("SelectedDate");
+        user = (User) getIntent().getSerializableExtra("User");
         lblSelectedDate.setText(selectedDate);
 
     }

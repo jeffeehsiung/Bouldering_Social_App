@@ -10,6 +10,7 @@ import android.widget.Toast;
 import android.app.Activity;
 
 public class CalendarActivity extends Activity{
+    private User user;
     private CalendarView calendar;
     private String selectedDate;        // Format: DD/MM/YYYY
     private Button btnViewDate;
@@ -18,7 +19,7 @@ public class CalendarActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        this.user = (User) getIntent().getSerializableExtra("User");
         //sets the main layout of the activity
         setContentView(R.layout.calendar_view);
 
@@ -29,16 +30,13 @@ public class CalendarActivity extends Activity{
     public void initializeCalendar() {
         calendar = (CalendarView) findViewById(R.id.calendar);
 
-        // sets whether to show the week number.
+        // don't show week nr.
         calendar.setShowWeekNumber(false);
 
-        // sets the first day of week according to Calendar.
-        // here we set Monday as the first day of the Calendar
+        // set first day of week to monday
         calendar.setFirstDayOfWeek(2);
 
-
-
-        //sets the listener to be notified upon selected date change.
+        // what happens on selected date change here
         calendar.setOnDateChangeListener(new OnDateChangeListener() {
             //show the selected date as a toast
             @Override
@@ -53,6 +51,7 @@ public class CalendarActivity extends Activity{
         // Intent to start ViewDate and pass selected date from calendar
         Intent intentViewDate = new Intent(this, ViewDate.class);
         intentViewDate.putExtra("SelectedDate", selectedDate);
+        intentViewDate.putExtra("User", user);
         startActivity(intentViewDate);
     }
 
@@ -60,6 +59,7 @@ public class CalendarActivity extends Activity{
         // Intent to start CreateEvent and pass selected date from calendar
         Intent intentCreateEvent = new Intent(this, EventCreator.class);
         intentCreateEvent.putExtra("SelectedDate", selectedDate);
+        intentCreateEvent.putExtra("User", user);
         startActivity(intentCreateEvent);
     }
 }

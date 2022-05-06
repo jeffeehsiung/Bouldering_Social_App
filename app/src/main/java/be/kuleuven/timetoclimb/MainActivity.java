@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnLogin;
     private String username;
     private String password;
+    private User user;
     public final static String MainActivity_TAG = MainActivity.class.getSimpleName();
 
     @Override
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         //content create :
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        createUser();
         btnCalendar = findViewById(R.id.btnCalendar);
         lblIcon = findViewById(R.id.lblIcon);
         btnLogin = findViewById(R.id.btnLogin);
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBtnCalendar_Clicked(View caller) {
         // Create intent to start the calendar
         Intent intentCalendar = new Intent(this, CalendarActivity.class);
+        intentCalendar.putExtra("User", user);
         startActivity(intentCalendar);
     }
 
@@ -41,10 +43,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void setUserAndPassword() {
+    public void createUser() {
         Bundle extras = getIntent().getExtras();
         this.username = extras.getString("username");
         this.password = extras.getString("password");
+        this.user = new User(username, password);
         Log.d(MainActivity_TAG,"username: "+ username + " password: " + password);
     }
     public String getPassword() {
