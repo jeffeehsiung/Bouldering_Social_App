@@ -16,7 +16,7 @@ import org.w3c.dom.Text;
 
 import java.util.Calendar;
 
-public class CreateEvent extends AppCompatActivity {
+public class EventCreator extends AppCompatActivity {
     private Button btnEditStartTime;
     private Button btnEditEndTime;
     private TextView lblStartTime;
