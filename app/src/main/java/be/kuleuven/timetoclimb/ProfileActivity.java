@@ -62,7 +62,7 @@ public class ProfileActivity extends AppCompatActivity {
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
                 //not finished yet
-                startActivityForResult(intent,2);
+                startActivityForResult(intent,45);
             }
         });
 

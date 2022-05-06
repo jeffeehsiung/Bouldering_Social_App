@@ -7,16 +7,6 @@
     tools:context=".ProfileActivity">
 
 
-    <ImageView
-        android:id="@+id/imgProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblProfile"
-        tools:srcCompat="@tools:sample/avatars" />
-
     <TextView
         android:id="@+id/lblProfile"
         android:layout_width="192dp"
@@ -32,23 +22,35 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.168" />
 
+    <ImageView
+        android:id="@+id/imgProfile"
+        android:layout_width="142dp"
+        android:layout_height="117dp"
+        android:src="@drawable/cave"
+        app:layout_constraintBottom_toTopOf="@+id/lblName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblProfile"
+        tools:srcCompat="@drawable/cave" />
+
     <TextView
+        android:id="@+id/lblName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="330dp"
+        android:layout_marginTop="10dp"
         android:text="Username"
         app:layout_constraintBottom_toTopOf="@+id/txtProfileName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.139"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgProfile"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/txtProfileName"
         android:layout_width="306dp"
         android:layout_height="35dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="7dp"
         android:textColor="#000000"
         android:textColorHighlight="#000000"
         android:textColorHint="#000000"
@@ -58,7 +60,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgProfile" />
+        app:layout_constraintTop_toBottomOf="@+id/lblName" />
 
     <View
         android:id="@+id/nameBioDivider"
@@ -74,6 +76,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
+        android:id="@+id/lblBio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
