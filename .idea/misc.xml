@@ -3,15 +3,34 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/dmitri/Desktop/School/Bach 2/Programmeertechnieken/Labo/klim appeken/TimetoClimb/app/src/main/res/drawable/roundbutton.xml" value="0.1765" />
         <entry key="..\:/Users/dmitri/Desktop/School/Bach 2/Programmeertechnieken/Labo/klim appeken/TimetoClimb/app/src/main/res/layout/activity_login.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/dmitri/Desktop/School/Bach 2/Programmeertechnieken/Labo/klim appeken/TimetoClimb/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/dmitri/Desktop/School/Bach 2/Programmeertechnieken/Labo/klim appeken/TimetoClimb/app/src/main/res/layout/calendar_view.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/dmitri/Desktop/School/Bach 2/Programmeertechnieken/Labo/klim appeken/TimetoClimb/app/src/main/res/layout/create_event_view.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/dmitri/Desktop/School/Bach 2/Programmeertechnieken/Labo/klim appeken/TimetoClimb/app/src/main/res/layout/login_tab_fragment.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable-v24/back.xml" value="0.191" />
+        <entry key="app/src/main/res/drawable/back.xml" value="0.191" />
+        <entry key="app/src/main/res/drawable/roundbutton.xml" value="0.191" />
+        <entry key="app/src/main/res/layout-w600dp/content_profile.xml" value="0.16490299823633156" />
+        <entry key="app/src/main/res/layout/activity_bio_edit.xml" value="0.19479166666666667" />
+        <entry key="app/src/main/res/layout/activity_edit_name.xml" value="0.19479166666666667" />
+        <entry key="app/src/main/res/layout/activity_email_edit.xml" value="0.19479166666666667" />
+        <entry key="app/src/main/res/layout/activity_image_edit.xml" value="0.19479166666666667" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2703125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2703125" />
+        <entry key="app/src/main/res/layout/activity_main2.xml" value="0.2703125" />
+        <entry key="app/src/main/res/layout/activity_phone_edit.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.16032608695652173" />
+        <entry key="app/src/main/res/layout/calendar_view.xml" value="0.19479166666666667" />
+        <entry key="app/src/main/res/layout/content_profile.xml" value="0.19479166666666667" />
+        <entry key="app/src/main/res/layout/fragment_first.xml" value="0.21240942028985507" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.125" />
+        <entry key="app/src/main/res/layout/fragment_reflow.xml" value="0.19479166666666667" />
+        <entry key="app/src/main/res/layout/fragment_second.xml" value="0.21240942028985507" />
+        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.19479166666666667" />
+        <entry key="app/src/main/res/layout/fragment_slideshow.xml" value="0.19479166666666667" />
+        <entry key="app/src/main/res/layout/nav_header_profile.xml" value="0.19479166666666667" />
+        <entry key="app/src/main/res/menu/bottom_navigation.xml" value="0.2703125" />
       </map>
     </option>
   </component>

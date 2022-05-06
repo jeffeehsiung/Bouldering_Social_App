@@ -12,14 +12,12 @@
         android:layout_margin="10dp" />
 
     <Button
-        android:id="@+id/btnViewDate"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:onClick="onBtnViewDate_Clicked"
         android:text="View date"/>
 
     <Button
-        android:id="@+id/btnCreateEvent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onBtnCreateEvent_Clicked"

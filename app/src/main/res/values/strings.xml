@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Time to Climb</string>
     <string name="todo">TODO</string>
-    <string name="welcom_to_climbing_app">welcom to climbing app</string>
     <string name="welcome_to_climbing_app">welcome to climbing app</string>
+
+    <!-- Strings used for fragments for navigation -->
+
 </resources>

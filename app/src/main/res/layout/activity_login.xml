@@ -16,8 +16,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
     <ImageView
-            android:id="@+id/loginImage"
-            android:layout_width="wrap_content"
+        android:layout_width="wrap_content"
             android:layout_height="237dp"
             android:scaleType="centerCrop"
             android:src="@drawable/login_background"
@@ -39,7 +38,6 @@
             app:layout_constraintVertical_bias="0.57" />
 
         <TextView
-            android:id="@+id/lblLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/welcome_to_climbing_app"
@@ -54,7 +52,6 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayoutViewPage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"

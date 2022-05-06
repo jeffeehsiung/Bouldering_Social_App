@@ -26,7 +26,9 @@ import java.util.stream.IntStream;
 
 import be.kuleuven.timetoclimb.EventCreator;
 import be.kuleuven.timetoclimb.MainActivity;
+import be.kuleuven.timetoclimb.ProfileActivity;
 import be.kuleuven.timetoclimb.R;
+import be.kuleuven.timetoclimb.databinding.LoginTabFragmentBinding;
 import be.kuleuven.timetoclimb.dbConnection.DBConnector;
 import be.kuleuven.timetoclimb.dbConnection.ServerCallback;
 
@@ -41,25 +43,25 @@ public class LoginTabFragment extends Fragment {
 
     public LoginTabFragment() {}
 
-    /*oncreate view is automatically called*/
+    //on create view is automatically called
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
         //inflate the layout for this fragment
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.login_tab_fragment,container,false);
         return root;
     }
-    /*once layout is inflated, view should also be created*/
+    //once layout is inflated, view should also be created
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view,savedInstanceState);
 
-        /*instantiate elements that shall be accessed*/
+        //instantiate elements that shall be accessed
         username = view.findViewById(R.id.username);
         password = view.findViewById(R.id.password);
         btnLogin = view.findViewById(R.id.btnLogin);
         message= view.findViewById(R.id.message);
 
-        /*configure btn with onClick mehtod*/
+        //configure btn with onClick method
         btnLogin.setOnClickListener(e -> {
             String strUser = username.getText().toString().trim();
             String strPass = password.getText().toString().trim().replaceAll("\\s","+");
@@ -68,7 +70,7 @@ public class LoginTabFragment extends Fragment {
                     "Username: " + strUser + "Password: " + strPass,
                     Toast.LENGTH_LONG).show();
 
-            /*validate input null and length*/
+            //validate input null and length
             if (TextUtils.isEmpty(strUser)) {
                 username.setError("Username is required");
                 return;
@@ -82,11 +84,11 @@ public class LoginTabFragment extends Fragment {
                 return;
             }
 
-            /*connect to database*/
+            //connect to database
             DBConnector dbConnector = new DBConnector(this.getContext());
             dbConnector.JSONRequest(databaseUrl, new ServerCallback() {
-                String userkey = "username";
-                String passwordvalue = "password";
+                final String userkey = "username";
+                final String passwordvalue = "password";
 
                 boolean userExist = false;
                 boolean loginSucceed = false;
@@ -118,7 +120,7 @@ public class LoginTabFragment extends Fragment {
                             jsonException.printStackTrace();
                         }
                     });
-                    /*check if login succeed or else sends appropriate error*/
+                    //check if login succeed or else sends appropriate error
                     if (loginSucceed) {
                         //clear edit text
                         username.getText().clear();
@@ -139,9 +141,14 @@ public class LoginTabFragment extends Fragment {
                     extras.putString("username",strUser);
                     extras.putString("password",strPass);
 
-                    Intent intentLoginSucceed= new Intent(getContext(), MainActivity.class);
+                    /*Intent intentLoginSucceed= new Intent(getContext(), MainActivity.class);
                     intentLoginSucceed.putExtras(extras);
-                    startActivity(intentLoginSucceed);
+                    startActivity(intentLoginSucceed);*/
+
+
+                    Intent intentToProfile= new Intent(getContext(), ProfileActivity.class);
+                    intentToProfile.putExtras(extras);
+                    startActivity(intentToProfile);
                 }
             });
         });
