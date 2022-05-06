@@ -18,9 +18,10 @@ public class MainActivity extends AppCompatActivity {
         //content create :
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        btnCalendar = (Button) findViewById(R.id.btnCalendar);
-        lblIcon = (TextView) findViewById(R.id.lblIcon);
-        btnLogin = (Button) findViewById(R.id.btnLogin);
+
+        btnCalendar = findViewById(R.id.btnCalendar);
+        lblIcon = findViewById(R.id.lblIcon);
+        btnLogin = findViewById(R.id.btnLogin);
 
     }
 
