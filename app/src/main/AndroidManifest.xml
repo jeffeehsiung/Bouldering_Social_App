@@ -16,7 +16,7 @@
         <activity android:name=".CalendarActivity"
             android:exported="false"/>
         <activity
-            android:name=".CreateEvent"
+            android:name=".EventCreator"
             android:exported="false" />
         <activity
             android:name=".ViewDate"

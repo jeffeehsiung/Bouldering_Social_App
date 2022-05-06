@@ -24,9 +24,7 @@ public class ViewDate extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         selectedDate = extras.get("SelectedDate").toString();
 
-        //lblDate.setText(selectedDate);
-        //dbCommunicator.request("https://studev.groept.be/api/a21pt411/getAllUsernames", "username", lblDate);
-        dbCommunicator.requestJSONTest();
+
 
     }
 }

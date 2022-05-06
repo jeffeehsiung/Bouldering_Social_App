@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import be.kuleuven.timetoclimb.CreateEvent;
+import be.kuleuven.timetoclimb.EventCreator;
 import be.kuleuven.timetoclimb.MainActivity;
 import be.kuleuven.timetoclimb.R;
 import be.kuleuven.timetoclimb.dbConnection.DBConnector;

@@ -13,6 +13,9 @@ public class User {
         this.emailAddress = emailAddress;
     }
 
+    public void createEvent(Event e) {
+
+    }
     public String getUsername() {return username;}
     public String getEmailAddress() {return emailAddress;}
     public String getPassword() {return password;}
