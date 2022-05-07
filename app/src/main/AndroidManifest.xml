@@ -46,7 +46,7 @@
             android:name=".ViewDate"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Home"
             android:exported="false" />
     </application>
 

@@ -9,14 +9,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class Home extends AppCompatActivity {
     private Button btnCalendar;
     private TextView lblIcon;
     private Button btnLogin;
     private String username;
     private String password;
     private User user;
-    public final static String MainActivity_TAG = MainActivity.class.getSimpleName();
+    public final static String MainActivity_TAG = Home.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
