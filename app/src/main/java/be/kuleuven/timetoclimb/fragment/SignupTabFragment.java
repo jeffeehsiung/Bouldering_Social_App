@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import org.json.JSONArray;
 
-import be.kuleuven.timetoclimb.MainActivity;
+import be.kuleuven.timetoclimb.Home;
 import be.kuleuven.timetoclimb.R;
 import be.kuleuven.timetoclimb.dbConnection.DBConnector;
 import be.kuleuven.timetoclimb.dbConnection.ServerCallback;
@@ -90,7 +90,7 @@ public class SignupTabFragment extends Fragment {
                     extras.putString("username",strUser);
                     extras.putString("password",strPass);
 
-                    Intent intentSignupSucceed= new Intent(getContext(), MainActivity.class);
+                    Intent intentSignupSucceed= new Intent(getContext(), Home.class);
                     intentSignupSucceed.putExtras(extras);
                     startActivity(intentSignupSucceed);
                 }

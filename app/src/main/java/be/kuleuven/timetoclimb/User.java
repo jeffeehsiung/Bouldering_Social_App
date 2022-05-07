@@ -33,10 +33,11 @@ public class User implements Serializable {
     public void addEvent(Event e, Context c) {
         RequestQueue requestQueue = Volley.newRequestQueue(c);
 
-        String requestURL = "https://studev.groept.be/api/a21pt411/addEvent/" + "'" + getUsername() + "'" + "/" + Integer.toString(e.getClimbingHallID()) + "/" + "'" + e.getStartTime() + "'" + "/" + "'" + e.getEndTime() + "'" + "/" + "'" + e.getTitle() + "'" + "/" + "'" + e.getDescription() + "'";
+        String requestURL = "https://studev.groept.be/api/a21pt411/addEvent/" + getUsername() + "/" + Integer.toString(e.getClimbingHallID()) + "/" + e.getStartTime() + "/" + e.getEndTime() + "/" + e.getTitle()  + "/" + e.getDescription();
+        requestURL = requestURL.replace(" ", "%20");
         System.out.println(requestURL);
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, requestURL, null,
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, requestURL, null,
                 new Response.Listener<JSONArray>()
                 {
                     @Override
@@ -57,7 +58,7 @@ public class User implements Serializable {
                     @Override
                     public void onErrorResponse(VolleyError error)
                     {
-                        Log.d("Database" ,error.getLocalizedMessage() );
+                        Log.d("Database" ,error.getLocalizedMessage(), error);
                     }
                 }
         );

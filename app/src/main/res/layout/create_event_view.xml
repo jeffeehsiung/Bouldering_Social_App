@@ -97,6 +97,7 @@
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/roundbutton"
+        android:onClick="onBtnAddEvent_Click"
         android:text="+"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
