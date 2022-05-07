@@ -124,6 +124,7 @@
         android:layout_marginTop="5dp"
         android:shadowColor="@color/black"
         android:text="Update"
+        android:onClick="onBtnPostClicked"
         app:backgroundTint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
