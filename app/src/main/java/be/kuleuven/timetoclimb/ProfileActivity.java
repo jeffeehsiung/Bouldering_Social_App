@@ -1,6 +1,7 @@
 package be.kuleuven.timetoclimb;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,6 +17,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ActivityProfileBinding binding;
     private TextView username, bio;
     private ImageView profileImage;
+    private Uri selectedImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +64,7 @@ public class ProfileActivity extends AppCompatActivity {
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
                 //not finished yet
-                startActivityForResult(intent,45);
+                startActivityForResult(intent,2);
             }
         });
 
@@ -83,7 +85,9 @@ public class ProfileActivity extends AppCompatActivity {
                 }
                 break;
             case 2:
-                if (resultCode == RESULT_OK){
+                if (resultCode == RESULT_OK && data != null){
+                    binding.imgProfile.setImageURI(data.getData());
+                    selectedImage = data.getData();
                     return;
                     //still needs to be implemented
                 }
