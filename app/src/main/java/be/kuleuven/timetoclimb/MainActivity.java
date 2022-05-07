@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnLogin;
     private String username;
     private String password;
+    private String profileImage;
     private User user;
     public final static String MainActivity_TAG = MainActivity.class.getSimpleName();
 
@@ -47,8 +48,9 @@ public class MainActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         this.username = extras.getString("username");
         this.password = extras.getString("password");
-        this.user = new User(username, password);
-        Log.d(MainActivity_TAG,"username: "+ username + " password: " + password);
+        this.profileImage = extras.getString("profileImage");
+        this.user = new User(username, password, profileImage);
+        Log.d(MainActivity_TAG,"username: "+ username + " password: " + password + "profileImage: " + profileImage);
     }
     public String getPassword() {
         return password;
@@ -56,5 +58,6 @@ public class MainActivity extends AppCompatActivity {
     public String getUsername() {
         return username;
     }
+    public String getProfileImage(){return profileImage;}
 
 }

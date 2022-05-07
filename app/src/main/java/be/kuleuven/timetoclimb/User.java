@@ -21,11 +21,13 @@ public class User implements Serializable {
     private String username;
     private String emailAddress;
     private String password;
+    private String profileImage;
     private ArrayList<User> friends;
 
-    public User(String username, String password) {
+    public User(String username, String password, String profileImage) {
         this.username = username;
         this.password = password;
+        this.profileImage = profileImage;
     }
 
     public void addEvent(Event e, Context c) {
