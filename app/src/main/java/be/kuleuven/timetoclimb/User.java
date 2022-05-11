@@ -3,6 +3,7 @@ package be.kuleuven.timetoclimb;
 import android.content.Context;
 import android.util.Log;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -16,6 +17,8 @@ import org.json.JSONException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class User implements Serializable {
     private String username;
@@ -33,9 +36,7 @@ public class User implements Serializable {
     public void addEvent(Event e, Context c) {
         RequestQueue requestQueue = Volley.newRequestQueue(c);
 
-        String requestURL = "https://studev.groept.be/api/a21pt411/addEvent/" + getUsername() + "/" + Integer.toString(e.getClimbingHallID()) + "/" + e.getStartTime() + "/" + e.getEndTime() + "/" + e.getTitle()  + "/" + e.getDescription();
-        requestURL = requestURL.replace(" ", "%20");
-        System.out.println(requestURL);
+        String requestURL = "https://studev.groept.be/api/a21pt411/addEvent";
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, requestURL, null,
                 new Response.Listener<JSONArray>()
@@ -47,6 +48,7 @@ public class User implements Serializable {
                         try {
                             //response pushed into parameter v in volley log, which can be access through external document.
                             VolleyLog.v("Response:%n %s", response.toString(4));
+                            System.out.println(response.toString());
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -59,10 +61,32 @@ public class User implements Serializable {
                     public void onErrorResponse(VolleyError error)
                     {
                         Log.d("Database" ,error.getLocalizedMessage(), error);
+                        System.out.println(error.getLocalizedMessage());
                     }
                 }
+        ) { //NOTE THIS PART: here we are passing the parameter to the webservice, NOT in the URL!
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("organiser", username);
+                params.put("climbinghallid", Integer.toString(e.getClimbingHallID()));
+                params.put("starttime",e.getStartTime());
+                params.put("endtime", e.getEndTime());
+                params.put("title", e.getTitle());
+                params.put("descriptionevent", e.getDescription());
+                return params;
+            }
+        };
+        System.out.println(
+                "organiser: " + username +
+                "\nevent_climbing_hall_id: " + e.getClimbingHallID() +
+                "\nbegin_datetime: " + e.getStartTime() +
+                "\nend_datetime: " + e.getEndTime() +
+                "\ntitle: " + e.getTitle() +
+                "\ndescription_event: " + e.getDescription()
         );
         requestQueue.add(jsonArrayRequest);
+
     }
     public String getUsername() {return username;}
     public String getEmailAddress() {return emailAddress;}

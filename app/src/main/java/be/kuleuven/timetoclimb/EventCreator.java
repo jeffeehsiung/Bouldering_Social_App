@@ -5,6 +5,7 @@ import androidx.fragment.app.DialogFragment;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
@@ -17,11 +18,13 @@ import com.google.type.DateTime;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class EventCreator extends AppCompatActivity {
 
     private User user;
+    private ArrayList<Climbinghall> climbinghalls;
     private Button btnEditStartTime;
     private Button btnEditEndTime;
     private TextView lblStartTime;
@@ -90,6 +93,11 @@ public class EventCreator extends AppCompatActivity {
 
         // Add event to db
         user.addEvent(event, this.getApplicationContext());
+    }
+
+    public void onBtnEditHall_Click(View v) {
+        Intent intentSelectHall = new Intent(this, SelectClimbingHall.class);
+        startActivity(intentSelectHall);
     }
 
     public static class TimePickerFragment extends DialogFragment

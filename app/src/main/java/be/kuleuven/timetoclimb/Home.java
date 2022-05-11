@@ -37,13 +37,6 @@ public class Home extends AppCompatActivity {
         startActivity(intentCalendar);
     }
 
-    public void onBtnLogin_Clicked(View caller) {
-        // Create intent to start the calendar
-        Intent intentLogin = new Intent(this, LoginActivity.class);
-        startActivity(intentLogin);
-    }
-
-
     public void createUser() {
         Bundle extras = getIntent().getExtras();
         this.username = extras.getString("username");
