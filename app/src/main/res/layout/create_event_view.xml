@@ -85,11 +85,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:text="RecyclerView for climbing halls needs to be implemented here!"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.944"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnEditEndTime" />
+        app:layout_constraintTop_toBottomOf="@+id/btnAddClimbingHall" />
 
     <Button
         android:layout_width="60dp"
@@ -101,5 +102,25 @@
         android:text="+"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btnAddClimbingHall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:onClick="onBtnEditHall_Click"
+        android:text="edit climbing hall"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnEditEndTime" />
+
+    <TextView
+        android:id="@+id/lblClimbingHall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toEndOf="@+id/btnAddClimbingHall"
+        app:layout_constraintTop_toTopOf="@+id/btnAddClimbingHall" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

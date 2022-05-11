@@ -25,20 +25,20 @@ import java.util.Map;
 
 public class Climbinghall {
     private int id;
-    private String hall_name;
+    private String hallName;
     private String address;
     private Bitmap image;
 
-    public Climbinghall(int id, String hall_name, String address) {
+    public Climbinghall(int id, String hallName, String address) {
         this.id = id;
-        this.hall_name = hall_name;
+        this.hallName = hallName;
         this.address = address;
         //this.image = image; STILL NEEDS TO BE IMPLEMENTED AFTER TESTING!!!
     }
 
     private Climbinghall(JSONObject jsonObject) throws JSONException {
         this.id = Integer.parseInt(jsonObject.getString("id"));
-        this.hall_name = jsonObject.getString("hall_name");
+        this.hallName = jsonObject.getString("hall_name");
         this.address = jsonObject.getString("address");
         this.image = null; // for now
     }
@@ -110,12 +110,12 @@ public class Climbinghall {
         this.id = id;
     }
 
-    public String getHall_name() {
-        return hall_name;
+    public String getHallName() {
+        return hallName;
     }
 
-    public void setHall_name(String hall_name) {
-        this.hall_name = hall_name;
+    public void setHallName(String hallName) {
+        this.hallName = hallName;
     }
 
     public String getAddress() {

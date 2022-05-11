@@ -5,6 +5,7 @@ import androidx.fragment.app.DialogFragment;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
@@ -66,17 +67,6 @@ public class EventCreator extends AppCompatActivity {
         organiser = user.getUsername();
         climbingHallID = 1; // Set to default for now, will implement later
 
-        // Climbinghall population for TESTING ONLY!!!! create a factory constr in Climbinghall to return an arraylist of clhalls from db
-        climbinghalls.add(new Climbinghall(1, "Boulder", "Persilstraat 51, 3020 Herent"));
-        climbinghalls.add(new Climbinghall(10, "Stordeur", "'Aarschotsesteenweg 112, 3012 Leuven'"));
-
-
-        /*
-        Test stuff
-        climbinghalls = Climbinghall.DBContents(getApplicationContext());
-        txtDescription.setText(climbinghalls.get(0).getId());
-         */
-
     }
 
     public void onBtnEditStartTime_Click(View v) {
@@ -103,6 +93,11 @@ public class EventCreator extends AppCompatActivity {
 
         // Add event to db
         user.addEvent(event, this.getApplicationContext());
+    }
+
+    public void onBtnEditHall_Click(View v) {
+        Intent intentSelectHall = new Intent(this, SelectClimbingHall.class);
+        startActivity(intentSelectHall);
     }
 
     public static class TimePickerFragment extends DialogFragment
