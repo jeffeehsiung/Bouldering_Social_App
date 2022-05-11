@@ -138,13 +138,15 @@ public class LoginTabFragment extends Fragment {
                     extras.putString("username",strUser);
                     extras.putString("password",strPass);
 
-                    /*Intent intentLoginSucceed= new Intent(getContext(), Home.class);
+                    Intent intentLoginSucceed= new Intent(getContext(), Home.class);
                     intentLoginSucceed.putExtras(extras);
-                    startActivity(intentLoginSucceed);*/
+                    startActivity(intentLoginSucceed);
 
+                    /*
                     Intent intentToProfile= new Intent(getContext(), ProfileActivity.class);
                     intentToProfile.putExtras(extras);
                     startActivity(intentToProfile);
+                    */
                 }
             });
         });
