@@ -35,7 +35,7 @@ public class ProfileActivity extends AppCompatActivity {
     private String databaseUrl = "setProfileImage";
     private String retrieveImgUrl = "getProfileImage";
     private int PICK_IMAGE_REQUEST = 111;
-    private User user;
+    private User user = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +99,7 @@ public class ProfileActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Intent intentToMain = new Intent(ProfileActivity.this, Home.class);
-                intentToMain.putExtra("User",user);
+                intentToMain.putExtra("username",username.getText().toString().trim());
                 startActivity(intentToMain);
             }
         });
