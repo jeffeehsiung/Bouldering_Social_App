@@ -17,11 +17,13 @@ import com.google.type.DateTime;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class EventCreator extends AppCompatActivity {
 
     private User user;
+    private ArrayList<Climbinghall> climbinghalls;
     private Button btnEditStartTime;
     private Button btnEditEndTime;
     private TextView lblStartTime;
@@ -63,6 +65,17 @@ public class EventCreator extends AppCompatActivity {
         description = "";
         organiser = user.getUsername();
         climbingHallID = 1; // Set to default for now, will implement later
+
+        // Climbinghall population for TESTING ONLY!!!! create a factory constr in Climbinghall to return an arraylist of clhalls from db
+        climbinghalls.add(new Climbinghall(1, "Boulder", "Persilstraat 51, 3020 Herent"));
+        climbinghalls.add(new Climbinghall(10, "Stordeur", "'Aarschotsesteenweg 112, 3012 Leuven'"));
+
+
+        /*
+        Test stuff
+        climbinghalls = Climbinghall.DBContents(getApplicationContext());
+        txtDescription.setText(climbinghalls.get(0).getId());
+         */
 
     }
 
