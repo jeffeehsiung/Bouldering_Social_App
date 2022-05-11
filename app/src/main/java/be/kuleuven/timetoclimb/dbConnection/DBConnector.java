@@ -1,14 +1,9 @@
 package be.kuleuven.timetoclimb.dbConnection;
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.net.Uri;
-import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.ImageView;
@@ -31,15 +26,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
-import be.kuleuven.timetoclimb.Home;
-import be.kuleuven.timetoclimb.ProfileActivity;
-import be.kuleuven.timetoclimb.R;
 
 public class DBConnector extends AppCompatActivity {
 

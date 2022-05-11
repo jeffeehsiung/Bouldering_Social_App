@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import be.kuleuven.timetoclimb.Home;
-import be.kuleuven.timetoclimb.ProfileActivity;
 import be.kuleuven.timetoclimb.R;
 import be.kuleuven.timetoclimb.dbConnection.DBConnector;
 import be.kuleuven.timetoclimb.dbConnection.ServerCallback;
