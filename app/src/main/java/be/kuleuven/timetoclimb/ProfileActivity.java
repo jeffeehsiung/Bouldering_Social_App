@@ -35,6 +35,7 @@ public class ProfileActivity extends AppCompatActivity {
     private String databaseUrl = "setProfileImage";
     private String retrieveImgUrl = "getProfileImage";
     private int PICK_IMAGE_REQUEST = 111;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +51,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(this);
 
-        Bundle extras = getIntent().getExtras();
-        this.username.setText(extras.getString("username"));
+        this.user = (User) getIntent().getSerializableExtra("User");
+        this.username.setText(user.getUsername());
 
 
 
@@ -93,15 +94,12 @@ public class ProfileActivity extends AppCompatActivity {
                 DBConnector dbConnector = new DBConnector(getApplicationContext());
                 try {
                     dbConnector.imageUploadRequest(databaseUrl,username.getText().toString().trim(),selectedImageBM);
+                    user.setImageUri(selectedImage);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                //create a Bundle object & Adding key value pairs to this bundle
-                Bundle extras = new Bundle();
-                extras.putString("username", username.getText().toString().trim());
-                //extras.putString("profileImage", encodedImage);
                 Intent intentToMain = new Intent(ProfileActivity.this, Home.class);
-                intentToMain.putExtras(extras);
+                intentToMain.putExtra("User",user);
                 startActivity(intentToMain);
             }
         });

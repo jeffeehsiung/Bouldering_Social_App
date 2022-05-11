@@ -37,6 +37,13 @@ public class Home extends AppCompatActivity {
         startActivity(intentCalendar);
     }
 
+    public void onBtnProfile_Clicked(View caller) {
+        // Create intent to start the Profile
+        Intent intentProfile = new Intent(this, ProfileActivity.class);
+        intentProfile.putExtra("User", user);
+        startActivity(intentProfile);
+    }
+
     public void createUser() {
         Bundle extras = getIntent().getExtras();
         this.username = extras.getString("username");
