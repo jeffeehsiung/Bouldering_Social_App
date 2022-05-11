@@ -1,51 +1,26 @@
 package be.kuleuven.timetoclimb;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Base64;
-import android.util.Base64InputStream;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 import be.kuleuven.timetoclimb.databinding.ActivityProfileBinding;
 import be.kuleuven.timetoclimb.dbConnection.DBConnector;
-import be.kuleuven.timetoclimb.dbConnection.ServerCallback;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -60,7 +35,6 @@ public class ProfileActivity extends AppCompatActivity {
     private String databaseUrl = "setProfileImage";
     private String retrieveImgUrl = "getProfileImage";
     private int PICK_IMAGE_REQUEST = 111;
-    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +87,24 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivityForResult(intent, 45);
             }
         });
+        btnUpdate.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                DBConnector dbConnector = new DBConnector(getApplicationContext());
+                try {
+                    dbConnector.imageUploadRequest(databaseUrl,username.getText().toString().trim(),selectedImageBM);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                //create a Bundle object & Adding key value pairs to this bundle
+                Bundle extras = new Bundle();
+                extras.putString("username", username.getText().toString().trim());
+                //extras.putString("profileImage", encodedImage);
+                Intent intentToMain = new Intent(ProfileActivity.this, Home.class);
+                intentToMain.putExtras(extras);
+                startActivity(intentToMain);
+            }
+        });
 
     }
 
@@ -145,9 +137,6 @@ public class ProfileActivity extends AppCompatActivity {
                     } catch (IOException e) {
                         Log.d("profileImage",e.toString());
                     }
-                    /*//Rescale the bitmap to 400px wide (avoid storing large images!)
-                    this.selectedImageBM = getResizedBitmap(selectedImageBM, 400);*/
-
                     //Setting image to ImageView
                     profileImage.setImageBitmap(this.selectedImageBM);
 
@@ -157,19 +146,8 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    public void onBtnPostClicked(View caller) throws IOException {
-
-        DBConnector dbConnector = new DBConnector(getApplicationContext());
-        dbConnector.imageUploadRequest(databaseUrl,username.getText().toString().trim(),selectedImageBM);
-
-        //create a Bundle object & Adding key value pairs to this bundle
-        Bundle extras = new Bundle();
-        extras.putString("username", username.getText().toString().trim());
-        //extras.putString("profileImage", encodedImage);
-
-        Intent intentToMain = new Intent(ProfileActivity.this, Home.class);
-        intentToMain.putExtras(extras);
-        startActivity(intentToMain);
+    public Uri getSelectedImage() {
+        return selectedImage;
     }
 }
 

@@ -86,6 +86,8 @@ public class LoginTabFragment extends Fragment {
             dbConnector.JSONRequest(databaseUrl, new ServerCallback() {
                 final String userkey = "username";
                 final String passwordvalue = "password";
+                final String profile_picture = "profile_picture";
+                String profileImage = null;
 
                 boolean userExist = false;
                 boolean loginSucceed = false;
@@ -111,6 +113,9 @@ public class LoginTabFragment extends Fragment {
                                 if (object.getString(passwordvalue).equals(strPass)) {
                                     pwdCorrect = true; //password incorrect, pwdCorrect remains false
                                     loginSucceed = true;
+                                    if(!object.getString(profile_picture).isEmpty()){
+                                    profileImage = object.getString(profile_picture);}
+
                                 }
                             }
                         } catch (JSONException jsonException) {
@@ -137,16 +142,11 @@ public class LoginTabFragment extends Fragment {
                     //Adding key value pairs to this bundle
                     extras.putString("username",strUser);
                     extras.putString("password",strPass);
+                    extras.putString("profileImage",profileImage);
 
                     Intent intentLoginSucceed= new Intent(getContext(), Home.class);
                     intentLoginSucceed.putExtras(extras);
                     startActivity(intentLoginSucceed);
-
-                    /*
-                    Intent intentToProfile= new Intent(getContext(), ProfileActivity.class);
-                    intentToProfile.putExtras(extras);
-                    startActivity(intentToProfile);
-                    */
                 }
             });
         });

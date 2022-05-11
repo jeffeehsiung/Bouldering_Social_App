@@ -142,7 +142,7 @@ public class DBConnector extends AppCompatActivity {
     /**
      * Retrieves the most recent image from the DB
      */
-    public void imageRetrieveRequest( String retrieveImgUrl, String username, ImageView profileImage )
+    public void imageRetrieveRequest( String retrieveImgUrl, String username, ImageView profileImage)
     {
         //sending simple request
         //instantiate the requestQueue
@@ -176,11 +176,10 @@ public class DBConnector extends AppCompatActivity {
                             //Link the bitmap to the ImageView, so it's visible on screen
                             profileImage.setImageBitmap( bitmap2 );
 
+
                             //Just a double-check to tell us the request has completed
                             Toast.makeText(context, "Image retrieved from DB", Toast.LENGTH_SHORT).show();
                         }
-                        /*else{Bitmap mIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.cave);
-                            profileImage.setImageBitmap(mIcon);}*/
                     }
                 },
                 new Response.ErrorListener() {

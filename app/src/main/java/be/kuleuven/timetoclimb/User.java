@@ -20,9 +20,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import be.kuleuven.timetoclimb.dbConnection.DBConnector;
+
 public class User implements Serializable {
     private String username;
-    private String emailAddress;
     private String password;
     private String profileImage;
     private ArrayList<User> friends;
@@ -89,6 +90,5 @@ public class User implements Serializable {
 
     }
     public String getUsername() {return username;}
-    public String getEmailAddress() {return emailAddress;}
     public String getPassword() {return password;}
 }
