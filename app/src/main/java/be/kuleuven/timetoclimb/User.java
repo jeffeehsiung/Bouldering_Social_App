@@ -97,8 +97,8 @@ public class User implements Serializable {
     public void setImageUri(Uri imageUri) {
         this.imageUri = imageUri;
     }
-
     public void setProfileImage(String profileImage) {
         this.profileImage = profileImage;
     }
+    public String getProfileImage() { return profileImage; }
 }

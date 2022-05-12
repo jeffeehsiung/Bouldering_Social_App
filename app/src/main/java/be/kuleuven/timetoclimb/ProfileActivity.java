@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,14 +20,16 @@ import java.io.IOException;
 
 import be.kuleuven.timetoclimb.databinding.ActivityProfileBinding;
 import be.kuleuven.timetoclimb.dbConnection.DBConnector;
+import be.kuleuven.timetoclimb.subActivity.BioEditActivity;
+import be.kuleuven.timetoclimb.subActivity.EditNameActivity;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements imageResolver{
 
     private ActivityProfileBinding binding;
     private RequestQueue requestQueue;
     private TextView username, bio;
     private ImageView profileImage;
-    private Uri selectedImage;
+    private Uri imageUri;
     private Bitmap selectedImageBM;
     private String encodedImage;
     private Button btnUpdate;
@@ -94,12 +95,16 @@ public class ProfileActivity extends AppCompatActivity {
                 DBConnector dbConnector = new DBConnector(getApplicationContext());
                 try {
                     dbConnector.imageUploadRequest(databaseUrl,username.getText().toString().trim(),selectedImageBM);
-                    user.setImageUri(selectedImage);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
+                Bundle userIfno = new Bundle();
+                userIfno.putString("username",user.getUsername());
+                userIfno.putString("password", user.getPassword());
+                userIfno.putString("profileImage", user.getProfileImage());
                 Intent intentToMain = new Intent(ProfileActivity.this, Home.class);
-                intentToMain.putExtra("username",username.getText().toString().trim());
+                intentToMain.putExtras(userIfno);
                 startActivity(intentToMain);
             }
         });
@@ -110,7 +115,8 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         DBConnector dbConnector = new DBConnector(getApplicationContext());
-        dbConnector.imageRetrieveRequest(retrieveImgUrl,username.getText().toString().trim(),profileImage);
+        dbConnector.imageRetrieveRequest(retrieveImgUrl, username.getText().toString().trim(), profileImage);
+        System.out.println("username from user: "+ user.getUsername() + " password from user: " + user.getPassword()+ " profileImage from user: " + user.getProfileImage());
     }
 
     @Override
@@ -130,8 +136,11 @@ public class ProfileActivity extends AppCompatActivity {
             case 45:
                 if (resultCode == RESULT_OK && data != null) {
                     try {
-                        this.selectedImage = data.getData();
-                        this.selectedImageBM = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+
+                        this.imageUri = data.getData();
+                        this.selectedImageBM = uriToBitmap(imageUri);
+                        //user
+                        user.setImageUri(imageUri);
                     } catch (IOException e) {
                         Log.d("profileImage",e.toString());
                     }
@@ -144,8 +153,19 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    public Uri getSelectedImage() {
-        return selectedImage;
+    public Uri getImageUri() {
+        return imageUri;
+    }
+
+    @Override
+    public String onRetrieveSuccess(String b64String) {
+        encodedImage = b64String;
+        //user
+        user.setProfileImage(encodedImage);
+        //param in profileactivity
+        selectedImageBM = StringToBitmap(b64String);
+        System.out.println("b64String length: "+ b64String.length());
+        return b64String;
     }
 }
 

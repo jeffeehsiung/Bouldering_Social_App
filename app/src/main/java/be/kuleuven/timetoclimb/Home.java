@@ -50,7 +50,7 @@ public class Home extends AppCompatActivity {
         this.password = extras.getString("password");
         this.profileImage = extras.getString("profileImage");
         this.user = new User(username, password, profileImage);
-        Log.d(MainActivity_TAG,"username: "+ username + " password: " + password + "profileImage: " + profileImage);
+        Log.d(MainActivity_TAG,"username: "+ username + " password: " + password + " profileImage: " + profileImage);
     }
     public String getPassword() {
         return password;

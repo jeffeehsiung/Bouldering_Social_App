@@ -1,26 +1,35 @@
-package be.kuleuven.timetoclimb;
+package be.kuleuven.timetoclimb.subActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ImageEditActivity extends AppCompatActivity {
+import be.kuleuven.timetoclimb.ProfileActivity;
+import be.kuleuven.timetoclimb.R;
+
+public class BioEditActivity extends AppCompatActivity {
 
     Button update;
+    EditText bio;
     ImageView back;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_image_edit);
+        setContentView(R.layout.activity_bio_edit);
 
         update = findViewById(R.id.btnUpdate);
+        bio = findViewById(R.id.txtEditBioField);
         back = findViewById(R.id.Back);
+
+        //get original bio text from intent extra of profile activity
+        String bio_ = getIntent().getStringExtra("bio");
+        bio.setText(bio_);
 
         update.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,7 +48,9 @@ public class ImageEditActivity extends AppCompatActivity {
 
     private void onClickOpenProfileActivity() {
         Intent intent = new Intent(this, ProfileActivity.class);
-        startActivity(intent);
+        String bio = this.bio.getText().toString().trim();
+        intent.putExtra("bio", bio);
+        setResult(RESULT_OK, intent);
         finish();
     }
 }

@@ -33,13 +33,13 @@
             android:name=".ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".BioEditActivity"
+            android:name=".subActivity.BioEditActivity"
             android:exported="false" />
         <activity
-            android:name=".EditNameActivity"
+            android:name=".subActivity.EditNameActivity"
             android:exported="false" />
         <activity
-            android:name=".ImageEditActivity"
+            android:name=".subActivity.ImageEditActivity"
             android:exported="false" />
         <activity
             android:name=".CalendarActivity"

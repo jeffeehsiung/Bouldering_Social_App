@@ -114,7 +114,6 @@ public class LoginTabFragment extends Fragment {
                                     loginSucceed = true;
                                     if(!object.getString(profile_picture).isEmpty()){
                                     profileImage = object.getString(profile_picture);}
-
                                 }
                             }
                         } catch (JSONException jsonException) {
@@ -127,6 +126,17 @@ public class LoginTabFragment extends Fragment {
                         username.getText().clear();
                         password.getText().clear();
                         message.setText("Login successful");
+                        //create a Bundle object
+                        Bundle extras = new Bundle();
+                        //Adding key value pairs to this bundle
+                        extras.putString("username",strUser);
+                        extras.putString("password",strPass);
+                        extras.putString("profileImage",profileImage);
+
+                        Intent intentLoginSucceed= new Intent(getContext(), Home.class);
+                        intentLoginSucceed.putExtras(extras);
+                        startActivity(intentLoginSucceed);
+
                     } else if (userExist && !pwdCorrect) { //user exist, password incorrect
                         //clear edit text
                         password.getText().clear();
@@ -136,16 +146,6 @@ public class LoginTabFragment extends Fragment {
                         password.getText().clear();
                         message.setText("No user found");//no user data in database
                     }
-                    //create a Bundle object
-                    Bundle extras = new Bundle();
-                    //Adding key value pairs to this bundle
-                    extras.putString("username",strUser);
-                    extras.putString("password",strPass);
-                    extras.putString("profileImage",profileImage);
-
-                    Intent intentLoginSucceed= new Intent(getContext(), Home.class);
-                    intentLoginSucceed.putExtras(extras);
-                    startActivity(intentLoginSucceed);
                 }
             });
         });

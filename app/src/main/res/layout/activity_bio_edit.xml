@@ -7,7 +7,7 @@
     android:layout_centerInParent="false"
     android:layout_centerHorizontal="false"
     android:layout_centerVertical="false"
-    tools:context=".BioEditActivity">
+    tools:context=".subActivity.BioEditActivity">
 
     <TextView
         android:id="@+id/lblEditBio"
