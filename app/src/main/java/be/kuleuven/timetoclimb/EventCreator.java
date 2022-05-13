@@ -1,11 +1,16 @@
 package be.kuleuven.timetoclimb;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
@@ -32,6 +37,7 @@ public class EventCreator extends AppCompatActivity {
     private TextView lblSelectedDate;
     private TextView txtTitle;
     private TextView txtDescription;
+    private TextView lblClimbingHall;
     private String selectedDate;
     private String title;
     private String description;
@@ -39,6 +45,7 @@ public class EventCreator extends AppCompatActivity {
     private String endTime;
     private String date;
     private String organiser;
+    private String hallName;
     private int climbingHallID;
 
     @Override
@@ -53,6 +60,7 @@ public class EventCreator extends AppCompatActivity {
         lblSelectedDate =(TextView) findViewById(R.id.lblSelectedDate);
         txtTitle = (TextView) findViewById(R.id.txtTitle);
         txtDescription = (TextView) findViewById(R.id.txtDescription);
+        lblClimbingHall = (TextView) findViewById(R.id.lblClimbingHall);
 
         // get extras
         Bundle extras = getIntent().getExtras();
@@ -65,7 +73,6 @@ public class EventCreator extends AppCompatActivity {
         title = "";
         description = "";
         organiser = user.getUsername();
-        climbingHallID = 1; // Set to default for now, will implement later
 
     }
 
@@ -97,7 +104,24 @@ public class EventCreator extends AppCompatActivity {
 
     public void onBtnEditHall_Click(View v) {
         Intent intentSelectHall = new Intent(this, SelectClimbingHall.class);
-        startActivity(intentSelectHall);
+        intentSelectHall.putExtra("hallName", hallName);
+        intentSelectHall.putExtra("id", climbingHallID);
+        startActivityForResult(intentSelectHall, 1);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Bundle extras = data.getExtras();
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                hallName = extras.getString("hallName");
+                climbingHallID = extras.getInt("id");
+                lblClimbingHall.setText(hallName + Integer.toString(climbingHallID));
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                // Write your code if there's no result
+            }
+        }
     }
 
     public static class TimePickerFragment extends DialogFragment

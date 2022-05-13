@@ -71,18 +71,11 @@ public class User implements Serializable {
                 params.put("endtime",e.getEndTime());
                 params.put("title", e.getTitle());
                 params.put("descriptionevent", e.getDescription());
-                System.out.println(params.isEmpty());
+                System.out.println("GetParams id: " + e.getClimbingHallID());
                 return params;
             }
         };
-        System.out.println(
-                "organiser: " + username +
-                        "\nevent_climbing_hall_id: " + e.getClimbingHallID() +
-                        "\nbegin_datetime: " + e.getStartTime() +
-                        "\nend_datetime: " + e.getEndTime() +
-                        "\ntitle: " + e.getTitle() +
-                        "\ndescription_event: " + e.getDescription()
-        );
+
         requestQueue.add(stringRequestRequest);
 
     }
