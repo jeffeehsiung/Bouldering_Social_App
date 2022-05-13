@@ -3,7 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="be.kuleuven.timetoclimb">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission
+        android:name="android.permission.READ_LOGS"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature android:name="android.hardware.camera" />
@@ -18,10 +26,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TimeToClimb">
         <activity
+            android:name=".subActivity.RouteCreateActivity"
+            android:exported="false" />
+        <activity
             android:name=".SelectClimbingHall"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
+            android:configChanges="orientation|screenSize"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,27 +43,35 @@
         </activity>
         <activity
             android:name=".ProfileActivity"
+            android:configChanges="orientation|screenSize"
             android:exported="false" />
         <activity
             android:name=".subActivity.BioEditActivity"
+            android:configChanges="orientation|screenSize"
             android:exported="false" />
         <activity
             android:name=".subActivity.EditNameActivity"
+            android:configChanges="orientation|screenSize"
             android:exported="false" />
         <activity
             android:name=".subActivity.ImageEditActivity"
+            android:configChanges="orientation|screenSize"
             android:exported="false" />
         <activity
             android:name=".CalendarActivity"
+            android:configChanges="orientation|screenSize"
             android:exported="false" />
         <activity
             android:name=".EventCreator"
+            android:configChanges="orientation|screenSize"
             android:exported="false" />
         <activity
             android:name=".ViewDate"
+            android:configChanges="orientation|screenSize"
             android:exported="false" />
         <activity
             android:name=".Home"
+            android:configChanges="orientation|screenSize"
             android:exported="false" />
     </application>
 

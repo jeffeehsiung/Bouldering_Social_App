@@ -22,8 +22,9 @@ import be.kuleuven.timetoclimb.databinding.ActivityProfileBinding;
 import be.kuleuven.timetoclimb.dbConnection.DBConnector;
 import be.kuleuven.timetoclimb.subActivity.BioEditActivity;
 import be.kuleuven.timetoclimb.subActivity.EditNameActivity;
+import be.kuleuven.timetoclimb.subActivity.imageResolver;
 
-public class ProfileActivity extends AppCompatActivity implements imageResolver{
+public class ProfileActivity extends AppCompatActivity implements imageResolver {
 
     private ActivityProfileBinding binding;
     private RequestQueue requestQueue;

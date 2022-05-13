@@ -1,4 +1,4 @@
-package be.kuleuven.timetoclimb;
+package be.kuleuven.timetoclimb.subActivity;
 
 import android.content.ContentResolver;
 import android.graphics.Bitmap;
@@ -7,6 +7,7 @@ import android.graphics.Matrix;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.widget.ImageView;
 
 import org.json.JSONArray;
 
@@ -59,6 +60,10 @@ public interface imageResolver {
                 bm, 0, 0, width, height, matrix, false);
         bm.recycle();
         return resizedBitmap;
+    }
+
+    default void loadImageToImageView(Uri imageUri, ImageView imageView){
+        imageView.setImageURI(imageUri);
     }
 
     default ContentResolver getContentResolver(){
