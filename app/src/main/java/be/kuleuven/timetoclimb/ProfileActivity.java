@@ -100,9 +100,7 @@ public class ProfileActivity extends AppCompatActivity implements imageResolver{
                 }
 
                 Bundle userIfno = new Bundle();
-                userIfno.putString("username",user.getUsername());
-                userIfno.putString("password", user.getPassword());
-                userIfno.putString("profileImage", user.getProfileImage());
+                userIfno.putSerializable("User",user);
                 Intent intentToMain = new Intent(ProfileActivity.this, Home.class);
                 intentToMain.putExtras(userIfno);
                 startActivity(intentToMain);
@@ -151,10 +149,6 @@ public class ProfileActivity extends AppCompatActivity implements imageResolver{
                 }
                 break;
         }
-    }
-
-    public Uri getImageUri() {
-        return imageUri;
     }
 
     @Override

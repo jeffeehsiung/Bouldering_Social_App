@@ -25,6 +25,7 @@ import java.util.stream.IntStream;
 
 import be.kuleuven.timetoclimb.Home;
 import be.kuleuven.timetoclimb.R;
+import be.kuleuven.timetoclimb.User;
 import be.kuleuven.timetoclimb.dbConnection.DBConnector;
 import be.kuleuven.timetoclimb.dbConnection.ServerCallback;
 
@@ -126,13 +127,12 @@ public class LoginTabFragment extends Fragment {
                         username.getText().clear();
                         password.getText().clear();
                         message.setText("Login successful");
+
                         //create a Bundle object
                         Bundle extras = new Bundle();
-                        //Adding key value pairs to this bundle
-                        extras.putString("username",strUser);
-                        extras.putString("password",strPass);
-                        extras.putString("profileImage",profileImage);
-
+                        //Adding serializable key value pairs to this bundle
+                        User user = new User(strUser,strPass, profileImage);
+                        extras.putSerializable("User",user );
                         Intent intentLoginSucceed= new Intent(getContext(), Home.class);
                         intentLoginSucceed.putExtras(extras);
                         startActivity(intentLoginSucceed);
