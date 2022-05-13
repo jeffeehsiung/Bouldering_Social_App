@@ -1,12 +1,16 @@
 package be.kuleuven.timetoclimb.adapter;
 
+import android.content.ClipData;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -16,9 +20,15 @@ import be.kuleuven.timetoclimb.R;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
     private ArrayList<Climbinghall> climbinghalls;
+    private final OnItemClickListener listener;
 
-    public RecyclerAdapter(ArrayList<Climbinghall> climbinghalls) {
+    public interface OnItemClickListener {
+        void onItemClick(Climbinghall item);
+    }
+
+    public RecyclerAdapter(ArrayList<Climbinghall> climbinghalls, OnItemClickListener listener) {
         this.climbinghalls = climbinghalls;
+        this.listener = listener;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -26,12 +36,22 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         private TextView lblImage;
         private TextView lblHallName;
         private TextView lblHallAdress;
+        private Button btnSelect;
+
         public ViewHolder(final View view) {
             super(view);
             lblImage = view.findViewById(R.id.lblImage);
             lblHallAdress = view.findViewById(R.id.lblHallAdress);
             lblHallName = view.findViewById(R.id.lblHallName);
-            // findbyid views
+            btnSelect = view.findViewById(R.id.btnSelect);
+        }
+
+        public void bind(final Climbinghall climbinghall, final OnItemClickListener listener) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    listener.onItemClick(climbinghall);
+                }
+            });
         }
     }
 
@@ -48,7 +68,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         String hallAdress = climbinghalls.get(position).getAddress();
         holder.lblHallName.setText(hallName);
         holder.lblHallAdress.setText(hallAdress);
+        holder.bind(climbinghalls.get(position), listener);
     }
+
+
 
     @Override
     public int getItemCount() {
