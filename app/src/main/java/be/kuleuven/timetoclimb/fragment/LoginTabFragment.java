@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import be.kuleuven.timetoclimb.Home;
-import be.kuleuven.timetoclimb.ProfileActivity;
 import be.kuleuven.timetoclimb.R;
 import be.kuleuven.timetoclimb.dbConnection.DBConnector;
 import be.kuleuven.timetoclimb.dbConnection.ServerCallback;
@@ -86,6 +85,8 @@ public class LoginTabFragment extends Fragment {
             dbConnector.JSONRequest(databaseUrl, new ServerCallback() {
                 final String userkey = "username";
                 final String passwordvalue = "password";
+                final String profile_picture = "profile_picture";
+                String profileImage = null;
 
                 boolean userExist = false;
                 boolean loginSucceed = false;
@@ -111,6 +112,8 @@ public class LoginTabFragment extends Fragment {
                                 if (object.getString(passwordvalue).equals(strPass)) {
                                     pwdCorrect = true; //password incorrect, pwdCorrect remains false
                                     loginSucceed = true;
+                                    if(!object.getString(profile_picture).isEmpty()){
+                                    profileImage = object.getString(profile_picture);}
                                 }
                             }
                         } catch (JSONException jsonException) {
@@ -123,6 +126,17 @@ public class LoginTabFragment extends Fragment {
                         username.getText().clear();
                         password.getText().clear();
                         message.setText("Login successful");
+                        //create a Bundle object
+                        Bundle extras = new Bundle();
+                        //Adding key value pairs to this bundle
+                        extras.putString("username",strUser);
+                        extras.putString("password",strPass);
+                        extras.putString("profileImage",profileImage);
+
+                        Intent intentLoginSucceed= new Intent(getContext(), Home.class);
+                        intentLoginSucceed.putExtras(extras);
+                        startActivity(intentLoginSucceed);
+
                     } else if (userExist && !pwdCorrect) { //user exist, password incorrect
                         //clear edit text
                         password.getText().clear();
@@ -132,21 +146,6 @@ public class LoginTabFragment extends Fragment {
                         password.getText().clear();
                         message.setText("No user found");//no user data in database
                     }
-                    //create a Bundle object
-                    Bundle extras = new Bundle();
-                    //Adding key value pairs to this bundle
-                    extras.putString("username",strUser);
-                    extras.putString("password",strPass);
-
-                    Intent intentLoginSucceed= new Intent(getContext(), Home.class);
-                    intentLoginSucceed.putExtras(extras);
-                    startActivity(intentLoginSucceed);
-
-                    /*
-                    Intent intentToProfile= new Intent(getContext(), ProfileActivity.class);
-                    intentToProfile.putExtras(extras);
-                    startActivity(intentToProfile);
-                    */
                 }
             });
         });

@@ -1,6 +1,7 @@
 package be.kuleuven.timetoclimb;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -21,11 +22,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import be.kuleuven.timetoclimb.dbConnection.DBConnector;
+
 public class User implements Serializable {
     private String username;
-    private String emailAddress;
     private String password;
     private String profileImage;
+    private Uri imageUri;
     private ArrayList<User> friends;
 
     public User(String username, String password, String profileImage) {
@@ -84,6 +87,13 @@ public class User implements Serializable {
 
     }
     public String getUsername() {return username;}
-    public String getEmailAddress() {return emailAddress;}
     public String getPassword() {return password;}
+
+    public void setImageUri(Uri imageUri) {
+        this.imageUri = imageUri;
+    }
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
+    public String getProfileImage() { return profileImage; }
 }

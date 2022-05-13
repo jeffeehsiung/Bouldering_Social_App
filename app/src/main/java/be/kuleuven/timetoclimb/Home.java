@@ -37,13 +37,20 @@ public class Home extends AppCompatActivity {
         startActivity(intentCalendar);
     }
 
+    public void onBtnProfile_Clicked(View caller) {
+        // Create intent to start the Profile
+        Intent intentProfile = new Intent(this, ProfileActivity.class);
+        intentProfile.putExtra("User", user);
+        startActivity(intentProfile);
+    }
+
     public void createUser() {
         Bundle extras = getIntent().getExtras();
         this.username = extras.getString("username");
         this.password = extras.getString("password");
         this.profileImage = extras.getString("profileImage");
         this.user = new User(username, password, profileImage);
-        Log.d(MainActivity_TAG,"username: "+ username + " password: " + password + "profileImage: " + profileImage);
+        Log.d(MainActivity_TAG,"username: "+ username + " password: " + password + " profileImage: " + profileImage);
     }
     public String getPassword() {
         return password;
