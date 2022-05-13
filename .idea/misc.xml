@@ -37,9 +37,11 @@
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.16032608695652173" />
         <entry key="app/src/main/res/layout/activity_route_create.xml" value="0.19479166666666667" />
         <entry key="app/src/main/res/layout/activity_route_create2.xml" value="0.19479166666666667" />
+        <entry key="app/src/main/res/layout/activity_route_view.xml" value="0.125" />
         <entry key="app/src/main/res/layout/calendar_view.xml" value="0.19479166666666667" />
         <entry key="app/src/main/res/layout/comment_list_item2.xml" value="0.19479166666666667" />
         <entry key="app/src/main/res/layout/content_profile.xml" value="0.19479166666666667" />
+        <entry key="app/src/main/res/layout/content_scrolling.xml" value="0.125" />
         <entry key="app/src/main/res/layout/counters_panel2.xml" value="0.20625" />
         <entry key="app/src/main/res/layout/create_event_view.xml" value="0.14739583333333334" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.21240942028985507" />
@@ -51,6 +53,7 @@
         <entry key="app/src/main/res/layout/list_climbinghall.xml" value="0.14739583333333334" />
         <entry key="app/src/main/res/layout/nav_header_profile.xml" value="0.19479166666666667" />
         <entry key="app/src/main/res/menu/bottom_navigation.xml" value="0.2703125" />
+        <entry key="app/src/main/res/menu/menu_route_view.xml" value="0.125" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.151" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.151" />
       </map>

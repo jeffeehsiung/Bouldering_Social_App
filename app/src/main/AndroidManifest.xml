@@ -26,6 +26,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TimeToClimb">
         <activity
+            android:name=".RouteListsViewActivity"
+            android:exported="false"
+            android:label="@string/title_activity_route_view"
+            android:theme="@style/Theme.TimeToClimb.NoActionBar" />
+        <activity
             android:name=".subActivity.RouteCreateActivity"
             android:exported="false" />
         <activity
@@ -54,7 +59,7 @@
             android:configChanges="orientation|screenSize"
             android:exported="false" />
         <activity
-            android:name=".subActivity.ImageEditActivity"
+            android:name=".subActivity.RoutDetailViewActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false" />
         <activity

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:focusableInTouchMode="true"
     android:focusable="true"
-    tools:context=".subActivity.ImageEditActivity">
+    tools:context=".subActivity.RoutDetailViewActivity">
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -40,7 +40,7 @@
                     android:scaleType="centerCrop"
                     android:transitionName="routeImageTransition"
                     android:visibility="visible"
-                    tools:targetApi="lollipop"/>
+                    tools:targetApi="lollipop" />
 
             </RelativeLayout>
 

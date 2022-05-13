@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import be.kuleuven.timetoclimb.ProfileActivity;
 import be.kuleuven.timetoclimb.R;
 
-public class ImageEditActivity extends AppCompatActivity {
+public class RoutDetailViewActivity extends AppCompatActivity {
 
     Button update;
     ImageView back;
@@ -20,7 +20,7 @@ public class ImageEditActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_image_edit);
+        setContentView(R.layout.activity_routedetail_view);
 
         update = findViewById(R.id.btnUpdate);
         back = findViewById(R.id.Back);
