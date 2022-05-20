@@ -113,9 +113,12 @@ public class DBConnector extends AppCompatActivity {
         Resizedbitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] imageBytes = baos.toByteArray();
         profileimage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        System.out.println("encodedImage: " + profileimage);
 
         //the profileImage will be replaced later by param
         String upload = serverURL + databasurl;
+        //Just a double-check to tell us the request has completed
+        Toast.makeText(context, "upload", Toast.LENGTH_SHORT).show();
 
         //Execute the Volley call. Note that we are not appending the image string to the URL, that happens further below
         StringRequest submitRequest = new StringRequest(Request.Method.POST, upload, response -> {
