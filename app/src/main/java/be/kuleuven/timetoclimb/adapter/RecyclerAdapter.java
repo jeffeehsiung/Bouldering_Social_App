@@ -36,14 +36,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         private TextView lblImage;
         private TextView lblHallName;
         private TextView lblHallAdress;
-        private Button btnSelect;
+
 
         public ViewHolder(final View view) {
             super(view);
             lblImage = view.findViewById(R.id.lblImage);
             lblHallAdress = view.findViewById(R.id.lblHallAdress);
             lblHallName = view.findViewById(R.id.lblHallName);
-            btnSelect = view.findViewById(R.id.btnSelect);
         }
 
         public void bind(final Climbinghall climbinghall, final OnItemClickListener listener) {

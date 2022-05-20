@@ -36,7 +36,7 @@ public class Climbinghall {
         //this.image = image; STILL NEEDS TO BE IMPLEMENTED AFTER TESTING!!!
     }
 
-    private Climbinghall(JSONObject jsonObject) throws JSONException {
+    public Climbinghall(JSONObject jsonObject) throws JSONException {
         this.id = Integer.parseInt(jsonObject.getString("id"));
         this.hallName = jsonObject.getString("hall_name");
         this.address = jsonObject.getString("address");
@@ -64,6 +64,8 @@ public class Climbinghall {
                             for(int i = 0; i < response.length(); i++) {
                                 climbinghalls.add(new Climbinghall(response.getJSONObject(i)));
                             }
+                            System.out.println(climbinghalls.get(0).getHallName());
+                            System.out.println(climbinghalls.get(1).getHallName());
                             System.out.println(climbinghalls.toString());
                             System.out.println("Volley workyworky");
                         } catch (JSONException e) {
@@ -84,6 +86,7 @@ public class Climbinghall {
                 }
         );
 
+        requestQueue.add(jsonArrayRequest);
         return climbinghalls;
     }
 
