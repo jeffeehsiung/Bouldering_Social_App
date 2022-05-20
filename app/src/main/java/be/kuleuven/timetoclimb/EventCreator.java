@@ -103,7 +103,7 @@ public class EventCreator extends AppCompatActivity {
 
         // Go back to calendar
         Intent intentCalendar = new Intent(this, CalendarActivity.class);
-        startActivity(intentCalendar);
+        startActivityForResult(intentCalendar,2);
     }
 
     public void onBtnEditHall_Click(View v) {
@@ -121,6 +121,14 @@ public class EventCreator extends AppCompatActivity {
                 hallName = extras.getString("hallName");
                 climbingHallID = extras.getInt("id");
                 lblClimbingHall.setText(hallName);
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                // Write your code if there's no result
+            }
+        }
+        if(requestCode == 2) {
+            if(resultCode == Activity.RESULT_OK){
+
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 // Write your code if there's no result
