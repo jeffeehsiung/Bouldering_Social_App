@@ -100,11 +100,11 @@ public class ProfileActivity extends AppCompatActivity implements imageResolver 
                     e.printStackTrace();
                 }
 
-                Bundle userIfno = new Bundle();
+                /*Bundle userIfno = new Bundle();
                 userIfno.putSerializable("User",user);
                 Intent intentToMain = new Intent(ProfileActivity.this, Home.class);
                 intentToMain.putExtras(userIfno);
-                startActivity(intentToMain);
+                startActivity(intentToMain);*/
             }
         });
 
