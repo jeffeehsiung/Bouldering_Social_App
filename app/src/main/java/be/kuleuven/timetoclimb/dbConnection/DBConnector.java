@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.ImageView;
@@ -135,6 +136,52 @@ public class DBConnector extends AppCompatActivity {
         requestQueue.add(submitRequest);
     }
 
+    /**
+     * imageUploadRequestOverloading
+     */
+    public void imageUploadRequest(String databasurl, String username, Bitmap selectedImageBM, ImageMapParam imageMapParam) throws IOException {
+        // will return unResizedBitmap
+        requestQueue = Volley.newRequestQueue(context);
+
+        final String encodedImage;
+        Bitmap unResizedBitmap;
+        Bitmap Resizedbitmap;
+        if(selectedImageBM == null){
+            System.out.println("profileImage stays the same");
+            return;
+        }
+
+        //getting image from gallery
+        //Rescale the bitmap to 400px wide (avoid storing large images!)
+        //unResizedBitmap = getResizedBitmap(selectedImageBM, selectedImageBM.getWidth());
+
+        //convert image to base64 string
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        //compress bitmap into JPEG and output to byte array with quality 100%
+        selectedImageBM.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+
+        //the profileImage will be replaced later by param
+        String upload = serverURL + databasurl;
+
+        //Execute the Volley call. Note that we are not appending the image string to the URL, that happens further below
+        StringRequest submitRequest = new StringRequest(Request.Method.POST, upload, response -> {
+            //Turn the progress widget off
+            Toast.makeText(context, "Post request executed", Toast.LENGTH_SHORT).show();
+
+        }, error -> error.printStackTrace())
+        { //NOTE THIS PART: here we are passing the parameter to the webservice, NOT in the URL!
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                imageMapParam.setParam(params,encodedImage);
+                return params;
+            }
+        };
+
+        requestQueue.add(submitRequest);
+    }
     /**
      * Retrieves the most recent image from the DB
      */

@@ -51,7 +51,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/authorImageView"
                 android:layout_marginBottom="8dp"
-                android:layout_toStartof="@+id/authorImageView"
+                android:layout_toStartOf="@+id/authorImageView"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
