@@ -100,6 +100,10 @@ public class EventCreator extends AppCompatActivity {
 
         // Add event to db
         user.addEvent(event, this.getApplicationContext());
+
+        // Go back to calendar
+        Intent intentCalendar = new Intent(this, CalendarActivity.class);
+        startActivity(intentCalendar);
     }
 
     public void onBtnEditHall_Click(View v) {
@@ -116,7 +120,7 @@ public class EventCreator extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 hallName = extras.getString("hallName");
                 climbingHallID = extras.getInt("id");
-                lblClimbingHall.setText(hallName + Integer.toString(climbingHallID));
+                lblClimbingHall.setText(hallName);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 // Write your code if there's no result
