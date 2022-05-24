@@ -1,12 +1,13 @@
 package be.kuleuven.timetoclimb.subActivity;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -20,7 +21,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,18 +34,21 @@ import be.kuleuven.timetoclimb.databinding.ActivityRouteCreateBinding;
 import be.kuleuven.timetoclimb.dbConnection.DBConnector;
 import be.kuleuven.timetoclimb.dbConnection.ImageMapParam;
 
+@SuppressWarnings("deprecation")
 public class RouteCreateActivity extends AppCompatActivity implements imageResolver{
 
     private ActivityRouteCreateBinding binding;
     private EditText routIDEditText, climbingHallEditText,gradeEditText,descriptionEditText;
-    private Button btnUpdate;
+    private Button btnUpdate, btnTakePic;
     private ImageView imageView;
     private Uri imageUri;
     private Bitmap selectedImageBM;
     private String encodedImage;
     private String uploadImgUrl = "addImageRoute";
-    private int TAKE_PICTURE_REQUEST = 45;
+    private static final int TAKE_PICTURE_REQUEST = 45;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
     private User user = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,7 @@ public class RouteCreateActivity extends AppCompatActivity implements imageResol
         this.descriptionEditText = binding.descriptionEditText;
         this.imageView = binding.imageView;
         this.btnUpdate = binding.btnUpdate;
+        this.btnTakePic = binding.btnTakePic;
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
@@ -72,19 +76,56 @@ public class RouteCreateActivity extends AppCompatActivity implements imageResol
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
-                startActivityForResult(intent, 111);
+                startActivityForResult(intent, TAKE_PICTURE_REQUEST);
+            }
+        });
+
+        btnTakePic.setOnClickListener(new View.OnClickListener(){
+            @SuppressWarnings("deprecation")
+            @Override
+            public void onClick(View v) {
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                try {
+                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(RouteCreateActivity.this,"no embedded camera",Toast.LENGTH_SHORT).show();
+                }
             }
         });
         btnUpdate.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                //image Uri requires nonNull
                 if (selectedImageBM == null){
                     imageView.requestFocus();
-                    Toast.makeText(RouteCreateActivity.this,"please choose a photo",Toast.LENGTH_LONG).show();
+                    Toast.makeText(RouteCreateActivity.this,"please choose a photo",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                requireNonEmpty();
+                // EditText requireNonEmpty
+                EditText[] allFields = {
+                        routIDEditText,
+                        climbingHallEditText,
+                        gradeEditText,
+                        descriptionEditText
+                };
+                List< EditText > ErrorFields = new ArrayList< EditText >();
+                for (EditText edit: allFields) {
+                    if (TextUtils.isEmpty(edit.getText())) {
+
+                        // EditText was empty
+                        ErrorFields.add(edit); //add empty Edittext only in this ArayList
+
+                        for (int i = 0; i < ErrorFields.size(); i++) {
+                            EditText currentField = ErrorFields.get(i);
+                            currentField.setError("this field required");
+                            currentField.setHintTextColor(Color.RED);
+                            currentField.requestFocus();
+                        }
+                    }
+                }
+                //sout for debug
                 System.out.println("bitmap recycled?"+ selectedImageBM.isRecycled());
+                //upload to DB
                 DBConnector dbConnector = new DBConnector(getApplicationContext());
                 try {
                     dbConnector.imageUploadRequest(uploadImgUrl, user.getUsername().trim(), selectedImageBM, new ImageMapParam() {
@@ -95,6 +136,8 @@ public class RouteCreateActivity extends AppCompatActivity implements imageResol
                             params.put("grade",Objects.requireNonNull(gradeEditText.getText().toString().trim(),"please enter grade"));
                             params.put("routepic",Objects.requireNonNull(encodedImage,"please select an image"));
                             params.put("username", user.getUsername());
+                            params.put("description",descriptionEditText.getText().toString().trim());
+                            //params.put("description",descriptionEditText.getText().toString().trim().replaceAll("\\s","+"));
                         }
                     });
                 } catch (IOException e) {
@@ -114,11 +157,23 @@ public class RouteCreateActivity extends AppCompatActivity implements imageResol
         System.out.println("username from user: "+ user.getUsername() + " password from user: " + user.getPassword()+ " profileImage from user: " + user.getProfileImage());
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case 111:
+            case REQUEST_IMAGE_CAPTURE:
+                if (resultCode == RESULT_OK && data != null) {
+                    Bundle extras = data.getExtras();
+                    this.imageUri = data.getData();
+                    this.selectedImageBM = (Bitmap) extras.get("data");
+                    imageView.setImageBitmap(this.selectedImageBM);
+
+                    return;
+                }
+                break;
+
+            case TAKE_PICTURE_REQUEST:
                 if (resultCode == RESULT_OK && data != null) {
                     try {
 
@@ -133,30 +188,6 @@ public class RouteCreateActivity extends AppCompatActivity implements imageResol
                     return;
                 }
                 break;
-        }
-    }
-
-    public void requireNonEmpty(){
-        EditText[] allFields = {
-                routIDEditText,
-                climbingHallEditText,
-                gradeEditText,
-                descriptionEditText
-        };
-        List< EditText > ErrorFields = new ArrayList< EditText >();
-        for (EditText edit: allFields) {
-            if (TextUtils.isEmpty(edit.getText())) {
-
-                // EditText was empty
-                ErrorFields.add(edit); //add empty Edittext only in this ArayList
-
-                for (int i = 0; i < ErrorFields.size(); i++) {
-                    EditText currentField = ErrorFields.get(i);
-                    currentField.setError("this field required");
-                    currentField.setHintTextColor(Color.RED);
-                    currentField.requestFocus();
-                }
-            }
         }
     }
 }
