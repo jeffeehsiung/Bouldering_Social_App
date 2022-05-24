@@ -100,11 +100,9 @@ public class ProfileActivity extends AppCompatActivity implements imageResolver 
                     e.printStackTrace();
                 }
 
-                /*Bundle userIfno = new Bundle();
-                userIfno.putSerializable("User",user);
                 Intent intentToMain = new Intent(ProfileActivity.this, Home.class);
-                intentToMain.putExtras(userIfno);
-                startActivity(intentToMain);*/
+                intentToMain.putExtra("User",user);
+                startActivity(intentToMain);
             }
         });
 
@@ -115,7 +113,7 @@ public class ProfileActivity extends AppCompatActivity implements imageResolver 
         super.onPostCreate(savedInstanceState);
         DBConnector dbConnector = new DBConnector(getApplicationContext());
         dbConnector.imageRetrieveRequest(retrieveImgUrl, username.getText().toString().trim(), profileImage);
-        System.out.println("username from user: "+ user.getUsername() + " password from user: " + user.getPassword()+ " profileImage from user: " + user.getProfileImage());
+        //System.out.println("username from user: "+ user.getUsername() + " password from user: " + user.getPassword()+ " profileImage from user: " + user.getProfileImage());
     }
 
     @Override
@@ -139,7 +137,7 @@ public class ProfileActivity extends AppCompatActivity implements imageResolver 
                         this.imageUri = data.getData();
                         this.selectedImageBM = uriToBitmap(imageUri);
                         //user
-                        user.setImageUri(imageUri);
+                        user.setProfileImage(bitmapToString(selectedImageBM));
                     } catch (IOException e) {
                         Log.d("profileImage",e.toString());
                     }
@@ -150,17 +148,6 @@ public class ProfileActivity extends AppCompatActivity implements imageResolver 
                 }
                 break;
         }
-    }
-
-    @Override
-    public String onRetrieveSuccess(String b64String) {
-        encodedImage = b64String;
-        //user
-        user.setProfileImage(encodedImage);
-        //param in profileactivity
-        selectedImageBM = StringToBitmap(b64String);
-        System.out.println("b64String length: "+ b64String.length());
-        return b64String;
     }
 }
 
