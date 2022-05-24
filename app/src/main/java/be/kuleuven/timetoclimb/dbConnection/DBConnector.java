@@ -147,7 +147,6 @@ public class DBConnector extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(context);
 
         final String encodedImage;
-        Bitmap unResizedBitmap;
         Bitmap Resizedbitmap;
         if(selectedImageBM == null){
             System.out.println("profileImage stays the same");
@@ -155,13 +154,13 @@ public class DBConnector extends AppCompatActivity {
         }
 
         //getting image from gallery
-        //Rescale the bitmap to 400px wide (avoid storing large images!)
-        //unResizedBitmap = getResizedBitmap(selectedImageBM, selectedImageBM.getWidth());
+        //Rescale the bitmap to 680px wide (avoid storing large images!)
+        Resizedbitmap = getResizedBitmap(selectedImageBM, 600);
 
         //convert image to base64 string
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         //compress bitmap into JPEG and output to byte array with quality 100%
-        selectedImageBM.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        Resizedbitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] imageBytes = baos.toByteArray();
         encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
 

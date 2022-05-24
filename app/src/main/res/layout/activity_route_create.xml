@@ -114,17 +114,33 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnUpdate"
+            android:id="@+id/btnTakePic"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_below="@+id/input_layout_description"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:shadowColor="@color/black"
+            android:text="TAKE PICTURE"
+            app:backgroundTint="#000000">
+
+        </com.google.android.material.button.MaterialButton>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnUpdate"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/btnTakePic"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:shadowColor="@color/black"
             android:text="Update"
-            app:backgroundTint="#000000"></com.google.android.material.button.MaterialButton>
+            app:backgroundTint="#000000">
+
+        </com.google.android.material.button.MaterialButton>
+
     </RelativeLayout>
 
 </ScrollView>

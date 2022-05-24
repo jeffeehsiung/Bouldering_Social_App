@@ -26,6 +26,9 @@
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.2703125" />
         <entry key="app/src/main/res/layout/activity_phone_edit.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.16032608695652173" />
+        <entry key="app/src/main/res/layout/activity_route_create.xml" value="0.17620239257812503" />
+        <entry key="app/src/main/res/layout/activity_routedetail_view.xml" value="0.11684782608695653" />
+        <entry key="app/src/main/res/layout/activity_routelist_view.xml" value="0.2006340579710145" />
         <entry key="app/src/main/res/layout/calendar_view.xml" value="0.19479166666666667" />
         <entry key="app/src/main/res/layout/content_profile.xml" value="0.19479166666666667" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.21240942028985507" />

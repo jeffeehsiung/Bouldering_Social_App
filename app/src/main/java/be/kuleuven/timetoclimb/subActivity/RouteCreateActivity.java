@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -71,13 +72,17 @@ public class RouteCreateActivity extends AppCompatActivity implements imageResol
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
-                //not finished yet
-                startActivityForResult(intent, TAKE_PICTURE_REQUEST);
+                startActivityForResult(intent, 111);
             }
         });
         btnUpdate.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                if (selectedImageBM == null){
+                    imageView.requestFocus();
+                    Toast.makeText(RouteCreateActivity.this,"please choose a photo",Toast.LENGTH_LONG).show();
+                    return;
+                }
                 requireNonEmpty();
                 System.out.println("bitmap recycled?"+ selectedImageBM.isRecycled());
                 DBConnector dbConnector = new DBConnector(getApplicationContext());
@@ -96,11 +101,9 @@ public class RouteCreateActivity extends AppCompatActivity implements imageResol
                     e.printStackTrace();
                 }
 
-                /*Bundle userIfno = new Bundle();
-                userIfno.putSerializable("User",user);
                 Intent intentToMain = new Intent(RouteCreateActivity.this, Home.class);
-                intentToMain.putExtras(userIfno);
-                startActivity(intentToMain);*/
+                intentToMain.putExtra("User",user);
+                startActivity(intentToMain);
             }
         });
     }
@@ -115,7 +118,7 @@ public class RouteCreateActivity extends AppCompatActivity implements imageResol
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case 45:
+            case 111:
                 if (resultCode == RESULT_OK && data != null) {
                     try {
 
