@@ -121,6 +121,8 @@ public class RouteCreateActivity extends AppCompatActivity implements imageResol
                             currentField.setError("this field required");
                             currentField.setHintTextColor(Color.RED);
                             currentField.requestFocus();
+                            Toast.makeText(RouteCreateActivity.this,"please fill in",Toast.LENGTH_SHORT).show();
+                            return;
                         }
                     }
                 }
