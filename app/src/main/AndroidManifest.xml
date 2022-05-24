@@ -36,6 +36,9 @@
                 android:resource="@xml/file_paths"></meta-data>
         </provider>
         <activity
+            android:name=".views.ViewEvent"
+            android:exported="false" />
+        <activity
             android:name=".RouteListsViewActivity"
             android:exported="false"
             android:label="@string/title_activity_route_view"

@@ -70,8 +70,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.bind(climbinghalls.get(position), listener);
     }
 
-
-
     @Override
     public int getItemCount() {
         return climbinghalls.size();
