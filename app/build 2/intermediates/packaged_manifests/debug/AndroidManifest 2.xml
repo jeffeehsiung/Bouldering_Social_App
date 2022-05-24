@@ -27,7 +27,7 @@
         android:testOnly="true"
         android:theme="@style/Theme.TimeToClimb" >
         <activity
-            android:name="be.kuleuven.timetoclimb.LoginActivity"
+            android:name="be.kuleuven.timetoclimb.login.LoginActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,7 +36,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="be.kuleuven.timetoclimb.ProfileActivity"
+            android:name="be.kuleuven.timetoclimb.profile.ProfileActivity"
             android:exported="false" />
         <activity
             android:name="be.kuleuven.timetoclimb.BioEditActivity"

@@ -1,4 +1,4 @@
-package be.kuleuven.timetoclimb.subActivity;
+package be.kuleuven.timetoclimb.profile;
 
 import android.content.Intent;
 import android.os.Build;
@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import be.kuleuven.timetoclimb.ProfileActivity;
 import be.kuleuven.timetoclimb.R;
 import be.kuleuven.timetoclimb.dbConnection.DBConnector;
 import be.kuleuven.timetoclimb.dbConnection.ServerCallback;

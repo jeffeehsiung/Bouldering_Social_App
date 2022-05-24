@@ -1,4 +1,4 @@
-package be.kuleuven.timetoclimb.subActivity;
+package be.kuleuven.timetoclimb.route;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,7 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import be.kuleuven.timetoclimb.ProfileActivity;
+import be.kuleuven.timetoclimb.profile.ProfileActivity;
 import be.kuleuven.timetoclimb.R;
 
 public class RoutDetailViewActivity extends AppCompatActivity {

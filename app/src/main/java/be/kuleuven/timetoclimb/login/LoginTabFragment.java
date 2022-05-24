@@ -1,4 +1,4 @@
-package be.kuleuven.timetoclimb.fragment;
+package be.kuleuven.timetoclimb.login;
 
 import android.content.Intent;
 import android.os.Build;

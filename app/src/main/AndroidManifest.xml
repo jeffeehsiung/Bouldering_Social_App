@@ -26,20 +26,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TimeToClimb">
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="com.example.android.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
-        </provider>
         <activity
-            android:name=".views.ViewEvent"
+            android:name="ViewEvent"
             android:exported="false" />
         <activity
-            android:name=".RouteListsViewActivity"
+            android:name=".route.RouteListsViewActivity"
             android:exported="false"
             android:label="@string/title_activity_route_view"
             android:theme="@style/Theme.TimeToClimb.NoActionBar" />

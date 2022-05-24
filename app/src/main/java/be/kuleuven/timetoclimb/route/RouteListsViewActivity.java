@@ -1,4 +1,4 @@
-package be.kuleuven.timetoclimb;
+package be.kuleuven.timetoclimb.route;
 
 import android.os.Bundle;
 

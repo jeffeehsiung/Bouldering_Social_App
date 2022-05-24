@@ -1,4 +1,4 @@
-package be.kuleuven.timetoclimb;
+package be.kuleuven.timetoclimb.login;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +14,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import java.util.ArrayList;
 import java.util.List;
 
-import be.kuleuven.timetoclimb.adapter.ViewPagerAdapter;
+import be.kuleuven.timetoclimb.R;
 
 public class LoginActivity extends AppCompatActivity {
     TabLayout tabLayout;

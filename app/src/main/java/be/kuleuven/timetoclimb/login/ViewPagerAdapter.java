@@ -1,4 +1,4 @@
-package be.kuleuven.timetoclimb.adapter;
+package be.kuleuven.timetoclimb.login;
 
 import android.content.Context;
 import android.util.Log;
@@ -8,9 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-
-import be.kuleuven.timetoclimb.fragment.LoginTabFragment;
-import be.kuleuven.timetoclimb.fragment.SignupTabFragment;
 
 
 public class ViewPagerAdapter extends FragmentStateAdapter {

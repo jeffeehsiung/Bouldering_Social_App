@@ -127,7 +127,7 @@ MERGED from [androidx.startup:startup-runtime:1.0.0] /Users/jeffeehsiung/.gradle
 		ADDED from /Users/jeffeehsiung/Desktop/Toledo/programming techniques/time-to-climb-v2/app/src/main/AndroidManifest.xml:12:9-35
 	android:theme
 		ADDED from /Users/jeffeehsiung/Desktop/Toledo/programming techniques/time-to-climb-v2/app/src/main/AndroidManifest.xml:17:9-49
-activity#be.kuleuven.timetoclimb.LoginActivity
+activity#be.kuleuven.timetoclimb.login.LoginActivity
 ADDED from /Users/jeffeehsiung/Desktop/Toledo/programming techniques/time-to-climb-v2/app/src/main/AndroidManifest.xml:18:9-26:20
 	android:exported
 		ADDED from /Users/jeffeehsiung/Desktop/Toledo/programming techniques/time-to-climb-v2/app/src/main/AndroidManifest.xml:20:13-36
@@ -143,7 +143,7 @@ category#android.intent.category.LAUNCHER
 ADDED from /Users/jeffeehsiung/Desktop/Toledo/programming techniques/time-to-climb-v2/app/src/main/AndroidManifest.xml:24:17-77
 	android:name
 		ADDED from /Users/jeffeehsiung/Desktop/Toledo/programming techniques/time-to-climb-v2/app/src/main/AndroidManifest.xml:24:27-74
-activity#be.kuleuven.timetoclimb.ProfileActivity
+activity#be.kuleuven.timetoclimb.profile.ProfileActivity
 ADDED from /Users/jeffeehsiung/Desktop/Toledo/programming techniques/time-to-climb-v2/app/src/main/AndroidManifest.xml:27:9-29:40
 	android:exported
 		ADDED from /Users/jeffeehsiung/Desktop/Toledo/programming techniques/time-to-climb-v2/app/src/main/AndroidManifest.xml:29:13-37

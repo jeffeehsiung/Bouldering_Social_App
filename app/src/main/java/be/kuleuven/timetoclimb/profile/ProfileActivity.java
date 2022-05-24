@@ -1,4 +1,4 @@
-package be.kuleuven.timetoclimb;
+package be.kuleuven.timetoclimb.profile;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -18,10 +18,10 @@ import com.android.volley.toolbox.Volley;
 
 import java.io.IOException;
 
+import be.kuleuven.timetoclimb.Home;
+import be.kuleuven.timetoclimb.User;
 import be.kuleuven.timetoclimb.databinding.ActivityProfileBinding;
 import be.kuleuven.timetoclimb.dbConnection.DBConnector;
-import be.kuleuven.timetoclimb.subActivity.BioEditActivity;
-import be.kuleuven.timetoclimb.subActivity.EditNameActivity;
 import be.kuleuven.timetoclimb.subActivity.imageResolver;
 
 public class ProfileActivity extends AppCompatActivity implements imageResolver {

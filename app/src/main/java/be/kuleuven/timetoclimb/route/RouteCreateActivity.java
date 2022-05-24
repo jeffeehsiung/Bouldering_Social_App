@@ -1,4 +1,4 @@
-package be.kuleuven.timetoclimb.subActivity;
+package be.kuleuven.timetoclimb.route;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -33,9 +33,10 @@ import be.kuleuven.timetoclimb.User;
 import be.kuleuven.timetoclimb.databinding.ActivityRouteCreateBinding;
 import be.kuleuven.timetoclimb.dbConnection.DBConnector;
 import be.kuleuven.timetoclimb.dbConnection.ImageMapParam;
+import be.kuleuven.timetoclimb.subActivity.imageResolver;
 
 @SuppressWarnings("deprecation")
-public class RouteCreateActivity extends AppCompatActivity implements imageResolver{
+public class RouteCreateActivity extends AppCompatActivity implements imageResolver {
 
     private ActivityRouteCreateBinding binding;
     private EditText routIDEditText, climbingHallEditText,gradeEditText,descriptionEditText;

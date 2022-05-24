@@ -45,7 +45,7 @@
 27-->/Users/jeffeehsiung/Desktop/Toledo/programming techniques/time-to-climb-v2/app/src/main/AndroidManifest.xml:17:9-49
 28        <activity
 28-->/Users/jeffeehsiung/Desktop/Toledo/programming techniques/time-to-climb-v2/app/src/main/AndroidManifest.xml:18:9-26:20
-29            android:name="be.kuleuven.timetoclimb.LoginActivity"
+29            android:name="be.kuleuven.timetoclimb.login.LoginActivity"
 29-->/Users/jeffeehsiung/Desktop/Toledo/programming techniques/time-to-climb-v2/app/src/main/AndroidManifest.xml:19:13-42
 30            android:exported="true" >
 30-->/Users/jeffeehsiung/Desktop/Toledo/programming techniques/time-to-climb-v2/app/src/main/AndroidManifest.xml:20:13-36
@@ -62,7 +62,7 @@
 36        </activity>
 37        <activity
 37-->/Users/jeffeehsiung/Desktop/Toledo/programming techniques/time-to-climb-v2/app/src/main/AndroidManifest.xml:27:9-29:40
-38            android:name="be.kuleuven.timetoclimb.ProfileActivity"
+38            android:name="be.kuleuven.timetoclimb.profile.ProfileActivity"
 38-->/Users/jeffeehsiung/Desktop/Toledo/programming techniques/time-to-climb-v2/app/src/main/AndroidManifest.xml:28:13-44
 39            android:exported="false" />
 39-->/Users/jeffeehsiung/Desktop/Toledo/programming techniques/time-to-climb-v2/app/src/main/AndroidManifest.xml:29:13-37
