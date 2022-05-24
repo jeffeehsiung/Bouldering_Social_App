@@ -27,25 +27,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TimeToClimb">
         <activity
-            android:name="ViewEvent"
-            android:exported="false" />
+            android:name=".login.LoginActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
-            android:name=".route.RouteListsViewActivity"
-            android:exported="false"
-            android:label="@string/title_activity_route_view"
-            android:theme="@style/Theme.TimeToClimb.NoActionBar" />
-        <activity
-            android:name=".route.RouteCreateActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SelectClimbingHall"
-            android:exported="false" />
-        <activity
-            android:name=".profile.BioEditActivity"
+            android:name=".Home"
             android:configChanges="orientation|screenSize"
             android:exported="false" />
         <activity
-            android:name=".route.RoutDetailViewActivity"
+            android:name=".SelectClimbingHall"
             android:configChanges="orientation|screenSize"
             android:exported="false" />
         <activity
@@ -61,9 +57,33 @@
             android:configChanges="orientation|screenSize"
             android:exported="false" />
         <activity
-            android:name=".Home"
+            android:name="ViewEvent"
+            android:exported="false" />
+        <activity
+            android:name=".profile.ProfileActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false" />
+        <activity
+            android:name=".profile.EditNameActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="false" />
+        <activity
+            android:name=".profile.BioEditActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="false" />
+        <activity
+            android:name=".route.RouteListsViewActivity"
+            android:exported="false"
+            android:label="@string/title_activity_route_view"
+            android:theme="@style/Theme.TimeToClimb.NoActionBar" />
+        <activity
+            android:name=".route.RouteCreateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".route.RoutDetailViewActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="false" />
+
     </application>
 
 </manifest>
