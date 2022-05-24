@@ -16,7 +16,10 @@
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.151" />
         <entry key="app/src/main/res/drawable/back.xml" value="0.191" />
         <entry key="app/src/main/res/drawable/roundbutton.xml" value="0.191" />
+        <entry key="app/src/main/res/layout-w1240dp/activity_routelist_view2.xml" value="0.1251673360107095" />
+        <entry key="app/src/main/res/layout-w1240dp/activity_routeno_view.xml" value="0.1251673360107095" />
         <entry key="app/src/main/res/layout-w1240dp/content_scrolling.xml" value="0.12617135207496652" />
+        <entry key="app/src/main/res/layout-w1240dp/row_ad.xml" value="0.1" />
         <entry key="app/src/main/res/layout-w600dp/comment_list_item.xml" value="0.1662257495590829" />
         <entry key="app/src/main/res/layout-w600dp/content_profile.xml" value="0.16490299823633156" />
         <entry key="app/src/main/res/layout-w600dp/counters_panel.xml" value="0.1662257495590829" />
@@ -33,6 +36,8 @@
         <entry key="app/src/main/res/layout/activity_route_create.xml" value="0.17620239257812503" />
         <entry key="app/src/main/res/layout/activity_routedetail_view.xml" value="0.11684782608695653" />
         <entry key="app/src/main/res/layout/activity_routelist_view.xml" value="0.2006340579710145" />
+        <entry key="app/src/main/res/layout/activity_select_climbing_hall.xml" value="0.2586050724637681" />
+        <entry key="app/src/main/res/layout/activity_view_event.xml" value="0.2586050724637681" />
         <entry key="app/src/main/res/layout/calendar_view.xml" value="0.19479166666666667" />
         <entry key="app/src/main/res/layout/comment_list_item.xml" value="0.19635416666666666" />
         <entry key="app/src/main/res/layout/content_profile.xml" value="0.19479166666666667" />
@@ -45,6 +50,7 @@
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.19479166666666667" />
         <entry key="app/src/main/res/layout/fragment_slideshow.xml" value="0.19479166666666667" />
         <entry key="app/src/main/res/layout/nav_header_profile.xml" value="0.19479166666666667" />
+        <entry key="app/src/main/res/layout/routelist.xml" value="0.18342391304347827" />
         <entry key="app/src/main/res/menu/bottom_navigation.xml" value="0.2703125" />
         <entry key="app/src/main/res/menu/menu_routelist_view.xml" value="0.19635416666666666" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.151" />

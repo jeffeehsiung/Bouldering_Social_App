@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         tabList.add("SIGNUP");
 
         // the view_pager needs the adapter that we load inside
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(),getLifecycle(),this.tabList.size());
+        LoginFMAdapter adapter = new LoginFMAdapter(getSupportFragmentManager(),getLifecycle(),this.tabList.size());
         viewPager2.setAdapter(adapter);
         Log.d(LoginActivity_TAG, "onCreate: " + adapter.getItemCount());
 

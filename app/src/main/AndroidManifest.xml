@@ -35,35 +35,17 @@
             android:label="@string/title_activity_route_view"
             android:theme="@style/Theme.TimeToClimb.NoActionBar" />
         <activity
-            android:name=".subActivity.RouteCreateActivity"
+            android:name=".route.RouteCreateActivity"
             android:exported="false" />
         <activity
             android:name=".SelectClimbingHall"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
-            android:configChanges="orientation|screenSize"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ProfileActivity"
+            android:name=".profile.BioEditActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false" />
         <activity
-            android:name=".subActivity.BioEditActivity"
-            android:configChanges="orientation|screenSize"
-            android:exported="false" />
-        <activity
-            android:name=".subActivity.EditNameActivity"
-            android:configChanges="orientation|screenSize"
-            android:exported="false" />
-        <activity
-            android:name=".subActivity.RoutDetailViewActivity"
+            android:name=".route.RoutDetailViewActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false" />
         <activity
