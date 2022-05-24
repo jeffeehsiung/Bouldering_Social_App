@@ -26,6 +26,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TimeToClimb">
         <activity
+            android:name=".views.ViewEvent"
+            android:exported="false" />
+        <activity
             android:name=".RouteListsViewActivity"
             android:exported="false"
             android:label="@string/title_activity_route_view"
