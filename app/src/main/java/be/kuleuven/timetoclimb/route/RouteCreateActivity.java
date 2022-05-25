@@ -64,25 +64,41 @@ public class RouteCreateActivity extends AppCompatActivity implements imageResol
         setContentView(binding.getRoot());
 
         this.routIDEditText = binding.routIDEditText;
-        this.climbingHallEditText = binding.climbingHallEditText;
+        //this.climbingHallEditText = binding.climbingHallEditText;
         this.gradeEditText = binding.gradeEditText;
         this.descriptionEditText = binding.descriptionEditText;
         this.imageView = binding.imageView;
         this.btnUpdate = binding.btnUpdate;
         this.btnTakePic = binding.btnTakePic;
         this.climbinghallSpinner = binding.climbinghallSpinner;
-        this.gradeSpinner = binding.gradeSpinner;
-
-        climbingHallEditText.setVisibility(View.INVISIBLE);
-
+        //this.gradeSpinner = binding.gradeSpinner;
 
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         this.user = (User) getIntent().getSerializableExtra("User");
 
-
         spinnerAdapter = new SpinnerAdapter(getApplicationContext(), "getAllHalls", "hall_name");
+        //address selected item in the spinner
+        AdapterView.OnItemSelectedListener hallSpinnerListener = new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                if(parent.getItemAtPosition(pos)==null){
+                    climbinghallSpinner.requestFocus();
+                    climbinghallSpinner.setPrompt("choose a hall");
+                    return;
+                }
+                String hallName = parent.getItemAtPosition(pos).toString();
+                Toast.makeText(RouteCreateActivity.this,hallName,Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Log.d(RouteCreateActivity_TAG, "onNothingSelected");
+            }
+        };
+        //configuring spinner listner for its menu list
+        climbinghallSpinner.setOnItemSelectedListener(hallSpinnerListener);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @SuppressWarnings("deprecation")
@@ -119,7 +135,7 @@ public class RouteCreateActivity extends AppCompatActivity implements imageResol
                 // EditText requireNonEmpty
                 EditText[] allFields = {
                         routIDEditText,
-                        climbingHallEditText,
+                        //climbingHallEditText,
                         gradeEditText,
                         descriptionEditText
                 };
@@ -171,27 +187,6 @@ public class RouteCreateActivity extends AppCompatActivity implements imageResol
     @Override
     public void onPostCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onPostCreate(savedInstanceState, persistentState);
-
-        //address selected item in the spinner
-        AdapterView.OnItemSelectedListener hallSpinnerListener = new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                if(parent.getItemAtPosition(pos)==null){
-                    climbinghallSpinner.requestFocus();
-                    climbinghallSpinner.setPrompt("choose a hall");
-                    return;
-                }
-                String hallName = parent.getItemAtPosition(pos).toString();
-                Toast.makeText(RouteCreateActivity.this,hallName,Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Log.d(RouteCreateActivity_TAG, "onNothingSelected");
-            }
-        };
-        //configuring spinner listner for its menu list
-        climbinghallSpinner.setOnItemSelectedListener(hallSpinnerListener);
         //configuring spinner adapter for its menu list & apply the adapter to the spinner
         climbinghallSpinner.setAdapter(spinnerAdapter.getAdapter());
     }

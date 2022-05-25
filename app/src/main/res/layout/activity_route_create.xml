@@ -41,6 +41,7 @@
 
         </RelativeLayout>
 
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_layout_routID"
             android:layout_width="match_parent"
@@ -58,7 +59,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
+        <!--<com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_layout_climbingHall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -76,21 +77,22 @@
                 android:hint="Climbing Hall"
                 android:inputType="textMultiLine" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>-->
 
         <Spinner
             android:id="@+id/climbinghallSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/input_layout_climbingHall"
-            android:layout_alignBottom="@+id/input_layout_climbingHall"
-            android:layout_alignLeft="@id/input_layout_climbingHall"
-            android:layout_alignRight="@+id/input_layout_climbingHall"
-            android:gravity="start"
-            android:hint="Climbing Hall"
+            android:layout_above="@+id/input_layout_description"
+            android:layout_below="@+id/input_layout_routID"
+            android:layout_toStartOf="@+id/input_layout_grade"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp"
+            android:gravity="center"
             android:spinnerMode="dropdown" />
 
-        <Spinner
+        <!--<Spinner
             android:id="@+id/gradeSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -100,7 +102,7 @@
             android:layout_alignRight="@+id/input_layout_grade"
             android:gravity="start"
             android:hint="Climbing Hall"
-            android:spinnerMode="dropdown" />
+            android:spinnerMode="dropdown" />-->
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_layout_grade"

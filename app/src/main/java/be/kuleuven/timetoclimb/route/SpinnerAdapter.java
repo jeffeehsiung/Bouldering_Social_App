@@ -21,7 +21,7 @@ import be.kuleuven.timetoclimb.dbConnection.ServerCallback;
 
 public class SpinnerAdapter {
 
-    ArrayList<String> menuList = new ArrayList<>();
+    List<String> menuList = new ArrayList<>();
     ArrayAdapter adapter = null;
 
     public SpinnerAdapter(Context context, String extendedURL, String JSONkeyName){
@@ -48,14 +48,14 @@ public class SpinnerAdapter {
                         e.printStackTrace();
                     }
                 });
+                // Create an ArrayAdapter using the string array and a default spinner layout
+                ArrayAdapter<String> adapter = new ArrayAdapter(context,android.R.layout.simple_spinner_item,menuList);
+                // Specify the layout to use when the list of choices appears
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                System.out.println("adapter: "+ adapter);
+                setAdapter(adapter);
             }
         });
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<String> adapter = new ArrayAdapter(context,android.R.layout.simple_spinner_item,menuList);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        System.out.println("adapter: "+ adapter);
-        setAdapter(adapter);
     }
 
     public ArrayAdapter getAdapter() {
