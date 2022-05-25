@@ -42,8 +42,8 @@ public class RouteDrawingActivity extends AppCompatActivity implements imageReso
 
         relativeLayout.setOnTouchListener((View view, MotionEvent event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                Integer x = (int) event.getRawX(); // get x-Coordinate
-                Integer y = (int) event.getRawY();  // get y-Coordinate
+                Integer x = (int) event.getX(); // get x-Coordinate
+                Integer y = (int) event.getY();  // get y-Coordinate
                 RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT); // Assuming you use a RelativeLayout
                 ImageView imageView = new ImageView(getApplicationContext());
                 layoutParams.setMargins(x, y, 0, 0);// set margins
