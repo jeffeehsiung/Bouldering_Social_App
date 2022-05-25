@@ -55,16 +55,15 @@ public class ViewEvent extends AppCompatActivity {
         swAttend = findViewById(R.id.swAttend);
         rvAttendees = findViewById(R.id.rvAttendees);
 
+        // Populate from intent
         Event event = (Event) getIntent().getSerializableExtra("Event");
+        Bundle extras = getIntent().getExtras();
         lblTitle.setText(event.getTitle());
-        lblClimbHall.setText(Integer.toString(event.getClimbingHallID()));  // Implement from DB here!
-        lblAddress.setText(Integer.toString(event.getClimbingHallID()));
+        lblClimbHall.setText(extras.getString("hall_name"));  // Implement from DB here!
+        lblAddress.setText(extras.getString("address"));
         lblBegin.setText(event.getStartTime());
         lblEnd.setText(event.getEndTime());
         lblDescription.setText(event.getDescription());
-
-        // intent passing event id from ViewDate
-        // DBPopulate();
     }
 
     private void DBPopulate(int eventID) {
@@ -72,40 +71,6 @@ public class ViewEvent extends AppCompatActivity {
 
         /*
         Get event details from DB and populate event header
-
-        String requestURL = "https://studev.groept.be/api/a21pt411/getEventByID";
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, requestURL, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        try {
-                            // add event details
-                            JSONObject objResponse = response.getJSONObject(0);
-                            lblTitle.setText(objResponse.getString("title"));
-                            lblDescription.setText(objResponse.getString("description"));
-                            lblBegin.setText(objResponse.getString("begin_datetime"));
-                            lblEnd.setText(objResponse.getString("end_datetime"));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("Database", error.getLocalizedMessage(), error);
-                    }
-                }
-        ) { //MIGHT HAVE AN ERROR HERE!!!!! PASSING INTEGER INSTEAD OF STRING
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("id", Integer.toString(eventID));
-                return params;
-            }
-        };
-        requestQueue.add(submitRequest);
         */
 
         /*
