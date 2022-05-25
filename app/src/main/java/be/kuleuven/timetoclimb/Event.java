@@ -1,9 +1,10 @@
 package be.kuleuven.timetoclimb;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class Event {
+public class Event implements Serializable {
     private String organiser;
     private int climbingHallID;
     private String description;

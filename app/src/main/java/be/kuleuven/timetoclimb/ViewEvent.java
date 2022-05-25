@@ -3,6 +3,7 @@ package be.kuleuven.timetoclimb;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -54,14 +55,24 @@ public class ViewEvent extends AppCompatActivity {
         swAttend = findViewById(R.id.swAttend);
         rvAttendees = findViewById(R.id.rvAttendees);
 
+        Event event = (Event) getIntent().getSerializableExtra("Event");
+        lblTitle.setText(event.getTitle());
+        lblClimbHall.setText(Integer.toString(event.getClimbingHallID()));  // Implement from DB here!
+        lblAddress.setText(Integer.toString(event.getClimbingHallID()));
+        lblBegin.setText(event.getStartTime());
+        lblEnd.setText(event.getEndTime());
+        lblDescription.setText(event.getDescription());
+
         // intent passing event id from ViewDate
         // DBPopulate();
     }
 
     private void DBPopulate(int eventID) {
+
+
         /*
         Get event details from DB and populate event header
-         */
+
         String requestURL = "https://studev.groept.be/api/a21pt411/getEventByID";
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, requestURL, null,
@@ -95,6 +106,7 @@ public class ViewEvent extends AppCompatActivity {
             }
         };
         requestQueue.add(submitRequest);
+        */
 
         /*
         Get climbinghall from DB  and add adress to event
