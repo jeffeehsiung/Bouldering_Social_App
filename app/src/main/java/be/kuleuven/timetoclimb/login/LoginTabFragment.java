@@ -97,7 +97,6 @@ public class LoginTabFragment extends Fragment {
                 @RequiresApi(api = Build.VERSION_CODES.N)
                 @Override
                 public void onSuccess(JSONArray jsonArrayResponse) {
-                    System.out.println(jsonArrayResponse.length());
                     List<JSONObject> data = IntStream.range(0,jsonArrayResponse.length()).mapToObj(i-> {
                         try {
                             return jsonArrayResponse.getJSONObject(i);

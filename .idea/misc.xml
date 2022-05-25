@@ -3,18 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../../layout/custom_preview.xml" value="0.10572916666666667" />
         <entry key="..\:/Users/dmitri/Desktop/School/Bach 2/Programmeertechnieken/Labo/klim appeken/TimetoClimb/app/src/main/res/drawable/roundbutton.xml" value="0.2015" />
         <entry key="..\:/Users/dmitri/Desktop/School/Bach 2/Programmeertechnieken/Labo/klim appeken/TimetoClimb/app/src/main/res/layout/activity_login.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/dmitri/Desktop/School/Bach 2/Programmeertechnieken/Labo/klim appeken/TimetoClimb/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/dmitri/Desktop/School/Bach 2/Programmeertechnieken/Labo/klim appeken/TimetoClimb/app/src/main/res/layout/activity_routedetail_view.xml" value="0.1" />
         <entry key="..\:/Users/dmitri/Desktop/School/Bach 2/Programmeertechnieken/Labo/klim appeken/TimetoClimb/app/src/main/res/layout/activity_select_climbing_hall.xml" value="0.3546875" />
-        <entry key="..\:/Users/dmitri/Desktop/School/Bach 2/Programmeertechnieken/Labo/klim appeken/TimetoClimb/app/src/main/res/layout/activity_view_event.xml" value="0.67" />
         <entry key="..\:/Users/dmitri/Desktop/School/Bach 2/Programmeertechnieken/Labo/klim appeken/TimetoClimb/app/src/main/res/layout/calendar_view.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/dmitri/Desktop/School/Bach 2/Programmeertechnieken/Labo/klim appeken/TimetoClimb/app/src/main/res/layout/create_event_view.xml" value="0.33" />
         <entry key="..\:/Users/dmitri/Desktop/School/Bach 2/Programmeertechnieken/Labo/klim appeken/TimetoClimb/app/src/main/res/layout/list_climbinghall.xml" value="0.5" />
-        <entry key="..\:/Users/dmitri/Desktop/School/Bach 2/Programmeertechnieken/Labo/klim appeken/TimetoClimb/app/src/main/res/layout/list_events_in_date.xml" value="0.28442028985507245" />
         <entry key="..\:/Users/dmitri/Desktop/School/Bach 2/Programmeertechnieken/Labo/klim appeken/TimetoClimb/app/src/main/res/layout/login_tab_fragment.xml" value="0.1" />
-        <entry key="..\:/Users/dmitri/Desktop/School/Bach 2/Programmeertechnieken/Labo/klim appeken/TimetoClimb/app/src/main/res/layout/view_date.xml" value="0.3546875" />
         <entry key="app/src/main/res/drawable-v24/back.xml" value="0.191" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.151" />
         <entry key="app/src/main/res/drawable/back.xml" value="0.191" />
@@ -37,7 +35,7 @@
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.2703125" />
         <entry key="app/src/main/res/layout/activity_phone_edit.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.16032608695652173" />
-        <entry key="app/src/main/res/layout/activity_route_create.xml" value="0.17620239257812503" />
+        <entry key="app/src/main/res/layout/activity_route_create.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_routedetail_view.xml" value="0.11684782608695653" />
         <entry key="app/src/main/res/layout/activity_routelist_view.xml" value="0.2006340579710145" />
         <entry key="app/src/main/res/layout/activity_routeno_view.xml" value="0.12537993920972645" />

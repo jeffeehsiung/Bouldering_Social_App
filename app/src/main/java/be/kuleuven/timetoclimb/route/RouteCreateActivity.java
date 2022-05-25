@@ -11,9 +11,11 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -36,10 +38,11 @@ import be.kuleuven.timetoclimb.dbConnection.ImageMapParam;
 import be.kuleuven.timetoclimb.subActivity.imageResolver;
 
 @SuppressWarnings("deprecation")
-public class RouteCreateActivity extends AppCompatActivity implements imageResolver {
+public class RouteCreateActivity extends AppCompatActivity implements imageResolver{
 
     private ActivityRouteCreateBinding binding;
     private EditText routIDEditText, climbingHallEditText,gradeEditText,descriptionEditText;
+    private Spinner climbinghallSpinner,gradeSpinner;
     private Button btnUpdate, btnTakePic;
     private ImageView imageView;
     private Uri imageUri;
@@ -49,6 +52,8 @@ public class RouteCreateActivity extends AppCompatActivity implements imageResol
     private static final int TAKE_PICTURE_REQUEST = 45;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private User user = null;
+    private SpinnerAdapter spinnerAdapter;
+    private static final String RouteCreateActivity_TAG = RouteCreateActivity.class.getSimpleName();
 
 
     @Override
@@ -65,10 +70,19 @@ public class RouteCreateActivity extends AppCompatActivity implements imageResol
         this.imageView = binding.imageView;
         this.btnUpdate = binding.btnUpdate;
         this.btnTakePic = binding.btnTakePic;
+        this.climbinghallSpinner = binding.climbinghallSpinner;
+        this.gradeSpinner = binding.gradeSpinner;
+
+        climbingHallEditText.setVisibility(View.INVISIBLE);
+
+
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         this.user = (User) getIntent().getSerializableExtra("User");
+
+
+        spinnerAdapter = new SpinnerAdapter(getApplicationContext(), "getAllHalls", "hall_name");
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @SuppressWarnings("deprecation")
@@ -114,7 +128,7 @@ public class RouteCreateActivity extends AppCompatActivity implements imageResol
                     if (TextUtils.isEmpty(edit.getText())) {
 
                         // EditText was empty
-                        ErrorFields.add(edit); //add empty Edittext only in this ArayList
+                        ErrorFields.add(edit); //add empty Edittext only in this ArrayList
 
                         for (int i = 0; i < ErrorFields.size(); i++) {
                             EditText currentField = ErrorFields.get(i);
@@ -157,7 +171,29 @@ public class RouteCreateActivity extends AppCompatActivity implements imageResol
     @Override
     public void onPostCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onPostCreate(savedInstanceState, persistentState);
-        System.out.println("username from user: "+ user.getUsername() + " password from user: " + user.getPassword()+ " profileImage from user: " + user.getProfileImage());
+
+        //address selected item in the spinner
+        AdapterView.OnItemSelectedListener hallSpinnerListener = new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                if(parent.getItemAtPosition(pos)==null){
+                    climbinghallSpinner.requestFocus();
+                    climbinghallSpinner.setPrompt("choose a hall");
+                    return;
+                }
+                String hallName = parent.getItemAtPosition(pos).toString();
+                Toast.makeText(RouteCreateActivity.this,hallName,Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Log.d(RouteCreateActivity_TAG, "onNothingSelected");
+            }
+        };
+        //configuring spinner listner for its menu list
+        climbinghallSpinner.setOnItemSelectedListener(hallSpinnerListener);
+        //configuring spinner adapter for its menu list & apply the adapter to the spinner
+        climbinghallSpinner.setAdapter(spinnerAdapter.getAdapter());
     }
 
 

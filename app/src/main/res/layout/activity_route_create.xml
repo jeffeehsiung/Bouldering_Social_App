@@ -78,6 +78,30 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <Spinner
+            android:id="@+id/climbinghallSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/input_layout_climbingHall"
+            android:layout_alignBottom="@+id/input_layout_climbingHall"
+            android:layout_alignLeft="@id/input_layout_climbingHall"
+            android:layout_alignRight="@+id/input_layout_climbingHall"
+            android:gravity="start"
+            android:hint="Climbing Hall"
+            android:spinnerMode="dropdown" />
+
+        <Spinner
+            android:id="@+id/gradeSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/input_layout_grade"
+            android:layout_alignBottom="@+id/input_layout_grade"
+            android:layout_alignLeft="@id/input_layout_grade"
+            android:layout_alignRight="@+id/input_layout_grade"
+            android:gravity="start"
+            android:hint="Climbing Hall"
+            android:spinnerMode="dropdown" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_layout_grade"
             android:layout_width="160dp"
