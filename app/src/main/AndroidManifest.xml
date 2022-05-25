@@ -9,14 +9,22 @@
     <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission
+        android:name="android.permission.READ_LOGS"
+        tools:ignore="ProtectedPermissions" />
 
-    <uses-permission android:name="android.permission.READ_LOGS" tools:ignore="ProtectedPermissions" />
-    <uses-feature android:name="android.hardware.camera" android:required="false" />
-    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <uses-feature android:name="android.hardware.location.gps" />
 
     <application
@@ -26,6 +34,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TimeToClimb">
+        <activity
+            android:name=".route.RouteDrawingActivity"
+            android:exported="false" />
         <activity
             android:name=".login.LoginActivity"
             android:configChanges="orientation|screenSize"
@@ -57,7 +68,7 @@
             android:configChanges="orientation|screenSize"
             android:exported="false" />
         <activity
-            android:name="ViewEvent"
+            android:name=".ViewEvent"
             android:exported="false" />
         <activity
             android:name=".profile.ProfileActivity"
@@ -83,7 +94,6 @@
             android:name=".route.RoutDetailViewActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false" />
-
     </application>
 
 </manifest>

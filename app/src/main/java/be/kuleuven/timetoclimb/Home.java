@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import be.kuleuven.timetoclimb.profile.ProfileActivity;
 import be.kuleuven.timetoclimb.route.RouteCreateActivity;
+import be.kuleuven.timetoclimb.route.RouteDrawingActivity;
 import be.kuleuven.timetoclimb.route.RouteListsViewActivity;
 
 public class Home extends AppCompatActivity {
@@ -58,6 +59,13 @@ public class Home extends AppCompatActivity {
     public void onBtnViewRoute_Clicked(View caller) {
         // Create intent to start the Profile
         Intent intent = new Intent(this, RouteListsViewActivity.class);
+        intent.putExtra("User", user);
+        startActivity(intent);
+    }
+
+    public void onBtnDrawRoute_Clicked(View caller) {
+        // Create intent to start the Profile
+        Intent intent = new Intent(this, RouteDrawingActivity.class);
         intent.putExtra("User", user);
         startActivity(intent);
     }

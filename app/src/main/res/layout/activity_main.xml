@@ -87,4 +87,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnRouteCreate" />
 
+    <Button
+        android:id="@+id/btnDrawRoutes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/button_bg"
+        android:onClick="onBtnDrawRoute_Clicked"
+        android:text="DRAW ROUTE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnViewRoutes" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
