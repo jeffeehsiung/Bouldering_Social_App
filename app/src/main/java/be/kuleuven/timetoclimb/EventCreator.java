@@ -96,7 +96,7 @@ public class EventCreator extends AppCompatActivity {
         description = txtDescription.getText().toString();
 
         // Create event
-        Event event = new Event(organiser, climbingHallID, description, title, startTime, endTime);
+        Event event = new Event(0, organiser, climbingHallID, description, title, startTime, endTime);
 
         // Add event to db
         user.addEvent(event, this.getApplicationContext());
