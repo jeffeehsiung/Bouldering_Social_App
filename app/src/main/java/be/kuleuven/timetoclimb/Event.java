@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Event implements Serializable {
+    private int eventID;
     private String organiser;
     private int climbingHallID;
     private String description;
@@ -12,7 +13,8 @@ public class Event implements Serializable {
     private String startTime;
     private String endTime;
 
-    public Event(String organiser, int climbingHallID, String description, String title, String startTime, String endTime) {
+    public Event(int eventID, String organiser, int climbingHallID, String description, String title, String startTime, String endTime) {
+        this.eventID = eventID;
         this.organiser = organiser;
         this.climbingHallID = climbingHallID;
         this.description = description;
@@ -24,6 +26,15 @@ public class Event implements Serializable {
     /*
         Getters and setters
      */
+
+    public int getEventID() {
+        return eventID;
+    }
+
+    public void setEventID(int eventID) {
+        this.eventID = eventID;
+    }
+
     public String getOrganiser() {
         return organiser;
     }

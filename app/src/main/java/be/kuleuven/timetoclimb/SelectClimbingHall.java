@@ -42,11 +42,8 @@ public class SelectClimbingHall extends AppCompatActivity {
             --- Populate climbing halls from database ---
          */
         climbinghalls = new ArrayList<>();
-        // climbinghalls = Climbinghall.DBContents(getApplicationContext()); maybe try to implement this after
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-
         String requestURL = "https://studev.groept.be/api/a21pt411/getAllClimbinghalls";
-
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, requestURL, null,
                 new Response.Listener<JSONArray>()
                 {
@@ -76,7 +73,6 @@ public class SelectClimbingHall extends AppCompatActivity {
                     }
                 }
         );
-
         requestQueue.add(jsonArrayRequest);
     }
 

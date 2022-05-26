@@ -39,9 +39,7 @@ public class User implements Serializable {
 
     public void addEvent(Event e, Context c) {
         RequestQueue requestQueue = Volley.newRequestQueue(c);
-
         String requestURL = "https://studev.groept.be/api/a21pt411/addEvent";
-
         StringRequest stringRequestRequest = new StringRequest(Request.Method.POST, requestURL,
                 new Response.Listener<String>()
                 {
@@ -74,9 +72,41 @@ public class User implements Serializable {
                 return params;
             }
         };
-
         requestQueue.add(stringRequestRequest);
+    }
 
+    public void attend(Event event, Context c) {
+        RequestQueue requestQueue = Volley.newRequestQueue(c);
+        String requestURL = "https://studev.groept.be/api/a21pt411/addAttendee";
+        StringRequest stringRequestRequest = new StringRequest(Request.Method.POST, requestURL,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response)
+                    {
+                        VolleyLog.v("Response:%n %s", response);
+                        System.out.println(response.toString());
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error)
+                    {
+                        Log.d("Database" ,error.getLocalizedMessage(), error);
+                        System.out.println("error: " + error.getLocalizedMessage());
+                    }
+                }
+        ) { //NOTE THIS PART: here we are passing the parameter to the webservice, NOT in the URL!
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("attendee", username);
+                params.put("eventid", Integer.toString(event.getEventID()));
+                return params;
+            }
+        };
+        requestQueue.add(stringRequestRequest);
     }
     public String getUsername() {return username;}
     public String getPassword() {return password;}

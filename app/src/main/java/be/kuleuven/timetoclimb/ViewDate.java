@@ -81,8 +81,9 @@ public class ViewDate extends AppCompatActivity {
                             for(int i = 0; i < jsonArray.length(); i++) {
                                 objResponse = jsonArray.getJSONObject(i);
                                 Event event = new Event(
-                                        objResponse.getString("organiser"),
                                         objResponse.getInt("id"),
+                                        objResponse.getString("organiser"),
+                                        objResponse.getInt("event_climbing_hall_id"),
                                         objResponse.getString("description_event"),
                                         objResponse.getString("title"),
                                         objResponse.getString("begin_datetime"),
@@ -127,6 +128,7 @@ public class ViewDate extends AppCompatActivity {
                             JSONObject objResponse = jsonArray.getJSONObject(0);
                             String climbinghall = objResponse.getString("hall_name");
                             String address = objResponse.getString("address");
+                            intentViewEvent.putExtra("User", user);
                             intentViewEvent.putExtra("Event", e);
                             intentViewEvent.putExtra("hall_name", climbinghall);
                             intentViewEvent.putExtra("address", address);
@@ -168,17 +170,5 @@ public class ViewDate extends AppCompatActivity {
         rvEvents.setLayoutManager(layoutManager);
         rvEvents.setItemAnimator(new DefaultItemAnimator());
         rvEvents.setAdapter(adapterViewDate);
-    }
-
-    private void passEventAndLocation(Event e, String climbinghall, String address) {
-        intentViewEvent.putExtra("Event", e);
-        intentViewEvent.putExtra("hall_name", climbinghall);
-        intentViewEvent.putExtra("address", address);
-        startActivity(intentViewEvent);
-    }
-
-    private void passLocation(String climbinghall, String address) {
-        intentViewEvent.putExtra("hall_name", climbinghall);
-        intentViewEvent.putExtra("address", address);
     }
 }

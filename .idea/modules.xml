@@ -4,6 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Time_to_Climb.iml" filepath="$PROJECT_DIR$/.idea/modules/Time_to_Climb.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Time_to_Climb.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Time_to_Climb.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Time_to_Climb.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Time_to_Climb.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Time_to_Climb.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Time_to_Climb.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Time_to_Climb.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Time_to_Climb.app.unitTest.iml" />
     </modules>
   </component>
 </project>
