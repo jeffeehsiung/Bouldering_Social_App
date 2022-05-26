@@ -1,4 +1,4 @@
-package be.kuleuven.timetoclimb.subActivity;
+package be.kuleuven.timetoclimb.toolsInterface;
 
 import android.net.Uri;
 

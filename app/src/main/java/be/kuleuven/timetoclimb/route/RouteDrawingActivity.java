@@ -1,22 +1,17 @@
 package be.kuleuven.timetoclimb.route;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.ScaleDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -25,25 +20,22 @@ import android.widget.RelativeLayout;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.badge.BadgeUtils;
-
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Objects;
 
 import be.kuleuven.timetoclimb.R;
 import be.kuleuven.timetoclimb.User;
 import be.kuleuven.timetoclimb.databinding.ActivityRouteDrawingBinding;
-import be.kuleuven.timetoclimb.subActivity.imageResolver;
+import be.kuleuven.timetoclimb.toolsInterface.CommonBitmap;
+import be.kuleuven.timetoclimb.toolsInterface.imageResolver;
 
 public class RouteDrawingActivity extends AppCompatActivity implements imageResolver {
 
     private ActivityRouteDrawingBinding binding;
     private RelativeLayout parentRelative;
-    private FrameLayout imageViewFrameLayout;
-    private Button btnsaveimage;
+    private RelativeLayout imageViewRelatve;
+    private Button btnshowimage, btnsaveimage;
     private ImageView backgroundImageView, imageResult;
-    private Uri uriSource;
+    private Bitmap resizedBM;
     private User user;
 
     @SuppressLint("ClickableViewAccessibility")
@@ -56,9 +48,10 @@ public class RouteDrawingActivity extends AppCompatActivity implements imageReso
         setContentView(binding.getRoot());
 
         this.parentRelative = binding.parentRelative;
-        this.imageViewFrameLayout = binding.imageViewFrameLayout;
+        this.imageViewRelatve = binding.imageViewRelatve;
         this.imageResult = binding.imageResult;
         this.btnsaveimage = binding.btnsaveimage;
+        this.btnshowimage = binding.btnshowimage;
         this.backgroundImageView = binding.backgroundImageView;
         this.user = (User) getIntent().getSerializableExtra("User");
 
@@ -69,11 +62,10 @@ public class RouteDrawingActivity extends AppCompatActivity implements imageReso
         we are using constructor: LayoutParams(int w, int h)
          */
 
-        //temporarily set backgroundImageView
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.cave);
-        backgroundImageView.setImageBitmap(bitmap);
+        resizedBM = CommonBitmap.bitmap;
+        backgroundImageView.setImageBitmap(resizedBM);
 
-        imageViewFrameLayout.setOnTouchListener(new View.OnTouchListener() {
+        imageViewRelatve.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -83,21 +75,32 @@ public class RouteDrawingActivity extends AppCompatActivity implements imageReso
                     ImageView imageView = new ImageView(getApplicationContext());
                     layoutParams.setMargins(x, y, 0, 0);// set margins
                     imageView.setLayoutParams(layoutParams);
-                    imageView.setImageDrawable(getResizedDrawble(getApplicationContext(),R.drawable.placeholder,100,100)); // set the image from drawable
+                    imageView.setImageDrawable(getResizedDrawble(getApplicationContext(),R.drawable.placeholder,70,70)); // set the image from drawable
                     imageView.setOnTouchListener(MoveOnTouchListener());
                     imageViewArrayList.add(imageView);
                     System.out.println("size of imageViewArrayList: "+ imageViewArrayList.size());
-                    imageViewFrameLayout.addView(imageView); // add a View programmatically to the ViewGroup
+                    imageViewRelatve.addView(imageView); // add a View programmatically to the ViewGroup
                 }
                 return true;
             }
         });
 
-        btnsaveimage.setOnClickListener(new View.OnClickListener() {
+        btnshowimage.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
-                ProcessingBitmap(backgroundImageView,imageViewArrayList);
+                System.out.println("hope that this imageResult wont be null?");
+                CommonBitmap.bitmap = ProcessingBitmap(backgroundImageView, resizedBM,imageViewArrayList);
+                imageResult.setImageBitmap(CommonBitmap.bitmap);
+            }
+        });
+
+        btnsaveimage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(RouteDrawingActivity.this, RouteCreateActivity.class);
+                intent.putExtra("User", user);
+                startActivity(intent);
             }
         });
 
@@ -133,25 +136,26 @@ public class RouteDrawingActivity extends AppCompatActivity implements imageReso
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private Bitmap ProcessingBitmap(ImageView backgroundImageView, ArrayList<ImageView> imarrayList){
+    private Bitmap ProcessingBitmap(ImageView imageResult, Bitmap resizedBM, ArrayList<ImageView> imarrayList){
 
         //create a new blank bitma background and attach a brand new canvas to it
         //ARGB_8888 meanings 4 bytes
-        Bitmap bitmapBackgroud = Bitmap.createBitmap(backgroundImageView.getWidth(),backgroundImageView.getHeight(), Bitmap.Config.ARGB_8888);
+        Bitmap bitmapBackgroud = Bitmap.createBitmap(resizedBM.getWidth(),resizedBM.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmapBackgroud);
-        System.out.println(String.format("bitmapBackgroud created: height is %d, width is %d",(int)bitmapBackgroud.getHeight(),(int)bitmapBackgroud.getWidth()));
+        System.out.println(String.format("bitmapBackgroud created: height is %d, width is %d",bitmapBackgroud.getHeight(),bitmapBackgroud.getWidth()));
         //set the paint for line between points on the canvas
         Paint linePaint = new Paint();
         linePaint.setColor(Color.RED);
         linePaint.setStrokeWidth(5);
 
         //draw the orginal fetched image bitmap into the canvas from the start point [0,0]
-        canvas.drawBitmap(imageViewToBitmap(backgroundImageView),0,0,null);
-        System.out.println("imageViewToBitmap(backgroundImageView) succeeded");
+        canvas.drawBitmap(resizedBM,0,0,null);
+        System.out.println("resizedBM succeeded");
+
 
         imarrayList.forEach(ivCurr -> {
             System.out.println("ivCurr toString? : " + ivCurr.toString());
-            // draw everything else you wnat into the
+            // draw everything else you want into the
             canvas.drawBitmap(imageViewToBitmap(ivCurr),ivCurr.getX(),ivCurr.getY(),null);
 
             //take care of the point order, if the index > 0, we draw a line from index n-1 to n
@@ -161,19 +165,17 @@ public class RouteDrawingActivity extends AppCompatActivity implements imageReso
                 int lastivIndex = imarrayList.indexOf(ivCurr)-1;
 
                 //store previous iv x,y and current iv x,y
+
                 ImageView ivPrevious = imarrayList.get(lastivIndex);
-                float startX = ivPrevious.getX() + ivPrevious.getWidth()/2;
-                float startY = ivPrevious.getY() + ivPrevious.getHeight();
-                float endX = ivCurr.getX() + ivCurr.getWidth()/2;
-                float endY = ivCurr.getY() + ivCurr.getHeight();
+                float startX = (ivPrevious.getX() + ivPrevious.getWidth()/2);
+                float startY = (ivPrevious.getY() + ivPrevious.getHeight());
+                float endX = (ivCurr.getX() + ivCurr.getWidth()/2);
+                float endY = (ivCurr.getY() + ivCurr.getHeight());
 
                 //draw a line segment with specified start and stop x,y coordindates using specified paint
                 canvas.drawLine(startX,startY,endX,endY,linePaint);
             }
         });
-
-        System.out.println("hope that this imageResult wont be null?");
-        imageResult.setImageBitmap(bitmapBackgroud);
         return bitmapBackgroud;
     }
 }

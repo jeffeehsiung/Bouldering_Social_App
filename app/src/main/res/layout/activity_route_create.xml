@@ -146,9 +146,22 @@
             android:layout_height="50dp"
             android:layout_below="@+id/input_layout_description"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:shadowColor="@color/black"
             android:text="TAKE PICTURE"
+            app:backgroundTint="#000000">
+
+        </com.google.android.material.button.MaterialButton>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEditRoute"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/btnTakePic"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:shadowColor="@color/black"
+            android:text="DRAW ROUTE ON PHOTO"
             app:backgroundTint="#000000">
 
         </com.google.android.material.button.MaterialButton>
@@ -157,10 +170,9 @@
             android:id="@+id/btnUpdate"
             android:layout_width="300dp"
             android:layout_height="50dp"
-            android:layout_below="@+id/btnTakePic"
-            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/btnEditRoute"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_marginBottom="10dp"
             android:shadowColor="@color/black"
             android:text="Update"

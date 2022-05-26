@@ -1,4 +1,4 @@
-package be.kuleuven.timetoclimb.subActivity;
+package be.kuleuven.timetoclimb.toolsInterface;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -12,12 +12,8 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.widget.ImageView;
 
-import org.json.JSONArray;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-
-import be.kuleuven.timetoclimb.R;
 
 public interface imageResolver {
     default String onRetrieveSuccess(String b64String){return b64String;}

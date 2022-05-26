@@ -35,14 +35,13 @@
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.2703125" />
         <entry key="app/src/main/res/layout/activity_phone_edit.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.16032608695652173" />
-        <entry key="app/src/main/res/layout/activity_route_create.xml" value="0.34977264404296876" />
+        <entry key="app/src/main/res/layout/activity_route_create.xml" value="0.26616915422885573" />
         <entry key="app/src/main/res/layout/activity_route_drawing.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_routedetail_view.xml" value="0.11684782608695653" />
         <entry key="app/src/main/res/layout/activity_routelist_view.xml" value="0.2006340579710145" />
         <entry key="app/src/main/res/layout/activity_routeno_view.xml" value="0.12537993920972645" />
         <entry key="app/src/main/res/layout/activity_select_climbing_hall.xml" value="0.2586050724637681" />
-        <entry key="app/src/main/res/layout/activity_view_event.xml" value="0.67" />
-        <entry key="app/src/main/res/layout/attendee_list_item.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/activity_view_event.xml" value="0.2586050724637681" />
         <entry key="app/src/main/res/layout/calendar_view.xml" value="0.19479166666666667" />
         <entry key="app/src/main/res/layout/comment_list_item.xml" value="0.19635416666666666" />
         <entry key="app/src/main/res/layout/content_profile.xml" value="0.19479166666666667" />
@@ -55,7 +54,6 @@
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.19479166666666667" />
         <entry key="app/src/main/res/layout/fragment_slideshow.xml" value="0.19479166666666667" />
         <entry key="app/src/main/res/layout/list_dropdown.xml" value="0.15760869565217392" />
-        <entry key="app/src/main/res/layout/login_tab_fragment.xml" value="0.3383152173913043" />
         <entry key="app/src/main/res/layout/nav_header_profile.xml" value="0.19479166666666667" />
         <entry key="app/src/main/res/layout/routelist.xml" value="0.18342391304347827" />
         <entry key="app/src/main/res/menu/bottom_navigation.xml" value="0.2703125" />
