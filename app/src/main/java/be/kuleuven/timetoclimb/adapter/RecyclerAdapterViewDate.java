@@ -65,7 +65,6 @@ public class RecyclerAdapterViewDate extends RecyclerView.Adapter<RecyclerAdapte
        holder.lblClimbinghallEvent.setText(Integer.toString(climbinghallEvent));
        holder.lblTitleEvent.setText(titleEvent);
        holder.bind(eventList.get(position), listener);
-
     }
 
     @Override
