@@ -63,11 +63,4 @@ public class Home extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onBtnDrawRoute_Clicked(View caller) {
-        // Create intent to start the Profile
-        Intent intent = new Intent(this, RouteDrawingActivity.class);
-        intent.putExtra("User", user);
-        startActivity(intent);
-    }
-
 }

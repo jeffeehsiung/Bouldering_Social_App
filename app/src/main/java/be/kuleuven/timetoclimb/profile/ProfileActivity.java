@@ -22,7 +22,7 @@ import be.kuleuven.timetoclimb.Home;
 import be.kuleuven.timetoclimb.User;
 import be.kuleuven.timetoclimb.databinding.ActivityProfileBinding;
 import be.kuleuven.timetoclimb.dbConnection.DBConnector;
-import be.kuleuven.timetoclimb.subActivity.imageResolver;
+import be.kuleuven.timetoclimb.toolsInterface.imageResolver;
 
 public class ProfileActivity extends AppCompatActivity implements imageResolver {
 

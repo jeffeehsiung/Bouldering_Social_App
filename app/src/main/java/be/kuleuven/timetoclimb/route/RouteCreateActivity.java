@@ -3,19 +3,15 @@ package be.kuleuven.timetoclimb.route;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,32 +19,24 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import be.kuleuven.timetoclimb.Home;
-import be.kuleuven.timetoclimb.R;
 import be.kuleuven.timetoclimb.User;
 import be.kuleuven.timetoclimb.databinding.ActivityRouteCreateBinding;
 import be.kuleuven.timetoclimb.dbConnection.DBConnector;
 import be.kuleuven.timetoclimb.dbConnection.ImageMapParam;
-import be.kuleuven.timetoclimb.dbConnection.ServerCallback;
-import be.kuleuven.timetoclimb.subActivity.imageResolver;
+import be.kuleuven.timetoclimb.toolsInterface.CommonBitmap;
+import be.kuleuven.timetoclimb.toolsInterface.imageResolver;
 
 @SuppressWarnings("deprecation")
 public class RouteCreateActivity extends AppCompatActivity implements imageResolver{
@@ -58,14 +46,14 @@ public class RouteCreateActivity extends AppCompatActivity implements imageResol
 
     private Spinner climbinghallSpinner,gradeSpinner;
 
-    private Button btnUpdate, btnTakePic;
+    private Button btnUpdate, btnTakePic, btnEditRoute;
     private ImageView imageView;
-    private Uri imageUri;
     private Bitmap selectedImageBM;
     private String encodedImage;
     private String uploadImgUrl = "addImageRoute";
-    private static final int TAKE_PICTURE_REQUEST = 45;
-    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int TAKE_PICTURE_REQUEST = 1;
+    private static final int REQUEST_IMAGE_CAPTURE = 45;
+    private int imageViewWidthSet = 1080;
     private User user = null;
     private SpinnerAdapter spinnerAdapter;
     private static final String RouteCreateActivity_TAG = RouteCreateActivity.class.getSimpleName();
@@ -85,6 +73,8 @@ public class RouteCreateActivity extends AppCompatActivity implements imageResol
         this.imageView = binding.imageView;
         this.btnUpdate = binding.btnUpdate;
         this.btnTakePic = binding.btnTakePic;
+        this.btnEditRoute = binding.btnEditRoute;
+
         /*
         spinner section
         //this.climbinghallSpinner = binding.climbinghallSpinner;
@@ -95,6 +85,11 @@ public class RouteCreateActivity extends AppCompatActivity implements imageResol
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         this.user = (User) getIntent().getSerializableExtra("User");
+
+        //check if there is bitmap reutrned from RouteDrawingActivity
+        if( CommonBitmap.bitmap != null){
+            imageView.setImageBitmap(CommonBitmap.bitmap);
+        }
 
         /*
         //spinner section
@@ -127,7 +122,7 @@ public class RouteCreateActivity extends AppCompatActivity implements imageResol
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
-                startActivityForResult(intent, TAKE_PICTURE_REQUEST);
+                startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
             }
         });
 
@@ -137,12 +132,28 @@ public class RouteCreateActivity extends AppCompatActivity implements imageResol
             public void onClick(View v) {
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 try {
-                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                    startActivityForResult(takePictureIntent,TAKE_PICTURE_REQUEST );
                 } catch (ActivityNotFoundException e) {
                     Toast.makeText(RouteCreateActivity.this,"no embedded camera",Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+        btnEditRoute.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //image Uri requires nonNull
+                if (selectedImageBM == null){
+                    imageView.requestFocus();
+                    Toast.makeText(RouteCreateActivity.this,"please choose a photo",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Intent intent = new Intent(RouteCreateActivity.this, RouteDrawingActivity.class);
+                intent.putExtra("User", user);
+                startActivity(intent);
+            }
+        });
+
         btnUpdate.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -219,27 +230,28 @@ public class RouteCreateActivity extends AppCompatActivity implements imageResol
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case REQUEST_IMAGE_CAPTURE:
+            case TAKE_PICTURE_REQUEST:
                 if (resultCode == RESULT_OK && data != null) {
                     Bundle extras = data.getExtras();
-                    this.imageUri = data.getData();
-                    this.selectedImageBM = (Bitmap) extras.get("data");
+                    this.selectedImageBM =  getResizedBitmap((Bitmap) extras.get("data"),imageViewWidthSet);
+                    //save common static bitmap
+                    CommonBitmap.bitmap = this.selectedImageBM;
                     imageView.setImageBitmap(this.selectedImageBM);
-
                     return;
                 }
                 break;
 
-            case TAKE_PICTURE_REQUEST:
+            case REQUEST_IMAGE_CAPTURE:
                 if (resultCode == RESULT_OK && data != null) {
                     try {
-
-                        this.imageUri = data.getData();
-                        this.selectedImageBM = uriToBitmap(imageUri);
+                        this.selectedImageBM = getResizedBitmap(uriToBitmap(data.getData()),imageViewWidthSet);
+                        //save common static bitmap
+                        CommonBitmap.bitmap = this.selectedImageBM;
                     } catch (IOException e) {
                         Log.d("RouteImage",e.toString());
                     }
                     //Setting image to ImageView
+
                     imageView.setImageBitmap(this.selectedImageBM);
 
                     return;
