@@ -84,7 +84,8 @@ public class ViewEvent extends AppCompatActivity {
         lblDescription.setText(event.getDescription());
 
         // populate attendees from database
-        DBPopulate(false);
+        attendees = new ArrayList<>();
+        DBPopulate();
 
     }
 
@@ -117,7 +118,7 @@ public class ViewEvent extends AppCompatActivity {
         });
     }
 
-    public void DBPopulate(boolean update) {
+    public void DBPopulate() {
         /*
         Get attendees and populate attendee list
          */
@@ -126,21 +127,26 @@ public class ViewEvent extends AppCompatActivity {
         StringRequest stringRequestRequest = new StringRequest(Request.Method.POST, requestURL,
                 new Response.Listener<String>()
                 {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onResponse(String response)
                     {
                         VolleyLog.v("Response:%n %s", response);
                         try {
                             JSONArray jsonArray = new JSONArray(response);
-                            attendees = new ArrayList<>(); // instantiate new attendees list
-                            for(int i = 0; i < jsonArray.length(); i++){
-                                System.out.println("event id: " + Integer.toString(event.getEventID()));
-                                JSONObject objResponse = jsonArray.getJSONObject(i);
-                                String attendee = objResponse.getString("attendee");
-                                if(attendee != null) {
-                                    DBAddAttendee(attendee, i, jsonArray.length() - 1, update);
+                            // Set empty list if no attendees, otherwise add by iteration
+                            if (jsonArray.length() == 0) {
+                                setAdapter();
+                                setSwitch();
+                            } else {
+                                for(int i = 0; i < jsonArray.length(); i++){
+                                    System.out.println("event id: " + Integer.toString(event.getEventID()));
+                                    JSONObject objResponse = jsonArray.getJSONObject(i);
+                                    String attendee = objResponse.getString("attendee");
+                                    DBAddAttendee(attendee, i, jsonArray.length() - 1);
                                 }
                             }
+
                         } catch (JSONException e) {
                             System.out.println(e.getLocalizedMessage());
                         }
@@ -175,7 +181,7 @@ public class ViewEvent extends AppCompatActivity {
     /*
     Helper method for building attendee list
      */
-    private void DBAddAttendee(String attendee, int index, int cycle, boolean update) {
+    private void DBAddAttendee(String attendee, int index, int cycle) {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         String requestURL = "https://studev.groept.be/api/a21pt411/getUser";
         StringRequest stringRequestRequest = new StringRequest(Request.Method.POST, requestURL,
@@ -198,11 +204,7 @@ public class ViewEvent extends AppCompatActivity {
                             }
                             if(index == cycle) {
                                 setSwitch();
-                                if(update) {
-                                    adapterAttendees.notifyDataSetChanged();
-                                } else {
-                                    setAdapter();
-                                }
+                                setAdapter();
                             }
                         } catch (JSONException e) {
                             System.out.println(e.getLocalizedMessage());
@@ -228,5 +230,24 @@ public class ViewEvent extends AppCompatActivity {
             }
         };
         requestQueue.add(stringRequestRequest);
+    }
+    public void addUpdateUser() {
+        attendees.add(user);
+        int addIndex = attendees.size() - 1;
+        adapterAttendees.notifyItemInserted(addIndex);
+    }
+
+    public void rmUpdateUser() {
+        boolean found = false;
+        int i = 0;
+        while(!found) {
+            if(attendees.get(i).getUsername().equals(user.getUsername())) {
+                found = true;
+            } else {
+                i++;
+            }
+        }
+        attendees.remove(i);
+        adapterAttendees.notifyItemRemoved(i);
     }
 }
