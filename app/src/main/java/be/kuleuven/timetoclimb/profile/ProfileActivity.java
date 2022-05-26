@@ -24,7 +24,7 @@ import be.kuleuven.timetoclimb.databinding.ActivityProfileBinding;
 import be.kuleuven.timetoclimb.dbConnection.DBConnector;
 import be.kuleuven.timetoclimb.subActivity.imageResolver;
 
-public class rProfileActivity extends AppCompatActivity implements imageResolver {
+public class ProfileActivity extends AppCompatActivity implements imageResolver {
 
     private ActivityProfileBinding binding;
     private RequestQueue requestQueue;
