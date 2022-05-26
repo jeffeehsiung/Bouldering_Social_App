@@ -7,8 +7,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -47,6 +51,7 @@ public class ViewEvent extends AppCompatActivity {
     private TextView lblEnd;
     private ImageView imgOrganiser;
     private TextView lblDescription;
+    private TextView lblOrganiser;
     private Switch swAttend;
     private RecyclerView rvAttendees;
     private RecyclerAdapterAttendees adapterAttendees;
@@ -67,8 +72,8 @@ public class ViewEvent extends AppCompatActivity {
         lblTime = findViewById(R.id.lblTime);
         lblBegin = findViewById(R.id.lblBegin);
         lblEnd = findViewById(R.id.lblEnd);
-        imgOrganiser = findViewById(R.id.imgOrganiser);
         lblDescription = findViewById(R.id.lblDescription);
+        lblOrganiser = findViewById(R.id.lblOrganiser);
         swAttend = findViewById(R.id.swAttend);
         rvAttendees = findViewById(R.id.rvAttendees);
 
@@ -81,7 +86,9 @@ public class ViewEvent extends AppCompatActivity {
         lblAddress.setText(extras.getString("address"));
         lblBegin.setText(event.getStartTime());
         lblEnd.setText(event.getEndTime());
-        lblDescription.setText(event.getDescription());
+        lblOrganiser.setText("Organiser " + event.getOrganiser() + ": ");
+        lblDescription.setTypeface(lblDescription.getTypeface(), Typeface.ITALIC);
+        lblDescription.setText("\" " + event.getDescription() + " \"");
 
         // populate attendees from database
         attendees = new ArrayList<>();
@@ -199,7 +206,7 @@ public class ViewEvent extends AppCompatActivity {
                             String password = objResponse.getString("password");
                             String picture = objResponse.getString("profile_picture");
                             if(username != null) {
-                                User usrAttendee = new User(username, password, picture); // FOR TESTING, IMPLEMENT METHOD FOR CREATING COMPLETE USER LATER HERE
+                                User usrAttendee = new User(username, password, picture);
                                 attendees.add(usrAttendee);
                             }
                             if(index == cycle) {

@@ -1,6 +1,5 @@
 package be.kuleuven.timetoclimb.adapter;
 
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,20 +11,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import be.kuleuven.timetoclimb.Climbinghall;
 import be.kuleuven.timetoclimb.Event;
 import be.kuleuven.timetoclimb.R;
+import be.kuleuven.timetoclimb.ViewDate;
 
 public class RecyclerAdapterViewDate extends RecyclerView.Adapter<RecyclerAdapterViewDate.myViewHolder> {
    private ArrayList<Event> eventList;
+   private ArrayList<String> climbinghalls;
    private final OnItemClickListener listener;
 
     public interface OnItemClickListener {
         void onItemClick(Event event);
     }
 
-   public RecyclerAdapterViewDate(ArrayList<Event> eventList, OnItemClickListener listener) {
+   public RecyclerAdapterViewDate(ArrayList<Event> eventList, ArrayList<String> climbinghalls, OnItemClickListener listener) {
        this.eventList = eventList;
+       this.climbinghalls = climbinghalls;
        this.listener = listener;
    }
 
@@ -61,8 +62,7 @@ public class RecyclerAdapterViewDate extends RecyclerView.Adapter<RecyclerAdapte
     public void onBindViewHolder(@NonNull RecyclerAdapterViewDate.myViewHolder holder, int position) {
        // implement image here aswell!!!
        String titleEvent = eventList.get(position).getTitle();
-       int climbinghallEvent = eventList.get(position).getClimbingHallID(); // implement a get climbinghall by id here!
-       holder.lblClimbinghallEvent.setText(Integer.toString(climbinghallEvent));
+       holder.lblClimbinghallEvent.setText(climbinghalls.get(position));
        holder.lblTitleEvent.setText(titleEvent);
        holder.bind(eventList.get(position), listener);
     }

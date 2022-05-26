@@ -68,17 +68,6 @@
         app:layout_constraintStart_toStartOf="@+id/lblBegin"
         app:layout_constraintTop_toBottomOf="@+id/lblBegin" />
 
-    <ImageView
-        android:id="@+id/imgOrganiser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/lblDescription"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintTop_toBottomOf="@+id/lblEnd"
-        app:srcCompat="@drawable/back" />
-
     <TextView
         android:id="@+id/lblDescription"
         android:layout_width="wrap_content"
@@ -87,14 +76,14 @@
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/lblOrganiser"
         app:layout_constraintTop_toBottomOf="@+id/lblEnd" />
 
     <Switch
         android:id="@+id/swAttend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:checked="false"
         android:text="Attend"
         app:layout_constraintStart_toStartOf="@+id/lblTime"
@@ -109,4 +98,21 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/swAttend" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="lblDescription" />
+
+    <TextView
+        android:id="@+id/lblOrganiser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/lblDescription"
+        app:layout_constraintEnd_toStartOf="@+id/lblDescription"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/lblDescription" />
 </androidx.constraintlayout.widget.ConstraintLayout>

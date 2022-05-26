@@ -1,11 +1,13 @@
 package be.kuleuven.timetoclimb;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -15,6 +17,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -33,14 +36,15 @@ public class ViewDate extends AppCompatActivity {
 
     private User user;
     private ArrayList<Event> eventList;
+    private ArrayList<String> climbinghalls;
     private TextView lblDate;
     private RecyclerView rvEvents;
     private String displayDate;
     private String start;
     private String end;
-    private String climbinghall;
     private String address;
     private Intent intentViewEvent;
+    private RecyclerAdapterViewDate adapterViewDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +54,7 @@ public class ViewDate extends AppCompatActivity {
         lblDate = findViewById(R.id.lblDate);
         rvEvents = findViewById(R.id.rvEvents);
         eventList = new ArrayList<>();
-
+        climbinghalls = new ArrayList<>();
         // Get data from intent
         Bundle extras = getIntent().getExtras();
         displayDate = extras.get("SelectedDate").toString();
@@ -68,7 +72,7 @@ public class ViewDate extends AppCompatActivity {
         intentViewEvent = new Intent(this, ViewEvent.class);
     }
 
-    private void populateEventList() {
+    public void populateEventList() {
         String requestURL = "https://studev.groept.be/api/a21pt411/getEventsOfDay";
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest submitRequest = new StringRequest(Request.Method.POST, requestURL,
@@ -90,11 +94,11 @@ public class ViewDate extends AppCompatActivity {
                                         objResponse.getString("end_datetime")
                                         );
                                 eventList.add(event);
+                                addClimbingHall(event.getClimbingHallID(), i, jsonArray.length() - 1);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        setAdapter();
                     }
                 },
                 new Response.ErrorListener() {
@@ -115,7 +119,52 @@ public class ViewDate extends AppCompatActivity {
         requestQueue.add(submitRequest);
     }
 
-    private void passEventAndLocation(Event e) {
+    public void addClimbingHall(int id, int index, int cycles) {
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        String requestURL = "https://studev.groept.be/api/a21pt411/getHallNameByID";
+        StringRequest stringRequestRequest = new StringRequest(Request.Method.POST, requestURL,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response)
+                    {
+                        VolleyLog.v("Response:%n %s", response);
+                        System.out.println("Response climbinghalls: \n" + response);
+                        try {
+                            JSONArray jsonArray = new JSONArray(response);
+                            // Set empty list if no attendees, otherwise add by iteration
+                            JSONObject objResponse = jsonArray.getJSONObject(0);
+                            String climbinghall = objResponse.getString("hall_name");
+                            climbinghalls.add(climbinghall);
+                        } catch (JSONException e) {
+                            System.out.println("error addclimb: " + e.getLocalizedMessage());
+                        }
+                        if(index == cycles) {
+                            setAdapter();
+                        }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error)
+                    {
+                        Log.d("Database" ,error.getLocalizedMessage(), error);
+                        System.out.println("error: " + error.getLocalizedMessage());
+                    }
+                }
+        ) { //NOTE THIS PART: here we are passing the parameter to the webservice, NOT in the URL!
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("id", Integer.toString(id));
+                return params;
+            }
+        };
+        requestQueue.add(stringRequestRequest);
+    }
+
+    public void passEventAndLocation(Event e) {
         String requestURL = "https://studev.groept.be/api/a21pt411/getLocationByHallID";
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest submitRequest = new StringRequest(Request.Method.POST, requestURL,
@@ -123,7 +172,6 @@ public class ViewDate extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            System.out.println("Response: \n" + response);
                             JSONArray jsonArray = new JSONArray(response);
                             JSONObject objResponse = jsonArray.getJSONObject(0);
                             String climbinghall = objResponse.getString("hall_name");
@@ -157,8 +205,8 @@ public class ViewDate extends AppCompatActivity {
         requestQueue.add(submitRequest);
     }
 
-    private void setAdapter() {
-        RecyclerAdapterViewDate adapterViewDate = new RecyclerAdapterViewDate(eventList, new RecyclerAdapterViewDate.OnItemClickListener() {
+    public void setAdapter() {
+        adapterViewDate = new RecyclerAdapterViewDate(eventList, climbinghalls, new RecyclerAdapterViewDate.OnItemClickListener() {
             @Override
             public void onItemClick(Event event) {
                 passEventAndLocation(event);
