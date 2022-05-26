@@ -11,6 +11,7 @@ import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -41,6 +42,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import be.kuleuven.timetoclimb.Home;
+import be.kuleuven.timetoclimb.R;
 import be.kuleuven.timetoclimb.User;
 import be.kuleuven.timetoclimb.databinding.ActivityRouteCreateBinding;
 import be.kuleuven.timetoclimb.dbConnection.DBConnector;
@@ -53,8 +55,9 @@ public class RouteCreateActivity extends AppCompatActivity implements imageResol
 
     private ActivityRouteCreateBinding binding;
     private EditText routIDEditText, climbingHallEditText,gradeEditText,descriptionEditText;
-    /*private Spinner climbinghallSpinner,gradeSpinner;
-    private AutoCompleteTextView climbingHallEditText;*/
+
+    private Spinner climbinghallSpinner,gradeSpinner;
+
     private Button btnUpdate, btnTakePic;
     private ImageView imageView;
     private Uri imageUri;
@@ -82,19 +85,24 @@ public class RouteCreateActivity extends AppCompatActivity implements imageResol
         this.imageView = binding.imageView;
         this.btnUpdate = binding.btnUpdate;
         this.btnTakePic = binding.btnTakePic;
-        /*this.climbinghallSpinner = binding.climbinghallSpinner;
-        this.gradeSpinner = binding.gradeSpinner;*/
+        /*
+        spinner section
+        //this.climbinghallSpinner = binding.climbinghallSpinner;
+         */
+
 
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         this.user = (User) getIntent().getSerializableExtra("User");
 
-        /*spinnerAdapter = new SpinnerAdapter(getApplicationContext(), "getAllHalls", "hall_name");
-        climbingHallEditText.setAdapter(spinnerAdapter.getAdapter());*/
+        /*
+        //spinner section
+        spinnerAdapter = new SpinnerAdapter(getApplicationContext(), "getAllHalls", "hall_name");
+        climbinghallSpinner.setAdapter(spinnerAdapter.getAdapter());
 
         //configuring spinner listner for its menu list
-        /*climbinghallSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        climbinghallSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 if(parent.getItemAtPosition(pos)==null){
@@ -110,7 +118,7 @@ public class RouteCreateActivity extends AppCompatActivity implements imageResol
             public void onNothingSelected(AdapterView<?> parent) {
                 Log.d(RouteCreateActivity_TAG, "onNothingSelected");
             }
-        });*/
+        }); */
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @SuppressWarnings("deprecation")
@@ -199,8 +207,11 @@ public class RouteCreateActivity extends AppCompatActivity implements imageResol
     @Override
     public void onPostCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onPostCreate(savedInstanceState, persistentState);
-        /*//configuring spinner adapter for its menu list & apply the adapter to the spinner
-        climbinghallSpinner.setAdapter(spinnerAdapter.getAdapter());*/
+        /*
+        spinner section
+        //configuring spinner adapter for its menu list & apply the adapter to the spinner
+        climbinghallSpinner.setAdapter(spinnerAdapter.getAdapter());
+         */
     }
 
 
