@@ -86,7 +86,7 @@ public class User implements Serializable {
                     {
                         VolleyLog.v("Response:%n %s", response);
                         System.out.println(response.toString());
-                        V.DBPopulate(true); // Repopulate attendees and update rvAttendees
+                        V.addUpdateUser();
                     }
                 },
                 new Response.ErrorListener()
@@ -102,8 +102,10 @@ public class User implements Serializable {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
+                System.out.println("attend params was initiated!");
                 params.put("attendee", username);
                 params.put("eventid", Integer.toString(event.getEventID()));
+                System.out.println("attend event id: " + Integer.toString(event.getEventID()));
                 return params;
             }
         };
@@ -121,7 +123,7 @@ public class User implements Serializable {
                     {
                         VolleyLog.v("Response:%n %s", response);
                         System.out.println(response.toString());
-                        V.DBPopulate(true); // Repopulate attendees and update rvAttendees
+                        V.rmUpdateUser();
                     }
                 },
                 new Response.ErrorListener()
@@ -137,8 +139,10 @@ public class User implements Serializable {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
+                System.out.println("Unattend params were initiated!");
                 params.put("attendee", username);
                 params.put("eventid", Integer.toString(event.getEventID()));
+                System.out.println("unattend event id: " + Integer.toString(event.getEventID()));
                 return params;
             }
         };
