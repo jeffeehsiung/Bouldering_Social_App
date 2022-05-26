@@ -17,6 +17,8 @@ import org.json.JSONArray;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import be.kuleuven.timetoclimb.R;
+
 public interface imageResolver {
     default String onRetrieveSuccess(String b64String){return b64String;}
     default String uriToString(Uri uri) throws IOException {
@@ -63,6 +65,18 @@ public interface imageResolver {
                 bm, 0, 0, width, height, matrix, false);
         bm.recycle();
         return resizedBitmap;
+    }
+
+    default Bitmap imageViewToBitmap(ImageView imageView){
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView.getDrawable();
+        Bitmap bitmap = bitmapDrawable.getBitmap();
+        return bitmap;
+    }
+
+    default Bitmap drawbleToBitmap(Drawable drawable){
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+        Bitmap bitmap = bitmapDrawable.getBitmap();
+        return bitmap;
     }
 
     /** simply resizes a given drawable resource to the given width and height */

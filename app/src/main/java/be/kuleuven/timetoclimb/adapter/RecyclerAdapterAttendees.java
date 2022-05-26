@@ -53,13 +53,13 @@ public class RecyclerAdapterAttendees extends RecyclerView.Adapter<RecyclerAdapt
             lblAttendee = view.findViewById(R.id.lblAttendee);
         }
 
-        public void bind(final User attendee, final RecyclerAdapterAttendees.OnItemClickListener listener) {
+        /*public void bind(final User attendee, final RecyclerAdapterAttendees.OnItemClickListener listener) {
             attendeeView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     listener.onItemClick(event);
                 }
             });
-        }
+        }*/
     }
 
 }
