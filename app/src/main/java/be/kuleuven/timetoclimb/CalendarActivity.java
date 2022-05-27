@@ -109,12 +109,31 @@ public class CalendarActivity extends Activity{
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void onButtonBrowseEvents_Clicked(View caller) {
+    public void onBtnBrowseEvents_Clicked(View caller) {
         LocalDateTime nowDateTime = LocalDateTime.now();
         String currentDateTime = convertJavaToDBDateTime(nowDateTime);
         Intent intentBrowseEvents = new Intent(this, BrowseEvents.class);
         intentBrowseEvents.putExtra("User", user);
         intentBrowseEvents.putExtra("currentDateTime", currentDateTime);
         startActivity(intentBrowseEvents);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void onBtnAttendingEvents_Clicked(View caller) {
+        LocalDateTime nowDateTime = LocalDateTime.now();
+        String currentDateTime = convertJavaToDBDateTime(nowDateTime);
+        Intent intentAttendingEvents = new Intent(this, AttendingEvents.class);
+        intentAttendingEvents.putExtra("User", user);
+        intentAttendingEvents.putExtra("currentDateTime", currentDateTime);
+        startActivity(intentAttendingEvents);
+    }
+
+    public void onBtnOrganisedEvents_Clicked(View caller) {
+        LocalDateTime nowDateTime = LocalDateTime.now();
+        String currentDateTime = convertJavaToDBDateTime(nowDateTime);
+        Intent intOrganisedEvents = new Intent(this, OrganisedEvents.class);
+        intOrganisedEvents.putExtra("User", user);
+        intOrganisedEvents.putExtra("currentDateTime", currentDateTime);
+        startActivity(intOrganisedEvents);
     }
 }

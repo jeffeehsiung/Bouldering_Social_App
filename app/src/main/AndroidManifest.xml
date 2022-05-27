@@ -35,6 +35,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TimeToClimb">
         <activity
+            android:name=".OrganisedEvents"
+            android:exported="false" />
+        <activity
+            android:name=".AttendingEvents"
+            android:exported="false" />
+        <activity
             android:name=".BrowseEvents"
             android:exported="false" />
         <activity

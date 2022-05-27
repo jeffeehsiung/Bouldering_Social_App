@@ -133,6 +133,10 @@ public class ViewDate extends AppCompatActivity {
                             System.out.println("error addclimb: " + e.getLocalizedMessage());
                         }
                         if(index == cycles) {
+                            System.out.println("Adapter setting for attending events! (inside addClimbinghalls())");
+                            while(climbinghalls.size() != eventList.size()) {
+                                // do nothing
+                            }
                             setAdapter();
                         }
                     }
