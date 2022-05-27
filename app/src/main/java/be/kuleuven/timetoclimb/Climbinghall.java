@@ -13,6 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -27,46 +28,43 @@ public class Climbinghall {
     private int id;
     private String hallName;
     private String address;
-    private Bitmap image;
+    private String image;
 
-    public Climbinghall(int id, String hallName, String address) {
+    public Climbinghall(int id, String hallName, String address, String image) {
         this.id = id;
         this.hallName = hallName;
         this.address = address;
-        //this.image = image; STILL NEEDS TO BE IMPLEMENTED AFTER TESTING!!!
+        this.image = image;
     }
 
     public Climbinghall(JSONObject jsonObject) throws JSONException {
         this.id = Integer.parseInt(jsonObject.getString("id"));
         this.hallName = jsonObject.getString("hall_name");
         this.address = jsonObject.getString("address");
-        this.image = null; // for now
+        this.image = jsonObject.getString("image"); // for now
     }
 
     // TO DO: doesn't work yet (after calling csrtctor with json returns null or smthng)
-    public static ArrayList<Climbinghall> DBContents(Context c) {
+    public static ArrayList<Climbinghall> DBContents(Context c, SelectClimbingHall instance) {
         ArrayList<Climbinghall> climbinghalls = new ArrayList<>();
-
         RequestQueue requestQueue = Volley.newRequestQueue(c);
-
         String requestURL = "https://studev.groept.be/api/a21pt411/getAllClimbinghalls";
-
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, requestURL, null,
-                new Response.Listener<JSONArray>()
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, requestURL,
+                new Response.Listener<String>()
                 {
                     @Override
-                    public void onResponse(JSONArray response)
+                    public void onResponse(String response)
                     {
                         //make a copy of the response and store it
                         try {
                             //response pushed into parameter v in volley log, which can be access through external document.
-                            VolleyLog.v("Response:%n %s", response.toString(4));
-                            for(int i = 0; i < response.length(); i++) {
-                                climbinghalls.add(new Climbinghall(response.getJSONObject(i)));
+                            VolleyLog.v("Response:%n %s", response.toString());
+                            JSONArray jsonArray = new JSONArray(response);
+                            for(int i = 0; i < jsonArray.length(); i++) {
+                                Climbinghall climbinghall = new Climbinghall(jsonArray.getJSONObject(i));
+                                climbinghalls.add(climbinghall);
                             }
-                            System.out.println(climbinghalls.get(0).getHallName());
-                            System.out.println(climbinghalls.get(1).getHallName());
-                            System.out.println(climbinghalls.toString());
+                            instance.setAdapter();
                             System.out.println("Volley workyworky");
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -85,8 +83,7 @@ public class Climbinghall {
                     }
                 }
         );
-
-        requestQueue.add(jsonArrayRequest);
+        requestQueue.add(stringRequest);
         return climbinghalls;
     }
 
@@ -129,11 +126,11 @@ public class Climbinghall {
         this.address = address;
     }
 
-    public Bitmap getImage() {
+    public String  getImage() {
         return image;
     }
 
-    public void setImage(Bitmap image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

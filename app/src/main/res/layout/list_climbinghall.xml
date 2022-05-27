@@ -6,22 +6,13 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/lblImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="IMAGE"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/lblHallName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        app:layout_constraintStart_toEndOf="@+id/lblImage"
-        app:layout_constraintTop_toTopOf="@+id/lblImage" />
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/imgClimbingHall"
+        app:layout_constraintTop_toTopOf="@+id/imgClimbingHall" />
 
     <TextView
         android:id="@+id/lblHallAdress"
@@ -30,5 +21,15 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="@+id/lblHallName"
         app:layout_constraintTop_toBottomOf="@+id/lblHallName" />
+
+    <ImageView
+        android:id="@+id/imgClimbingHall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,8 @@
 package be.kuleuven.timetoclimb.adapter;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,20 +14,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import be.kuleuven.timetoclimb.Climbinghall;
 import be.kuleuven.timetoclimb.Event;
 import be.kuleuven.timetoclimb.R;
 import be.kuleuven.timetoclimb.ViewDate;
 
 public class RecyclerAdapterViewDate extends RecyclerView.Adapter<RecyclerAdapterViewDate.myViewHolder> {
    private ArrayList<Event> eventList;
-   private ArrayList<String> climbinghalls;
+   private ArrayList<Climbinghall> climbinghalls;
    private final OnItemClickListener listener;
 
     public interface OnItemClickListener {
         void onItemClick(Event event);
     }
 
-   public RecyclerAdapterViewDate(ArrayList<Event> eventList, ArrayList<String> climbinghalls, OnItemClickListener listener) {
+   public RecyclerAdapterViewDate(ArrayList<Event> eventList, ArrayList<Climbinghall> climbinghalls, OnItemClickListener listener) {
        this.eventList = eventList;
        this.climbinghalls = climbinghalls;
        this.listener = listener;
@@ -60,11 +64,17 @@ public class RecyclerAdapterViewDate extends RecyclerView.Adapter<RecyclerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerAdapterViewDate.myViewHolder holder, int position) {
-       // implement image here aswell!!!
-       String titleEvent = eventList.get(position).getTitle();
-       holder.lblClimbinghallEvent.setText(climbinghalls.get(position));
-       holder.lblTitleEvent.setText(titleEvent);
-       holder.bind(eventList.get(position), listener);
+        String titleEvent = eventList.get(position).getTitle();
+        holder.lblClimbinghallEvent.setText(climbinghalls.get(position).getHallName());
+
+        //set image
+        String b64String = climbinghalls.get(position).getImage();
+        byte[] imageBytes = Base64.decode( b64String, Base64.DEFAULT );
+        Bitmap bitmap = BitmapFactory.decodeByteArray( imageBytes, 0, imageBytes.length );
+        holder.imgClimbinghall.setImageBitmap(Bitmap.createScaledBitmap(bitmap, bitmap.getWidth()/3, bitmap.getHeight()/3, false));
+
+        holder.lblTitleEvent.setText(titleEvent);
+        holder.bind(eventList.get(position), listener);
     }
 
     @Override

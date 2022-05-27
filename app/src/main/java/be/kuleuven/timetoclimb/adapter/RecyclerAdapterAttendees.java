@@ -34,11 +34,10 @@ public class RecyclerAdapterAttendees extends RecyclerView.Adapter<RecyclerAdapt
     public void onBindViewHolder(@NonNull AttendeeViewHolder holder, int position) {
         String attendee = attendees.get(position).getUsername();
         holder.lblAttendee.setText(attendee);
-        //converting base64 string to image
+        // Set image
         String b64String = attendees.get(position).getProfileImage();
         byte[] imageBytes = Base64.decode( b64String, Base64.DEFAULT );
         Bitmap bitmap = BitmapFactory.decodeByteArray( imageBytes, 0, imageBytes.length );
-        //Link the bitmap to the ImageView, so it's visible on screen
         holder.imgAttendee.setImageBitmap(Bitmap.createScaledBitmap(bitmap, bitmap.getWidth()/3, bitmap.getHeight()/3, false));
     }
 

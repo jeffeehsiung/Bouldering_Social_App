@@ -31,52 +31,19 @@ public class SelectClimbingHall extends AppCompatActivity {
     private RecyclerView recyclerView;
     private int hallID;
     private String hallName;
+    private User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_climbing_hall);
 
+        user = (User) getIntent().getSerializableExtra("User");
         recyclerView = findViewById(R.id.rvClimbinghalls);
+        climbinghalls = Climbinghall.DBContents(getApplicationContext(), this); // Populate with all climbinghalls in
 
-        /*
-            --- Populate climbing halls from database ---
-         */
-        climbinghalls = new ArrayList<>();
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        String requestURL = "https://studev.groept.be/api/a21pt411/getAllClimbinghalls";
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, requestURL, null,
-                new Response.Listener<JSONArray>()
-                {
-                    @Override
-                    public void onResponse(JSONArray response)
-                    {
-                        //make a copy of the response and store it
-                        try {
-                            //response pushed into parameter v in volley log, which can be access through external document.
-                            VolleyLog.v("Response:%n %s", response.toString(4));
-                            for(int i = 0; i < response.length(); i++) {
-                                climbinghalls.add(new Climbinghall(response.getJSONObject(i)));
-                            }
-                            setAdapter();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error)
-                    {
-                        Log.d("Database" ,error.getLocalizedMessage(), error);
-                        System.out.println(error.getLocalizedMessage());
-                    }
-                }
-        );
-        requestQueue.add(jsonArrayRequest);
     }
 
-    private void setAdapter() {
+    public void setAdapter() {
         // 3 things to set: 1. Layout manager ; 2. Item animator ; 3. Adapter
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -97,6 +64,7 @@ public class SelectClimbingHall extends AppCompatActivity {
         Intent intentEvent = new Intent(this, EventCreator.class);
         intentEvent.putExtra("hallName", hallName);
         intentEvent.putExtra("id", hallID);
+        intentEvent.putExtra("User", user);
         setResult(Activity.RESULT_OK, intentEvent);
         finish();
     }

@@ -36,7 +36,7 @@ public class ViewDate extends AppCompatActivity {
 
     private User user;
     private ArrayList<Event> eventList;
-    private ArrayList<String> climbinghalls;
+    private ArrayList<Climbinghall> climbinghalls;
     private TextView lblDate;
     private RecyclerView rvEvents;
     private String displayDate;
@@ -134,7 +134,7 @@ public class ViewDate extends AppCompatActivity {
                             JSONArray jsonArray = new JSONArray(response);
                             // Set empty list if no attendees, otherwise add by iteration
                             JSONObject objResponse = jsonArray.getJSONObject(0);
-                            String climbinghall = objResponse.getString("hall_name");
+                            Climbinghall climbinghall = new Climbinghall(objResponse);
                             climbinghalls.add(climbinghall);
                         } catch (JSONException e) {
                             System.out.println("error addclimb: " + e.getLocalizedMessage());
