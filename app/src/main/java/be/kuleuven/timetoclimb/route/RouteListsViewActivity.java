@@ -103,7 +103,7 @@ public class RouteListsViewActivity extends AppCompatActivity {
                 }
 
                 //configure the corresponding adapter
-                routeListRVAdapter = new RouteListRVAdapter(RouteListsViewActivity.this,routeList,routeListRecyclerView);
+                routeListRVAdapter = new RouteListRVAdapter(RouteListsViewActivity.this,routeList,routeListRecyclerView,user);
                 routeListRecyclerView.setAdapter(routeListRVAdapter);
                 //set RV layout manager as linear since we have linear multiple
                 routeListRecyclerView.setLayoutManager(new LinearLayoutManager(RouteListsViewActivity.this));

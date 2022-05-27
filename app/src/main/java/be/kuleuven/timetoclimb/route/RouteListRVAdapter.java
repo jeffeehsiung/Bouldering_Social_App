@@ -1,6 +1,7 @@
 package be.kuleuven.timetoclimb.route;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import be.kuleuven.timetoclimb.R;
+import be.kuleuven.timetoclimb.User;
 import be.kuleuven.timetoclimb.adapter.RecyclerAdapter;
 import be.kuleuven.timetoclimb.dbConnection.DBConnector;
 import be.kuleuven.timetoclimb.toolsInterface.imageResolver;
@@ -27,14 +29,16 @@ public class RouteListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private Context context;
     private List<Route> routeList;
     private RecyclerView routeListRecyclerView;
+    private User user;
     private final View.OnClickListener onClickListener = new RouteOnClickListener();
 
 
     //constructor of adapter
-    public RouteListRVAdapter(Context context,List<Route> routeList,RecyclerView routeListRecyclerView){
+    public RouteListRVAdapter(Context context,List<Route> routeList,RecyclerView routeListRecyclerView, User user){
         this.context = context;
         this.routeListRecyclerView = routeListRecyclerView;
         this.routeList = routeList;
+        this.user = user;
     }
     //define view holder
     //define what to inflate for the master viewHolder's inflater on the parent root layout, which is a view group, for each position
@@ -108,6 +112,7 @@ public class RouteListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             tvDescription = itemView.findViewById(R.id.tvDescription);
             rtGrade = itemView.findViewById(R.id.rtGrade);
             ivRoutePicture = itemView.findViewById(R.id.ivRoutePicture);
+            itemView.setOnClickListener(onClickListener);
         }
     }
 
@@ -119,6 +124,13 @@ public class RouteListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             int itemPosition = routeListRecyclerView.getChildLayoutPosition(viewItem);
             //implement method to allow transitions to routeDetail View
             String hallName = routeList.get(itemPosition).getHallName();
+
+            //to RouteDetailActivity
+            Intent intent = new Intent(context,RouteDetailViewActivity.class);
+            intent.putExtra("User",user);
+            intent.putExtra("Route",routeList.get(itemPosition));
+            context.startActivity(intent);
+
             Toast.makeText(context, "hallName: "+ hallName, Toast.LENGTH_SHORT).show();
         }
     }

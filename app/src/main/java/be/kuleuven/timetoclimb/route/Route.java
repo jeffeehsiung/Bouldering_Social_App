@@ -1,6 +1,8 @@
 package be.kuleuven.timetoclimb.route;
 
-public class Route {
+import java.io.Serializable;
+
+public class Route implements Serializable {
 
     private int routeNO;
     private float grade;
