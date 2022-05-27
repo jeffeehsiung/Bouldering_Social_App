@@ -87,8 +87,8 @@ public class ViewDate extends AppCompatActivity {
                                         objResponse.getString("end_datetime")
                                         );
                                 eventList.add(event);
-                                addClimbingHall(event.getClimbingHallID(), i, jsonArray.length() - 1);
                             }
+                            addClimbingHalls(eventList);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -112,53 +112,53 @@ public class ViewDate extends AppCompatActivity {
         requestQueue.add(submitRequest);
     }
 
-    public void addClimbingHall(int id, int index, int cycles) {
+    public void addClimbingHalls(ArrayList<Event> events) {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         String requestURL = "https://studev.groept.be/api/a21pt411/getHallNameByID";
-        StringRequest stringRequestRequest = new StringRequest(Request.Method.POST, requestURL,
-                new Response.Listener<String>()
-                {
-                    @Override
-                    public void onResponse(String response)
+        for(int i = 0; i < events.size(); i++) {
+            int finalI = i;
+            int finalI1 = i;
+            StringRequest stringRequestRequest = new StringRequest(Request.Method.POST, requestURL,
+                    new Response.Listener<String>()
                     {
-                        VolleyLog.v("Response:%n %s", response);
-                        System.out.println("Response climbinghalls: \n" + response);
-                        try {
-                            JSONArray jsonArray = new JSONArray(response);
-                            // Set empty list if no attendees, otherwise add by iteration
-                            JSONObject objResponse = jsonArray.getJSONObject(0);
-                            Climbinghall climbinghall = new Climbinghall(objResponse);
-                            climbinghalls.add(climbinghall);
-                        } catch (JSONException e) {
-                            System.out.println("error addclimb: " + e.getLocalizedMessage());
-                        }
-                        if(index == cycles) {
-                            System.out.println("Adapter setting for attending events! (inside addClimbinghalls())");
-                            while(climbinghalls.size() != eventList.size()) {
-                                // do nothing
+                        @Override
+                        public void onResponse(String response)
+                        {
+                            VolleyLog.v("Response:%n %s", response);
+                            System.out.println("Response climbinghalls: \n" + response);
+                            try {
+                                JSONArray jsonArray = new JSONArray(response);
+                                // Set empty list if no attendees, otherwise add by iteration
+                                JSONObject objResponse = jsonArray.getJSONObject(0);
+                                Climbinghall climbinghall = new Climbinghall(objResponse);
+                                climbinghalls.add(climbinghall);
+                            } catch (JSONException e) {
+                                System.out.println("error addclimb: " + e.getLocalizedMessage());
                             }
-                            setAdapter();
+                            if(finalI1 == events.size() - 1) {
+                                setAdapter();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener()
+                    {
+                        @Override
+                        public void onErrorResponse(VolleyError error)
+                        {
+                            Log.d("Database" ,error.getLocalizedMessage(), error);
+                            System.out.println("error: " + error.getLocalizedMessage());
                         }
                     }
-                },
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error)
-                    {
-                        Log.d("Database" ,error.getLocalizedMessage(), error);
-                        System.out.println("error: " + error.getLocalizedMessage());
-                    }
+            ) { //NOTE THIS PART: here we are passing the parameter to the webservice, NOT in the URL!
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("id", Integer.toString(events.get(finalI).getClimbingHallID()));
+                    return params;
                 }
-        ) { //NOTE THIS PART: here we are passing the parameter to the webservice, NOT in the URL!
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("id", Integer.toString(id));
-                return params;
-            }
-        };
-        requestQueue.add(stringRequestRequest);
+            };
+            requestQueue.add(stringRequestRequest);
+        }
     }
 
     public void passEventAndLocation(Event e, Climbinghall climbinghall) {

@@ -128,6 +128,7 @@ public class CalendarActivity extends Activity{
         startActivity(intentAttendingEvents);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void onBtnOrganisedEvents_Clicked(View caller) {
         LocalDateTime nowDateTime = LocalDateTime.now();
         String currentDateTime = convertJavaToDBDateTime(nowDateTime);

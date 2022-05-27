@@ -6,13 +6,9 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -25,7 +21,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -34,11 +29,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import be.kuleuven.timetoclimb.adapter.RecyclerAdapter;
 import be.kuleuven.timetoclimb.adapter.RecyclerAdapterAttendees;
 
 public class ViewEvent extends AppCompatActivity {
@@ -55,7 +48,8 @@ public class ViewEvent extends AppCompatActivity {
     private Switch swAttend;
     private RecyclerView rvAttendees;
     private RecyclerAdapterAttendees adapterAttendees;
-    private ArrayList<User> attendees;
+    private ArrayList<String> attendees;
+    private ArrayList<User> attendeeList;
     private User user;
     boolean switchFlagPrevSet;
     Event event;
@@ -91,6 +85,7 @@ public class ViewEvent extends AppCompatActivity {
         lblDescription.setText("\" " + event.getDescription() + " \"");
 
         // populate attendees from database
+        attendeeList = new ArrayList<>();
         attendees = new ArrayList<>();
         DBPopulate();
 
@@ -101,7 +96,7 @@ public class ViewEvent extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         rvAttendees.setLayoutManager(layoutManager);
         rvAttendees.setItemAnimator(new DefaultItemAnimator());
-        adapterAttendees = new RecyclerAdapterAttendees(attendees);
+        adapterAttendees = new RecyclerAdapterAttendees(attendeeList);
         rvAttendees.setAdapter(adapterAttendees);
     }
 
@@ -109,7 +104,7 @@ public class ViewEvent extends AppCompatActivity {
     public void setSwitch() {
         // set switch listener to add or remove user from event
         ViewEvent passingInstance = this;
-        switchFlagPrevSet = attendees.stream().anyMatch(a -> a.getUsername().equals(user.getUsername()));  // Previous setting flag: false = it was off ; true = it was on
+        switchFlagPrevSet = attendeeList.stream().anyMatch(a -> a.getUsername().equals(user.getUsername()));  // Previous setting flag: false = it was off ; true = it was on
         swAttend.setChecked(switchFlagPrevSet); // set the button to checked based off being an attendee or not
         swAttend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,8 +145,9 @@ public class ViewEvent extends AppCompatActivity {
                                     System.out.println("event id: " + Integer.toString(event.getEventID()));
                                     JSONObject objResponse = jsonArray.getJSONObject(i);
                                     String attendee = objResponse.getString("attendee");
-                                    DBAddAttendee(attendee, i, jsonArray.length() - 1);
+                                    attendees.add(attendee);
                                 }
+                                DBAddAttendees(attendees);
                             }
 
                         } catch (JSONException e) {
@@ -188,59 +184,63 @@ public class ViewEvent extends AppCompatActivity {
     /*
     Helper method for building attendee list
      */
-    private void DBAddAttendee(String attendee, int index, int cycle) {
+    private void DBAddAttendees(ArrayList<String> attendeesPassed) {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         String requestURL = "https://studev.groept.be/api/a21pt411/getUser";
-        StringRequest stringRequestRequest = new StringRequest(Request.Method.POST, requestURL,
-                new Response.Listener<String>()
-                {
-                    @RequiresApi(api = Build.VERSION_CODES.N)
-                    @Override
-                    public void onResponse(String response)
+        for(int i = 0; i < attendeesPassed.size(); i++) {
+            int finalI = i;
+            int finalI1 = i;
+            StringRequest stringRequestRequest = new StringRequest(Request.Method.POST, requestURL,
+                    new Response.Listener<String>()
                     {
-                        VolleyLog.v("Response:%n %s", response);
-                        try {
-                            JSONArray jsonArray = new JSONArray(response);
-                            JSONObject objResponse = jsonArray.getJSONObject(0);
-                            String username = objResponse.getString("username");
-                            String password = objResponse.getString("password");
-                            String picture = objResponse.getString("profile_picture");
-                            if(username != null) {
-                                User usrAttendee = new User(username, password, picture);
-                                attendees.add(usrAttendee);
+                        @RequiresApi(api = Build.VERSION_CODES.N)
+                        @Override
+                        public void onResponse(String response)
+                        {
+                            VolleyLog.v("Response:%n %s", response);
+                            try {
+                                JSONArray jsonArray = new JSONArray(response);
+                                JSONObject objResponse = jsonArray.getJSONObject(0);
+                                String username = objResponse.getString("username");
+                                String password = objResponse.getString("password");
+                                String picture = objResponse.getString("profile_picture");
+                                if(username != null) {
+                                    User usrAttendee = new User(username, password, picture);
+                                    attendeeList.add(usrAttendee);
+                                }
+                                if(finalI1 == attendeesPassed.size() - 1) {
+                                    setSwitch();
+                                    setAdapter();
+                                }
+                            } catch (JSONException e) {
+                                System.out.println(e.getLocalizedMessage());
                             }
-                            if(index == cycle) {
-                                setSwitch();
-                                setAdapter();
-                            }
-                        } catch (JSONException e) {
-                            System.out.println(e.getLocalizedMessage());
-                        }
 
-                    }
-                },
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error)
+                        }
+                    },
+                    new Response.ErrorListener()
                     {
-                        Log.d("Database" ,error.getLocalizedMessage(), error);
-                        System.out.println("error: " + error.getLocalizedMessage());
+                        @Override
+                        public void onErrorResponse(VolleyError error)
+                        {
+                            Log.d("Database" ,error.getLocalizedMessage(), error);
+                            System.out.println("error: " + error.getLocalizedMessage());
+                        }
                     }
+            ) { //NOTE THIS PART: here we are passing the parameter to the webservice, NOT in the URL!
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("username", attendeesPassed.get(finalI));
+                    return params;
                 }
-        ) { //NOTE THIS PART: here we are passing the parameter to the webservice, NOT in the URL!
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("username", attendee);
-                return params;
-            }
-        };
-        requestQueue.add(stringRequestRequest);
+            };
+            requestQueue.add(stringRequestRequest);
+        }
     }
     public void addUpdateUser() {
-        attendees.add(user);
-        int addIndex = attendees.size() - 1;
+        attendeeList.add(user);
+        int addIndex = attendeeList.size() - 1;
         adapterAttendees.notifyItemInserted(addIndex);
     }
 
@@ -248,13 +248,13 @@ public class ViewEvent extends AppCompatActivity {
         boolean found = false;
         int i = 0;
         while(!found) {
-            if(attendees.get(i).getUsername().equals(user.getUsername())) {
+            if(attendeeList.get(i).getUsername().equals(user.getUsername())) {
                 found = true;
             } else {
                 i++;
             }
         }
-        attendees.remove(i);
+        attendeeList.remove(i);
         adapterAttendees.notifyItemRemoved(i);
     }
 }
