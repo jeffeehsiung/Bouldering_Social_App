@@ -20,6 +20,7 @@ import java.util.List;
 import be.kuleuven.timetoclimb.CommentItem;
 import be.kuleuven.timetoclimb.R;
 import be.kuleuven.timetoclimb.User;
+import be.kuleuven.timetoclimb.views.ExpandableTextView;
 
 public class RouteDetailRVAdapter {
 
@@ -85,17 +86,14 @@ public class RouteDetailRVAdapter {
     //single item view holders  & instantiation of each layout item
     public class CommentItemListRowHolder extends RecyclerView.ViewHolder {
 
-        TextView tvHallName, tvRouteNo, tvDescription;
-        RatingBar rtGrade;
-        ImageView ivRoutePicture;
+        TextView tvComment,tvDate;
+        ImageView ivAvatar;
 
         public CommentItemListRowHolder(@NonNull View itemView) {
             super(itemView);
-            tvHallName = itemView.findViewById(R.id.tvHallName);
-            tvRouteNo = itemView.findViewById(R.id.tvRouteNo);
-            tvDescription = itemView.findViewById(R.id.tvDescription);
-            rtGrade = itemView.findViewById(R.id.rtGrade);
-            ivRoutePicture = itemView.findViewById(R.id.ivRoutePicture);
+            tvComment = itemView.findViewById(R.id.tvComment);
+            tvDate = itemView.findViewById(R.id.tvDate);
+            ivAvatar = itemView.findViewById(R.id.ivAvatar);
         }
     }
 }
