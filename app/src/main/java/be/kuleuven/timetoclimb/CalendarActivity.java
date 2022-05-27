@@ -12,13 +12,11 @@ import android.app.Activity;
 
 import androidx.annotation.RequiresApi;
 
-import com.google.type.DateTime;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+
+import be.kuleuven.timetoclimb.EventViewing.AttendingEvents;
+import be.kuleuven.timetoclimb.EventViewing.OrganisedEvents;
+import be.kuleuven.timetoclimb.EventViewing.ViewDate;
 
 public class CalendarActivity extends Activity{
     private User user;
