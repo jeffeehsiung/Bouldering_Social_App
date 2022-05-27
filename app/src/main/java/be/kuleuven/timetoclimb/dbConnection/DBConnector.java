@@ -33,8 +33,9 @@ import java.util.Map;
 import java.util.Objects;
 
 import be.kuleuven.timetoclimb.R;
+import be.kuleuven.timetoclimb.toolsInterface.imageResolver;
 
-public class DBConnector extends AppCompatActivity {
+public class DBConnector extends AppCompatActivity implements imageResolver {
 
     private RequestQueue requestQueue;
     private final Context context;
@@ -45,6 +46,7 @@ public class DBConnector extends AppCompatActivity {
     public DBConnector(Context context){
         this.context = context;
     }
+
     /**
      * Retrieve information from DB with Volley JSONRequest
      */
@@ -82,14 +84,62 @@ public class DBConnector extends AppCompatActivity {
         requestQueue.add(jsonArrayRequest);
     }
 
-    public JSONArray getJsonArrayResponse() {
-        return jsonArrayResponse;
-    }
     public void setJsonArrayResponse(JSONArray jsonArrayResponse) {
         this.jsonArrayResponse = jsonArrayResponse;
     }
 
-    public void imageUploadRequest(String databasurl, String username, Bitmap selectedImageBM) throws IOException {
+    /**
+     * Generic imageUploadRequest
+     */
+    public void imageUploadRequest(String databasurl, Bitmap selectedImageBM, ImageMapParam imageMapParam) throws IOException {
+        // will return unResizedBitmap
+        requestQueue = Volley.newRequestQueue(context);
+
+        final String encodedImage;
+        Bitmap Resizedbitmap;
+        if(selectedImageBM == null){
+            System.out.println("profileImage stays the same");
+            return;
+        }
+
+        //getting image from gallery
+        //Rescale the bitmap to 680px wide (avoid storing large images!)
+        Resizedbitmap = getResizedBitmap(selectedImageBM, 600);
+
+        //convert image to base64 string
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        //compress bitmap into JPEG and output to byte array with quality 100%
+        Resizedbitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+
+        //the profileImage will be replaced later by param
+        String upload = serverURL + databasurl;
+
+        //Execute the Volley call. Note that we are not appending the image string to the URL, that happens further below
+        StringRequest submitRequest = new StringRequest(Request.Method.POST, upload, response -> {
+            //Turn the progress widget off
+            Toast.makeText(context, "Post request executed", Toast.LENGTH_SHORT).show();
+
+        }, error -> error.printStackTrace())
+        { //NOTE THIS PART: here we are passing the parameter to the webservice, NOT in the URL!
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                imageMapParam.setParam(params,encodedImage);
+                return params;
+            }
+        };
+
+        requestQueue.add(submitRequest);
+    }
+
+    //DBconnector POST and GET for Profile Activity Section
+    /*
+    Specific imageUploadRequest for ProfileActivity
+     */
+
+    public void ProfileImageUploadRequest(String databasurl, String username, Bitmap selectedImageBM) throws IOException {
         // will return unResizedBitmap
         requestQueue = Volley.newRequestQueue(context);
 
@@ -138,62 +188,16 @@ public class DBConnector extends AppCompatActivity {
 
         requestQueue.add(submitRequest);
     }
-
     /**
-     * imageUploadRequestOverloading
+     * Specific imageRetrieveRequest for ProfileActivity
      */
-    public void imageUploadRequest(String databasurl, String username, Bitmap selectedImageBM, ImageMapParam imageMapParam) throws IOException {
-        // will return unResizedBitmap
-        requestQueue = Volley.newRequestQueue(context);
-
-        final String encodedImage;
-        Bitmap Resizedbitmap;
-        if(selectedImageBM == null){
-            System.out.println("profileImage stays the same");
-            return;
-        }
-
-        //getting image from gallery
-        //Rescale the bitmap to 680px wide (avoid storing large images!)
-        Resizedbitmap = getResizedBitmap(selectedImageBM, 600);
-
-        //convert image to base64 string
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        //compress bitmap into JPEG and output to byte array with quality 100%
-        Resizedbitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] imageBytes = baos.toByteArray();
-        encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-
-        //the profileImage will be replaced later by param
-        String upload = serverURL + databasurl;
-
-        //Execute the Volley call. Note that we are not appending the image string to the URL, that happens further below
-        StringRequest submitRequest = new StringRequest(Request.Method.POST, upload, response -> {
-            //Turn the progress widget off
-            Toast.makeText(context, "Post request executed", Toast.LENGTH_SHORT).show();
-
-        }, error -> error.printStackTrace())
-        { //NOTE THIS PART: here we are passing the parameter to the webservice, NOT in the URL!
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                imageMapParam.setParam(params,encodedImage);
-                return params;
-            }
-        };
-
-        requestQueue.add(submitRequest);
-    }
-    /**
-     * Retrieves the most recent image from the DB
-     */
-    public void imageRetrieveRequest( String retrieveImgUrl, String username, ImageView profileImage)
+    public void ProfileImageRetrieveRequest( String retrieveImgUrl, String paramName, ImageView imageView)
     {
         //sending simple request
         //instantiate the requestQueue
         requestQueue = Volley.newRequestQueue(context);
 
-        String requestURL = serverURL+retrieveImgUrl+ "/" + username;
+        String requestURL = serverURL+retrieveImgUrl+ "/" + paramName;
         //Standard Volley request. We don't need any parameters for this one
         JsonArrayRequest retrieveImageRequest = new JsonArrayRequest(Request.Method.GET, requestURL, null,
                 new Response.Listener<JSONArray>() {
@@ -215,8 +219,8 @@ public class DBConnector extends AppCompatActivity {
                             try {
                                 if(o.getString("profile_picture").isEmpty()) {
                                     Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.user);
-                                    profileImage.setImageBitmap(bitmap);
-                                    imageUploadRequest("setProfileImage",username,bitmap);
+                                    imageView.setImageBitmap(bitmap);
+                                    ProfileImageUploadRequest("setProfileImage",paramName,bitmap);
                                     //if after retrieve they wish to update right away..
 
                                 } else {
@@ -224,7 +228,7 @@ public class DBConnector extends AppCompatActivity {
                                     byte[] imageBytes = Base64.decode( b64String, Base64.DEFAULT );
                                     Bitmap bitmap2 = BitmapFactory.decodeByteArray( imageBytes, 0, imageBytes.length );
                                     //Link the bitmap to the ImageView, so it's visible on screen
-                                    profileImage.setImageBitmap( bitmap2 );
+                                    imageView.setImageBitmap( bitmap2 );
                                 }
                             } catch (JSONException | IOException e) {
                                 System.out.println("profileImage is default");
@@ -243,20 +247,5 @@ public class DBConnector extends AppCompatActivity {
                 }
         );
         requestQueue.add(retrieveImageRequest);
-    }
-    public Bitmap getResizedBitmap(Bitmap bm, int newWidth) {
-        int width = bm.getWidth();
-        int height = bm.getHeight();
-        float scale = ((float) newWidth) / width;
-
-        // We create a matrix to transform the image
-        Matrix matrix = new Matrix();
-        matrix.postScale(scale, scale);
-
-        // Create the new bitmap
-        Bitmap resizedBitmap = Bitmap.createBitmap(
-                bm, 0, 0, width, height, matrix, false);
-        bm.recycle();
-        return resizedBitmap;
     }
 }

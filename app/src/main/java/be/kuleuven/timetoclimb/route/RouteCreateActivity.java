@@ -192,7 +192,7 @@ public class RouteCreateActivity extends AppCompatActivity implements imageResol
                 //upload to DB
                 DBConnector dbConnector = new DBConnector(getApplicationContext());
                 try {
-                    dbConnector.imageUploadRequest(uploadImgUrl, user.getUsername().trim(), selectedImageBM, new ImageMapParam() {
+                    dbConnector.imageUploadRequest(uploadImgUrl, selectedImageBM, new ImageMapParam() {
                         @Override
                         public void setParam(Map<String, String> params, String encodedImage) {
                             params.put("hallid", Objects.requireNonNull(climbingHallEditText.getText().toString().trim(),"please enter hallID"));

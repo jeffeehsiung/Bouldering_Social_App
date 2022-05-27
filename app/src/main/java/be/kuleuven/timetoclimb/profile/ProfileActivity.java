@@ -95,7 +95,7 @@ public class ProfileActivity extends AppCompatActivity implements imageResolver 
             public void onClick(View view) {
                 DBConnector dbConnector = new DBConnector(getApplicationContext());
                 try {
-                    dbConnector.imageUploadRequest(databaseUrl,username.getText().toString().trim(),selectedImageBM);
+                    dbConnector.ProfileImageUploadRequest(databaseUrl,username.getText().toString().trim(),selectedImageBM);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -112,7 +112,7 @@ public class ProfileActivity extends AppCompatActivity implements imageResolver 
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         DBConnector dbConnector = new DBConnector(getApplicationContext());
-        dbConnector.imageRetrieveRequest(retrieveImgUrl, username.getText().toString().trim(), profileImage);
+        dbConnector.ProfileImageRetrieveRequest(retrieveImgUrl, username.getText().toString().trim(), profileImage);
         //System.out.println("username from user: "+ user.getUsername() + " password from user: " + user.getPassword()+ " profileImage from user: " + user.getProfileImage());
     }
 
