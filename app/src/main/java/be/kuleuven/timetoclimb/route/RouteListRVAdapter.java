@@ -104,9 +104,9 @@ public class RouteListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
     public class RouteListRowHolder extends RecyclerView.ViewHolder {
 
-    TextView tvHallName, tvRouteNo, tvDescription;
-    RatingBar rtGrade;
-    ImageView ivRoutePicture;
+        TextView tvHallName, tvRouteNo, tvDescription;
+        RatingBar rtGrade;
+        ImageView ivRoutePicture;
         public RouteListRowHolder(@NonNull View itemView) {
             super(itemView);
             tvHallName = itemView.findViewById(R.id.tvHallName);

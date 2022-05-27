@@ -84,4 +84,3 @@ public class RouteDetailRVAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 }
-

@@ -1,5 +1,7 @@
 package be.kuleuven.timetoclimb.route;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import be.kuleuven.timetoclimb.CommentItem;
+import be.kuleuven.timetoclimb.R;
 import be.kuleuven.timetoclimb.User;
 import be.kuleuven.timetoclimb.databinding.ActivityRoutedetailViewBinding;
 import be.kuleuven.timetoclimb.dbConnection.DBConnector;
@@ -75,8 +78,14 @@ public class RouteDetailViewActivity extends AppCompatActivity implements imageR
         //from route
         this.tvRouteTitle.setText("Route Number: "+ String.valueOf(route.getRouteNO()));
         this.tvAuthor.setText(route.getAuthor());
-        this.tvDescription.setText("Description: "+ route.getDescription());
-        this.ivDetailRoutePicture.setImageBitmap(StringToBitmap(route.getRoutePicture()));
+        if(route.getDescription() == null){
+            this.tvDescription.setText("Description: ");}
+        else{ this.tvDescription.setText("Description: "+ route.getDescription());}
+
+        if (route.getRoutePicture() == null){
+            Bitmap defaultBitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.placeholder);
+            this.ivDetailRoutePicture.setImageBitmap(defaultBitmap);
+        }else {this.ivDetailRoutePicture.setImageBitmap(StringToBitmap(route.getRoutePicture()));}
         this.ivAuthor.setImageBitmap(StringToBitmap(user.getProfileImage()));
 
         //inflating main layout
