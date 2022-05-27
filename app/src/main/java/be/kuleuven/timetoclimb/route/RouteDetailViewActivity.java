@@ -55,7 +55,7 @@ public class RouteDetailViewActivity extends AppCompatActivity implements imageR
 
         //for retrieving comments
         dbConnector = new DBConnector(RouteDetailViewActivity.this);
-        this.commentItemList = retrieveFromDB("getAllComments");
+        retrieveFromDB("getAllComments");
 
         //instantiate
         this.tvRouteTitle = binding.tvRouteTitle;
@@ -70,13 +70,14 @@ public class RouteDetailViewActivity extends AppCompatActivity implements imageR
         this.tvAuthor.setText(route.getAuthor());
         this.tvDescription.setText(route.getDescription());
         this.ivDetailRoutePicture.setImageBitmap(StringToBitmap(route.getRoutePicture()));
+        this.ivAuthor.setImageBitmap(StringToBitmap(user.getProfileImage()));
 
 
         //inflating main layout
         commentsRecyclerView = binding.commentsRecyclerView;
     }
 
-    public List<CommentItem> retrieveFromDB(String extendedUrl){
+    public void retrieveFromDB(String extendedUrl){
         //retrieve String objects
         dbConnector.JSONRequest(extendedUrl, new ServerCallback() {
             @Override
@@ -111,12 +112,11 @@ public class RouteDetailViewActivity extends AppCompatActivity implements imageR
                     }
                 }
                 //configure the corresponding adapter
-                routeDetailRVAdapter = new RouteDetailRVAdapter(RouteDetailViewActivity.this,commentItemList,commentsRecyclerView,user,route);
+                routeDetailRVAdapter = new RouteDetailRVAdapter(RouteDetailViewActivity.this,commentItemList,commentsRecyclerView);
                 commentsRecyclerView.setAdapter(routeDetailRVAdapter);
                 //set RV layout manager as linear since we have linear multiple
                 commentsRecyclerView.setLayoutManager(new LinearLayoutManager(RouteDetailViewActivity.this));
             }
         });
-        return commentItemList;
     }
 }
