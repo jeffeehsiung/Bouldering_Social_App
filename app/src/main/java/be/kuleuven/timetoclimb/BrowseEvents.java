@@ -43,7 +43,6 @@ public class BrowseEvents extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_events);
-        rvUpcomingEvents = findViewById(R.id.rvUpcomingEvents);
 
         // Get intent extras
         Bundle extras = getIntent().getExtras();
@@ -125,6 +124,10 @@ public class BrowseEvents extends AppCompatActivity {
                             System.out.println("error addclimb: " + e.getLocalizedMessage());
                         }
                         if(index == cycles) {
+                            System.out.println("Adapter setting for attending events! (inside addClimbinghalls())");
+                            while(climbinghalls.size() != eventList.size()) {
+                                // do nothing
+                            }
                             setAdapter();
                         }
                     }
@@ -159,6 +162,7 @@ public class BrowseEvents extends AppCompatActivity {
     }
 
     public void setAdapter() {
+        rvUpcomingEvents = findViewById(R.id.rvUpcomingEvents);
         adapterViewDate = new RecyclerAdapterViewDate(eventList, climbinghalls, new RecyclerAdapterViewDate.OnItemClickListener() {
             @Override
             public void onItemClick(Event event, Climbinghall climbinghall) {

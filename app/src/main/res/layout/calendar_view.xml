@@ -1,4 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
@@ -11,38 +13,61 @@
         android:layout_height="350dp"
         android:layout_margin="10dp" />
 
-    <Button
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:onClick="onBtnViewDate_Clicked"
-        android:text="View date"/>
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:paddingHorizontal="6dp"
+        android:weightSum="5">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onBtnCreateEvent_Clicked"
-        android:text="Create Event" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:onClick="onBtnViewDate_Clicked"
+            android:text="View date" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="87dp" />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
-    <Button
-        android:id="@+id/btnBrowse"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onButtonBrowseEvents_Clicked"
-        android:text="Browse Events" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:onClick="onBtnCreateEvent_Clicked"
+            android:text="Create Event" />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/btnAttending"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Attending Events" />
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btnOrganised"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Organised Events" />
+        <Button
+            android:id="@+id/btnBrowse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onBtnBrowseEvents_Clicked"
+            android:text="Browse Events"
+            app:layout_constraintBottom_toTopOf="@+id/btnAttending" />
+
+        <Button
+            android:id="@+id/btnAttending"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onBtnAttendingEvents_Clicked"
+            android:text="Attending Events"
+            app:layout_constraintBottom_toTopOf="@+id/btnOrganised" />
+
+        <Button
+            android:id="@+id/btnOrganised"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Organised Events"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </LinearLayout>

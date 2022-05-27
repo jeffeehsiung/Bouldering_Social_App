@@ -38,7 +38,10 @@ public class RecyclerAdapterAttendees extends RecyclerView.Adapter<RecyclerAdapt
         String b64String = attendees.get(position).getProfileImage();
         byte[] imageBytes = Base64.decode( b64String, Base64.DEFAULT );
         Bitmap bitmap = BitmapFactory.decodeByteArray( imageBytes, 0, imageBytes.length );
-        holder.imgAttendee.setImageBitmap(Bitmap.createScaledBitmap(bitmap, bitmap.getWidth()/3, bitmap.getHeight()/3, false));
+        if(bitmap != null) {
+            holder.imgAttendee.setImageBitmap(Bitmap.createScaledBitmap(bitmap, bitmap.getWidth()/3, bitmap.getHeight()/3, false));
+        }
+        // Implement default pic here!!!!
     }
 
     @Override
