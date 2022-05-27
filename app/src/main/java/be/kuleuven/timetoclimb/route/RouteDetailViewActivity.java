@@ -83,7 +83,7 @@ public class RouteDetailViewActivity extends AppCompatActivity implements imageR
         else{ this.tvDescription.setText("Description: "+ route.getDescription());}
 
         if (route.getRoutePicture() == null){
-            Bitmap defaultBitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.placeholder);
+            Bitmap defaultBitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.route);
             this.ivDetailRoutePicture.setImageBitmap(defaultBitmap);
         }else {this.ivDetailRoutePicture.setImageBitmap(StringToBitmap(route.getRoutePicture()));}
         this.ivAuthor.setImageBitmap(StringToBitmap(user.getProfileImage()));

@@ -89,6 +89,7 @@ public class RouteCreateActivity extends AppCompatActivity implements imageResol
         //check if there is bitmap reutrned from RouteDrawingActivity
         if( CommonBitmap.bitmap != null){
             imageView.setImageBitmap(CommonBitmap.bitmap);
+            selectedImageBM = CommonBitmap.bitmap;
         }
 
         /*
