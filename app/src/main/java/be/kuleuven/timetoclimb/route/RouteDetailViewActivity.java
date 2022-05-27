@@ -128,7 +128,7 @@ public class RouteDetailViewActivity extends AppCompatActivity implements imageR
 
                         int discussion_id = Integer.parseInt((jsonObject.getString("discussion_id")));
                         String poster_username = jsonObject.getString("poster_username");
-                        String climbing_hall_Name = jsonObject.getString("climbing_hall_Name");
+                        String climbing_hall_Name = jsonObject.getString("climbing_hall_id");
                         String description = jsonObject.getString("description");
                         String created_datetime = null;
                         if(!jsonObject.isNull("created_datetime")){created_datetime = jsonObject.getString("created_datetime");};
