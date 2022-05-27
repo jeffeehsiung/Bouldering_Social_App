@@ -57,7 +57,7 @@ public class RouteListsViewActivity extends AppCompatActivity {
         routeListRecyclerView.setHasFixedSize(true);
     }
 
-    public List<Route> retrieveDataFromDB(String extendedUrl){
+    public void retrieveDataFromDB(String extendedUrl){
         //retrieve String objects
         dbConnector.JSONRequest(extendedUrl, new ServerCallback() {
             @Override
@@ -76,24 +76,17 @@ public class RouteListsViewActivity extends AppCompatActivity {
                     try {
                         jsonObject = jsonArrayResponse.getJSONObject(i);
 
-                        String hallName = ObjValueRequiresNonNull(jsonObject,"hall_name");
-                        int routeNo = Integer.parseInt(ObjValueRequiresNonNull(jsonObject,"route_nr"));
-                        float grade = Float.parseFloat(ObjValueRequiresNonNull(jsonObject,"grade"));
-                        String author = ObjValueRequiresNonNull(jsonObject,"author");
-                        String description;
-                        //special care for optional descrioptoin image
-                        if(jsonObject.isNull("description")){
-                            description = " "; }
-                        else{
-                            description = jsonObject.getString("description");
-                        };
-                        String b64String;
-                        //special care for optional item image
-                        if(jsonObject.isNull("route_picture")){
-                            b64String = " "; }
-                        else{
-                            b64String = jsonObject.getString("route_picture");
-                        };
+                        String hallName = jsonObject.getString("hall_name");
+                        int routeNo = Integer.parseInt(jsonObject.getString("route_nr"));
+                        float grade = Float.parseFloat(jsonObject.getString("grade"));
+                        String author = jsonObject.getString("author");
+
+                        //for optional items
+                        String description = null;
+                        if(!jsonObject.isNull("description")){ description = jsonObject.getString("description");}
+                        String b64String = null;
+                        if(!jsonObject.isNull("route_picture")){ b64String = jsonObject.getString("route_picture");}
+
                         routeList.add(new Route(hallName,routeNo,grade, author,description,b64String));
 
                     } catch (JSONException e) {
@@ -109,20 +102,5 @@ public class RouteListsViewActivity extends AppCompatActivity {
                 routeListRecyclerView.setLayoutManager(new LinearLayoutManager(RouteListsViewActivity.this));
             }
         });
-        return routeList;
-    }
-
-    public String ObjValueRequiresNonNull(JSONObject jsonObject, String keyName){
-        //object requires nonNull
-        try {
-            if (jsonObject.isNull(keyName)){
-                Toast.makeText(RouteListsViewActivity.this,"String null",Toast.LENGTH_SHORT).show();
-                return "0";}
-            else{ return jsonObject.getString(keyName);}
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return "method did not run";
     }
 }

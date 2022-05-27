@@ -11,7 +11,7 @@
         android:id="@+id/avatarImageView"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/ic_stub"
+        android:src="@drawable/user"
         app:shadow="false"
         app:border="true"
         app:border_width="0dp" />

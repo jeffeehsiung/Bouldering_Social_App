@@ -8313,7 +8313,7 @@
         <!-- ============= -->
         <!-- Window styles -->
         <!-- ============= -->
-        <eat-comment/>
+        <eat-commentItem/>
 
         <!-- Flag indicating whether this window should have an Action Bar
              in place of the usual title bar. -->
@@ -8366,7 +8366,7 @@
         <!-- =================== -->
         <!-- Action bar styles   -->
         <!-- =================== -->
-        <eat-comment/>
+        <eat-commentItem/>
         <!-- Default style for tabs within an action bar -->
         <attr format="reference" name="actionBarTabStyle"/>
         <attr format="reference" name="actionBarTabBarStyle"/>
@@ -8419,7 +8419,7 @@
         <!-- =================== -->
         <!-- Action mode styles  -->
         <!-- =================== -->
-        <eat-comment/>
+        <eat-commentItem/>
         <attr format="reference" name="actionModeStyle"/>
         <attr format="reference" name="actionModeCloseButtonStyle"/>
         <!-- Background drawable to use for action mode UI -->
@@ -8452,7 +8452,7 @@
         <!-- =================== -->
         <!-- Text styles -->
         <!-- =================== -->
-        <eat-comment/>
+        <eat-commentItem/>
         <!-- Text color, typeface, size, and style for the text inside of a popup menu. -->
         <attr format="reference" name="textAppearanceLargePopupMenu"/>
         <!-- Text color, typeface, size, and style for small text inside of a popup menu. -->
@@ -8464,7 +8464,7 @@
         <!-- =================== -->
         <!-- Dialog styles -->
         <!-- =================== -->
-        <eat-comment/>
+        <eat-commentItem/>
 
         <!-- Theme to use for dialogs spawned from this theme. -->
         <attr format="reference" name="dialogTheme"/>
@@ -8478,7 +8478,7 @@
         <!-- =================== -->
         <!-- Other widget styles -->
         <!-- =================== -->
-        <eat-comment/>
+        <eat-commentItem/>
 
         <!-- Default ActionBar dropdown style. -->
         <attr format="reference" name="actionDropDownStyle"/>
@@ -8532,7 +8532,7 @@
         <!-- ============================ -->
         <!-- SearchView styles and assets -->
         <!-- ============================ -->
-        <eat-comment/>
+        <eat-commentItem/>
         <!-- Text color, typeface, size, and style for system search result title. Defaults to primary inverse text color. -->
         <attr format="reference" name="textAppearanceSearchResultTitle"/>
         <!-- Text color, typeface, size, and style for system search result subtitle. Defaults to primary inverse text color. -->
@@ -8545,7 +8545,7 @@
         <!-- =========== -->
         <!-- List styles -->
         <!-- =========== -->
-        <eat-comment/>
+        <eat-commentItem/>
 
         <!-- The preferred list item height. -->
         <attr format="dimension" name="listPreferredItemHeight"/>
@@ -8578,7 +8578,7 @@
         <!-- ============ -->
         <!-- Panel styles -->
         <!-- ============ -->
-        <eat-comment/>
+        <eat-commentItem/>
 
         <!-- The background of a panel when it is inset from the left and right edges of the screen. -->
         <attr format="reference" name="panelBackground"/>
@@ -8592,7 +8592,7 @@
         <!-- ============= -->
         <!-- Color palette -->
         <!-- ============= -->
-        <eat-comment/>
+        <eat-commentItem/>
 
         <!-- The primary branding color for the app. By default, this is the color applied to the
              action bar background. -->
@@ -8630,7 +8630,7 @@
         <!-- ============ -->
         <!-- Alert Dialog styles -->
         <!-- ============ -->
-        <eat-comment/>
+        <eat-commentItem/>
         <attr format="reference" name="alertDialogStyle"/>
         <attr format="reference" name="alertDialogButtonGroupStyle"/>
         <attr format="boolean" name="alertDialogCenterButtons"/>
@@ -8652,7 +8652,7 @@
         <!-- ===================== -->
         <!-- Default widget styles -->
         <!-- ===================== -->
-        <eat-comment/>
+        <eat-commentItem/>
 
         <!-- Default AutoCompleteTextView style. -->
         <attr format="reference" name="autoCompleteTextViewStyle"/>
@@ -8687,7 +8687,7 @@
         <!-- ===================== -->
         <!-- Tooltip styles -->
         <!-- ===================== -->
-        <eat-comment/>
+        <eat-commentItem/>
 
         <!-- Background to use for tooltips -->
         <attr format="reference" name="tooltipFrameBackground"/>
@@ -8703,7 +8703,7 @@
         <!-- ===================== -->
         <!-- Animated list choice indicators -->
         <!-- ===================== -->
-        <eat-comment/>
+        <eat-commentItem/>
 
         <!-- Animated Drawable to use for single choice indicators. -->
         <attr format="reference" name="listChoiceIndicatorSingleAnimated"/>
@@ -11500,7 +11500,7 @@
         <!-- ============================= -->
         <!-- Attributes for Layout Manager -->
         <!-- ============================= -->
-        <eat-comment/>
+        <eat-commentItem/>
 
         <attr name="android:orientation"/>
         <attr name="android:descendantFocusability"/>
