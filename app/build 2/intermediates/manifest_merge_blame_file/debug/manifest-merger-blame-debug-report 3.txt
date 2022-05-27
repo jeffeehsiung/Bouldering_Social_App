@@ -99,7 +99,7 @@
 55-->/Users/jeffeehsiung/Desktop/Toledo/programming techniques/time-to-climb-v2/app/src/main/AndroidManifest.xml:44:13-37
 56        <activity
 56-->/Users/jeffeehsiung/Desktop/Toledo/programming techniques/time-to-climb-v2/app/src/main/AndroidManifest.xml:45:9-47:40
-57            android:name="be.kuleuven.timetoclimb.ViewDate"
+57            android:name="be.kuleuven.timetoclimb.EventViewing.ViewDate"
 57-->/Users/jeffeehsiung/Desktop/Toledo/programming techniques/time-to-climb-v2/app/src/main/AndroidManifest.xml:46:13-37
 58            android:exported="false" />
 58-->/Users/jeffeehsiung/Desktop/Toledo/programming techniques/time-to-climb-v2/app/src/main/AndroidManifest.xml:47:13-37

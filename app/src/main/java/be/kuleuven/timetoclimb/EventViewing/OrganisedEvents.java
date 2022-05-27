@@ -1,4 +1,4 @@
-package be.kuleuven.timetoclimb;
+package be.kuleuven.timetoclimb.EventViewing;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -26,20 +26,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import be.kuleuven.timetoclimb.Climbinghall;
+import be.kuleuven.timetoclimb.Event;
+import be.kuleuven.timetoclimb.R;
+import be.kuleuven.timetoclimb.User;
+import be.kuleuven.timetoclimb.ViewEvent;
 import be.kuleuven.timetoclimb.adapter.RecyclerAdapterViewDate;
 
-public class AttendingEvents extends AppCompatActivity {
+public class OrganisedEvents extends AppCompatActivity implements EventViewer{
     private ArrayList<Event> eventList;
     private ArrayList<Climbinghall> climbinghalls;
     private String currentDateTime;
     private User user;
-    private RecyclerView rvAttendingEvents;
+    private RecyclerView rvOrganisedEvents; // Rename to rvList
     private RecyclerAdapterViewDate adapterViewDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_attending_events);
+        setContentView(R.layout.activity_organised_events);
 
         // Get intent extras
         Bundle extras = getIntent().getExtras();
@@ -54,8 +59,9 @@ public class AttendingEvents extends AppCompatActivity {
         populateEventList();
     }
 
+    @Override
     public void populateEventList() {
-        String requestURL = "https://studev.groept.be/api/a21pt411/getAttendingEvents";
+        String requestURL = "https://studev.groept.be/api/a21pt411/getOrganisingEvents";
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest submitRequest = new StringRequest(Request.Method.POST, requestURL,
                 new Response.Listener<String>() {
@@ -76,8 +82,8 @@ public class AttendingEvents extends AppCompatActivity {
                                         objResponse.getString("end_datetime")
                                 );
                                 eventList.add(event);
-                                addClimbingHall(event.getClimbingHallID(), i, jsonArray.length() - 1);
                             }
+                            addClimbingHalls(eventList);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -93,85 +99,86 @@ public class AttendingEvents extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("username", user.getUsername());
                 params.put("currentdatetime", currentDateTime);
+                params.put("organiser", user.getUsername());
                 return params;
             }
         };
         requestQueue.add(submitRequest);
     }
 
-    public void addClimbingHall(int id, int index, int cycles) {
+    @Override
+    public void addClimbingHalls(ArrayList<Event> events) {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         String requestURL = "https://studev.groept.be/api/a21pt411/getHallNameByID";
-        StringRequest stringRequestRequest = new StringRequest(Request.Method.POST, requestURL,
-                new Response.Listener<String>()
-                {
-                    @Override
-                    public void onResponse(String response)
+        for(int i = 0; i < events.size(); i++) {
+            int finalI = i;
+            int finalI1 = i;
+            StringRequest stringRequestRequest = new StringRequest(Request.Method.POST, requestURL,
+                    new Response.Listener<String>()
                     {
-                        VolleyLog.v("Response:%n %s", response);
-                        System.out.println("Response climbinghalls: \n" + response);
-                        try {
-                            JSONArray jsonArray = new JSONArray(response);
-                            // Set empty list if no attendees, otherwise add by iteration
-                            JSONObject objResponse = jsonArray.getJSONObject(0);
-                            Climbinghall climbinghall = new Climbinghall(objResponse);
-                            climbinghalls.add(climbinghall);
-                        } catch (JSONException e) {
-                            System.out.println("error addclimb: " + e.getLocalizedMessage());
-                        }
-                        if(index == cycles) {
-                            System.out.println("Adapter setting for attending events! (inside addClimbinghalls())");
-                            while(climbinghalls.size() != eventList.size()) {
-                                // do nothing
+                        @Override
+                        public void onResponse(String response)
+                        {
+                            VolleyLog.v("Response:%n %s", response);
+                            try {
+                                JSONArray jsonArray = new JSONArray(response);
+                                // Set empty list if no attendees, otherwise add by iteration
+                                JSONObject objResponse = jsonArray.getJSONObject(0);
+                                Climbinghall climbinghall = new Climbinghall(objResponse);
+                                climbinghalls.add(climbinghall);
+                            } catch (JSONException e) {
+                                Log.d("JSON" ,e.getLocalizedMessage(), e);
                             }
-                            setAdapter();
+                            if(finalI1 == events.size() - 1) {
+                                setAdapter();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener()
+                    {
+                        @Override
+                        public void onErrorResponse(VolleyError error)
+                        {
+                            Log.d("Database" ,error.getLocalizedMessage(), error);
                         }
                     }
-                },
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error)
-                    {
-                        Log.d("Database" ,error.getLocalizedMessage(), error);
-                        System.out.println("error: " + error.getLocalizedMessage());
-                    }
+            ) { //NOTE THIS PART: here we are passing the parameter to the webservice, NOT in the URL!
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("id", Integer.toString(events.get(finalI).getClimbingHallID()));
+                    return params;
                 }
-        ) { //NOTE THIS PART: here we are passing the parameter to the webservice, NOT in the URL!
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("id", Integer.toString(id));
-                return params;
-            }
-        };
-        requestQueue.add(stringRequestRequest);
+            };
+            requestQueue.add(stringRequestRequest);
+        }
     }
 
-    public void passEventAndLocation(Event e, Climbinghall climbinghall) {
-        Intent intentViewEvent = new Intent(this, ViewEvent.class);
-        intentViewEvent.putExtra("User", user);
-        intentViewEvent.putExtra("Event", e);
-        intentViewEvent.putExtra("hall_name", climbinghall.getHallName());
-        intentViewEvent.putExtra("address", climbinghall.getAddress());
-        startActivity(intentViewEvent);
-    }
-
+    @Override
     public void setAdapter() {
-        rvAttendingEvents = findViewById(R.id.rvAttendingEvents);
+        rvOrganisedEvents = findViewById(R.id.rvOrganisedEvents);
         adapterViewDate = new RecyclerAdapterViewDate(eventList, climbinghalls, new RecyclerAdapterViewDate.OnItemClickListener() {
             @Override
             public void onItemClick(Event event, Climbinghall climbinghall) {
-                passEventAndLocation(event, climbinghall);
+                passEventAndClimbinghall(event, climbinghall);
             }
         });
 
         // set layoutmanager, itemanimator, adapter
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        rvAttendingEvents.setLayoutManager(layoutManager);
-        rvAttendingEvents.setItemAnimator(new DefaultItemAnimator());
-        rvAttendingEvents.setAdapter(adapterViewDate);
+        rvOrganisedEvents.setLayoutManager(layoutManager);
+        rvOrganisedEvents.setItemAnimator(new DefaultItemAnimator());
+        rvOrganisedEvents.setAdapter(adapterViewDate);
+    }
+
+    @Override
+    public void passEventAndClimbinghall(Event event, Climbinghall climbinghall) {
+        Intent intentViewEvent = new Intent(this, ViewEvent.class);
+        intentViewEvent.putExtra("User", user);
+        intentViewEvent.putExtra("Event", event);
+        intentViewEvent.putExtra("hall_name", climbinghall.getHallName());
+        intentViewEvent.putExtra("address", climbinghall.getAddress());
+        startActivity(intentViewEvent);
     }
 }

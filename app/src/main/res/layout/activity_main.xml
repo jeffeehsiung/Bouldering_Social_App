@@ -46,7 +46,7 @@
         android:layout_marginTop="32dp"
         android:background="@drawable/button_bg"
         android:onClick="onBtnCalendar_Clicked"
-        android:text="Calendar"
+        android:text="Event planner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblIcon" />

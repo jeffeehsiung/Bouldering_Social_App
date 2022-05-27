@@ -53,7 +53,7 @@
             android:name="be.kuleuven.timetoclimb.EventCreator"
             android:exported="false" />
         <activity
-            android:name="be.kuleuven.timetoclimb.ViewDate"
+            android:name="be.kuleuven.timetoclimb.EventViewing.ViewDate"
             android:exported="false" />
         <activity
             android:name="be.kuleuven.timetoclimb.Home"

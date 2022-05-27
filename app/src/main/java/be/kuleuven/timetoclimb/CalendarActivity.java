@@ -12,13 +12,12 @@ import android.app.Activity;
 
 import androidx.annotation.RequiresApi;
 
-import com.google.type.DateTime;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+
+import be.kuleuven.timetoclimb.EventViewing.AttendingEvents;
+import be.kuleuven.timetoclimb.EventViewing.BrowseEvents;
+import be.kuleuven.timetoclimb.EventViewing.OrganisedEvents;
+import be.kuleuven.timetoclimb.EventViewing.ViewDate;
 
 public class CalendarActivity extends Activity{
     private User user;
@@ -38,14 +37,17 @@ public class CalendarActivity extends Activity{
         initializeCalendar();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void initializeCalendar() {
         calendar = (CalendarView) findViewById(R.id.calendar);
-
-        // don't show week nr.
         calendar.setShowWeekNumber(false);
 
         // set first day of week to monday
         calendar.setFirstDayOfWeek(2);
+
+        // Set initial selected date to today
+        LocalDateTime nowDateTime = LocalDateTime.now();
+        selectedDate = convertToAppDate(nowDateTime.toString());
 
         // what happens on selected date change here
         calendar.setOnDateChangeListener(new OnDateChangeListener() {
@@ -128,6 +130,7 @@ public class CalendarActivity extends Activity{
         startActivity(intentAttendingEvents);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void onBtnOrganisedEvents_Clicked(View caller) {
         LocalDateTime nowDateTime = LocalDateTime.now();
         String currentDateTime = convertJavaToDBDateTime(nowDateTime);
