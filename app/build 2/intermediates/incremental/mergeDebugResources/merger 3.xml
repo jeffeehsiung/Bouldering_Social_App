@@ -374,7 +374,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
 
         <attr name="android:orientation"/>
         <attr name="android:descendantFocusability"/>
@@ -2034,7 +2034,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
 
         
         <attr format="boolean" name="windowActionBar"/>
@@ -2069,7 +2069,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
         
         <attr format="reference" name="actionBarTabStyle"/>
         <attr format="reference" name="actionBarTabBarStyle"/>
@@ -2106,7 +2106,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
         <attr format="reference" name="actionModeStyle"/>
         <attr format="reference" name="actionModeCloseButtonStyle"/>
         
@@ -2139,7 +2139,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
         
         <attr format="reference" name="textAppearanceLargePopupMenu"/>
         
@@ -2151,7 +2151,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
 
         
         <attr format="reference" name="dialogTheme"/>
@@ -2165,7 +2165,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
 
         
         <attr format="reference" name="actionDropDownStyle"/>
@@ -2217,7 +2217,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
         
         <attr format="reference" name="textAppearanceSearchResultTitle"/>
         
@@ -2230,7 +2230,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
 
         
         <attr format="dimension" name="listPreferredItemHeight"/>
@@ -2263,7 +2263,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
 
         
         <attr format="reference" name="panelBackground"/>
@@ -2277,7 +2277,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
 
         
         <attr format="color" name="colorPrimary"/>
@@ -2312,7 +2312,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
         <attr format="reference" name="alertDialogStyle"/>
         <attr format="reference" name="alertDialogButtonGroupStyle"/>
         <attr format="boolean" name="alertDialogCenterButtons"/>
@@ -2334,7 +2334,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
 
         
         <attr format="reference" name="autoCompleteTextViewStyle"/>
@@ -2369,7 +2369,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
 
         
         <attr format="reference" name="tooltipFrameBackground"/>
@@ -2384,7 +2384,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
 
         
         <attr format="reference" name="listChoiceIndicatorSingleAnimated"/>
@@ -10296,7 +10296,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
 
         
         <attr format="boolean" name="windowActionBar"/>
@@ -10331,7 +10331,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
         
         <attr format="reference" name="actionBarTabStyle"/>
         <attr format="reference" name="actionBarTabBarStyle"/>
@@ -10368,7 +10368,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
         <attr format="reference" name="actionModeStyle"/>
         <attr format="reference" name="actionModeCloseButtonStyle"/>
         
@@ -10401,7 +10401,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
         
         <attr format="reference" name="textAppearanceLargePopupMenu"/>
         
@@ -10413,7 +10413,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
 
         
         <attr format="reference" name="dialogTheme"/>
@@ -10427,7 +10427,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
 
         
         <attr format="reference" name="actionDropDownStyle"/>
@@ -10479,7 +10479,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
         
         <attr format="reference" name="textAppearanceSearchResultTitle"/>
         
@@ -10492,7 +10492,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
 
         
         <attr format="dimension" name="listPreferredItemHeight"/>
@@ -10525,7 +10525,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
 
         
         <attr format="reference" name="panelBackground"/>
@@ -10539,7 +10539,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
 
         
         <attr format="color" name="colorPrimary"/>
@@ -10574,7 +10574,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
         <attr format="reference" name="alertDialogStyle"/>
         <attr format="reference" name="alertDialogButtonGroupStyle"/>
         <attr format="boolean" name="alertDialogCenterButtons"/>
@@ -10596,7 +10596,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
 
         
         <attr format="reference" name="autoCompleteTextViewStyle"/>
@@ -10631,7 +10631,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
 
         
         <attr format="reference" name="tooltipFrameBackground"/>
@@ -10646,7 +10646,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
 
         
         <attr format="reference" name="listChoiceIndicatorSingleAnimated"/>
@@ -11840,7 +11840,7 @@
         
         
         
-        <eat-comment/>
+        <eat-commentItem/>
 
         <attr name="android:orientation"/>
         <attr name="android:descendantFocusability"/>

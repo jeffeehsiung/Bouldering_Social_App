@@ -4,7 +4,6 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../../layout/custom_preview.xml" value="0.10572916666666667" />
-        <entry key="../../../../layout/custom_preview.xml" value="0.1130095923261391" />
         <entry key="..\:/Users/dmitri/Desktop/School/Bach 2/Programmeertechnieken/Labo/klim appeken/TimetoClimb/app/src/main/res/drawable/roundbutton.xml" value="0.2015" />
         <entry key="..\:/Users/dmitri/Desktop/School/Bach 2/Programmeertechnieken/Labo/klim appeken/TimetoClimb/app/src/main/res/layout/activity_login.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/dmitri/Desktop/School/Bach 2/Programmeertechnieken/Labo/klim appeken/TimetoClimb/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
@@ -27,40 +26,36 @@
         <entry key="app/src/main/res/layout-w600dp/counters_panel.xml" value="0.1662257495590829" />
         <entry key="app/src/main/res/layout-w936dp/content_scrolling.xml" value="0.147265625" />
         <entry key="app/src/main/res/layout/activity_adno_view.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_attending_events.xml" value="0.3283514492753623" />
         <entry key="app/src/main/res/layout/activity_bio_edit.xml" value="0.19479166666666667" />
-        <entry key="app/src/main/res/layout/activity_browse_events.xml" value="0.3283514492753623" />
         <entry key="app/src/main/res/layout/activity_edit_name.xml" value="0.19479166666666667" />
         <entry key="app/src/main/res/layout/activity_email_edit.xml" value="0.19479166666666667" />
         <entry key="app/src/main/res/layout/activity_image_edit.xml" value="0.19479166666666667" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2703125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2703125" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.2703125" />
-        <entry key="app/src/main/res/layout/activity_organised_events.xml" value="0.3283514492753623" />
         <entry key="app/src/main/res/layout/activity_phone_edit.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.16032608695652173" />
         <entry key="app/src/main/res/layout/activity_route_create.xml" value="0.26616915422885573" />
         <entry key="app/src/main/res/layout/activity_route_drawing.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_routedetail_view.xml" value="0.11684782608695653" />
+        <entry key="app/src/main/res/layout/activity_routedescrition_single.xml" value="0.43287037037037035" />
+        <entry key="app/src/main/res/layout/activity_routedetail_view.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_routelist_view.xml" value="0.2006340579710145" />
-        <entry key="app/src/main/res/layout/activity_routeno_view.xml" value="0.12537993920972645" />
+        <entry key="app/src/main/res/layout/activity_routeno_view.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_select_climbing_hall.xml" value="0.2586050724637681" />
-        <entry key="app/src/main/res/layout/activity_view_event.xml" value="0.35940409683426444" />
-        <entry key="app/src/main/res/layout/calendar_view.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_view_event.xml" value="0.2586050724637681" />
+        <entry key="app/src/main/res/layout/attendee_list_item.xml" value="0.13145896656534956" />
+        <entry key="app/src/main/res/layout/calendar_view.xml" value="0.19479166666666667" />
         <entry key="app/src/main/res/layout/comment_list_item.xml" value="0.19635416666666666" />
         <entry key="app/src/main/res/layout/content_profile.xml" value="0.19479166666666667" />
         <entry key="app/src/main/res/layout/content_scrolling.xml" value="0.14583333333333334" />
         <entry key="app/src/main/res/layout/counters_panel.xml" value="0.19635416666666666" />
-        <entry key="app/src/main/res/layout/create_event_view.xml" value="0.1787037037037037" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.21240942028985507" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.125" />
         <entry key="app/src/main/res/layout/fragment_reflow.xml" value="0.19479166666666667" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.21240942028985507" />
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.19479166666666667" />
         <entry key="app/src/main/res/layout/fragment_slideshow.xml" value="0.19479166666666667" />
-        <entry key="app/src/main/res/layout/list_climbinghall.xml" value="0.9" />
         <entry key="app/src/main/res/layout/list_dropdown.xml" value="0.15760869565217392" />
-        <entry key="app/src/main/res/layout/list_events_in_date.xml" value="0.67" />
         <entry key="app/src/main/res/layout/nav_header_profile.xml" value="0.19479166666666667" />
         <entry key="app/src/main/res/layout/routelist.xml" value="0.18342391304347827" />
         <entry key="app/src/main/res/menu/bottom_navigation.xml" value="0.2703125" />

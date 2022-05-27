@@ -72,7 +72,7 @@ public class RouteListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             ((RouteListRowHolder) viewHolder).tvRouteNo.setText("Route number: "+ route.getRouteNO());
             ((RouteListRowHolder) viewHolder).tvDescription.setText(""+route.getDescription());
             ((RouteListRowHolder) viewHolder).rtGrade.setRating(route.getGrade());
-            if (route.getRoutePicture().equals("0")){
+            if (route.getRoutePicture() == null){
                 Bitmap defaultBitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.route);
                 ((RouteListRowHolder) viewHolder).ivRoutePicture.setImageBitmap(defaultBitmap);
             }
@@ -124,6 +124,7 @@ public class RouteListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             int itemPosition = routeListRecyclerView.getChildLayoutPosition(viewItem);
             //implement method to allow transitions to routeDetail View
             String hallName = routeList.get(itemPosition).getHallName();
+            String routeNo = String.valueOf(routeList.get(itemPosition).getRouteNO());
 
             //to RouteDetailActivity
             Intent intent = new Intent(context,RouteDetailViewActivity.class);
@@ -131,7 +132,7 @@ public class RouteListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             intent.putExtra("Route",routeList.get(itemPosition));
             context.startActivity(intent);
 
-            Toast.makeText(context, "hallName: "+ hallName, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "hallName: "+ hallName + " routeNo: "+ routeNo, Toast.LENGTH_SHORT).show();
         }
     }
 
