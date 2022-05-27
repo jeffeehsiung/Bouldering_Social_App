@@ -1,6 +1,7 @@
 package be.kuleuven.timetoclimb;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,6 +9,16 @@ import android.widget.CalendarView;
 import android.widget.CalendarView.OnDateChangeListener;
 import android.widget.Toast;
 import android.app.Activity;
+
+import androidx.annotation.RequiresApi;
+
+import com.google.type.DateTime;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class CalendarActivity extends Activity{
     private User user;
@@ -41,24 +52,46 @@ public class CalendarActivity extends Activity{
             //show the selected date as a toast
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
-                String selectedMonth = "";
-                String selectedDay = "";
-                if(month < 10) {
-                    selectedMonth = "0" + Integer.toString(month + 1);
-                } else {
-                    selectedMonth = Integer.toString(month+1);
-                }
-                if(day < 10) {
-                    selectedDay = "0" + Integer.toString(day);
-                } else {
-                    selectedDay = Integer.toString(day);
-                }
-                Toast.makeText(getApplicationContext(), selectedDay + "/" + selectedMonth + "/" + year, Toast.LENGTH_LONG).show();
-                selectedDate = selectedDay + "/" + selectedMonth + "/" + Integer.toString(year);
+                selectedDate = buildAppDate(year, month, day);
+                Toast.makeText(getApplicationContext(), selectedDate, Toast.LENGTH_LONG).show();
             }
         });
     }
 
+    /*
+    Helper methods to build and/or convert datetime from app to database format and vice versa
+     */
+    public String convertToAppDate(String DBDate) {
+        return DBDate.substring(8,10) + "/" + DBDate.substring(5,7) + "/" + DBDate.substring(0,4);
+    }
+
+    public String convertToDBDate(String WidgetDate) {
+        return WidgetDate.substring(6, 10) + "-" + WidgetDate.substring(3, 5) + "-" + WidgetDate.substring(0, 2) + " 00:00:00";
+    }
+
+    public String convertJavaToDBDateTime(LocalDateTime localDateTime) {
+        String dateTime = localDateTime.toString();
+        return dateTime.substring(0,10) + " " + dateTime.substring(11,19);
+    }
+    public String buildAppDate(int year, int month, int day) {
+        String strMonth = "";
+        String strDay = "";
+        if(month < 10) {
+            strMonth = "0" + Integer.toString(month + 1);
+        } else {
+            strMonth = Integer.toString(month+1);
+        }
+        if(day < 10) {
+            strDay = "0" + Integer.toString(day);
+        } else {
+            strDay = Integer.toString(day);
+        }
+        return strDay + "/" + strMonth + "/" + Integer.toString(year);
+    }
+
+    /*
+    Button actions
+     */
     public void onBtnViewDate_Clicked(View caller) {
         // Intent to start ViewDate and pass selected date from calendar
         Intent intentViewDate = new Intent(this, ViewDate.class);
@@ -73,5 +106,15 @@ public class CalendarActivity extends Activity{
         intentCreateEvent.putExtra("SelectedDate", selectedDate);
         intentCreateEvent.putExtra("User", user);
         startActivity(intentCreateEvent);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void onButtonBrowseEvents_Clicked(View caller) {
+        LocalDateTime nowDateTime = LocalDateTime.now();
+        String currentDateTime = convertJavaToDBDateTime(nowDateTime);
+        Intent intentBrowseEvents = new Intent(this, BrowseEvents.class);
+        intentBrowseEvents.putExtra("User", user);
+        intentBrowseEvents.putExtra("currentDateTime", currentDateTime);
+        startActivity(intentBrowseEvents);
     }
 }

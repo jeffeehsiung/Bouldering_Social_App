@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import be.kuleuven.timetoclimb.Climbinghall;
 import be.kuleuven.timetoclimb.Event;
 import be.kuleuven.timetoclimb.R;
-import be.kuleuven.timetoclimb.ViewDate;
 
 public class RecyclerAdapterViewDate extends RecyclerView.Adapter<RecyclerAdapterViewDate.myViewHolder> {
    private ArrayList<Event> eventList;
@@ -25,7 +24,7 @@ public class RecyclerAdapterViewDate extends RecyclerView.Adapter<RecyclerAdapte
    private final OnItemClickListener listener;
 
     public interface OnItemClickListener {
-        void onItemClick(Event event);
+        void onItemClick(Event event, Climbinghall climbinghall);
     }
 
    public RecyclerAdapterViewDate(ArrayList<Event> eventList, ArrayList<Climbinghall> climbinghalls, OnItemClickListener listener) {
@@ -46,10 +45,10 @@ public class RecyclerAdapterViewDate extends RecyclerView.Adapter<RecyclerAdapte
            lblClimbinghallEvent = view.findViewById(R.id.lblClimbinghallEvent);
        }
 
-       public void bind(final Event event, final RecyclerAdapterViewDate.OnItemClickListener listener) {
+       public void bind(final Event event, final Climbinghall climbinghall, final RecyclerAdapterViewDate.OnItemClickListener listener) {
            itemView.setOnClickListener(new View.OnClickListener() {
                @Override public void onClick(View v) {
-                   listener.onItemClick(event);
+                   listener.onItemClick(event, climbinghall);
                }
            });
        }
@@ -74,7 +73,7 @@ public class RecyclerAdapterViewDate extends RecyclerView.Adapter<RecyclerAdapte
         holder.imgClimbinghall.setImageBitmap(Bitmap.createScaledBitmap(bitmap, bitmap.getWidth()/3, bitmap.getHeight()/3, false));
 
         holder.lblTitleEvent.setText(titleEvent);
-        holder.bind(eventList.get(position), listener);
+        holder.bind(eventList.get(position), climbinghalls.get(position), listener);
     }
 
     @Override

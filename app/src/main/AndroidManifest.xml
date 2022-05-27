@@ -35,6 +35,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TimeToClimb">
         <activity
+            android:name=".BrowseEvents"
+            android:exported="false" />
+        <activity
             android:name=".route.RouteDrawingActivity"
             android:exported="false" />
         <activity

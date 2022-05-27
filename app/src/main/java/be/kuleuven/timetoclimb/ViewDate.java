@@ -1,13 +1,11 @@
 package be.kuleuven.timetoclimb;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -18,7 +16,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -42,8 +39,6 @@ public class ViewDate extends AppCompatActivity {
     private String displayDate;
     private String start;
     private String end;
-    private String address;
-    private Intent intentViewEvent;
     private RecyclerAdapterViewDate adapterViewDate;
 
     @Override
@@ -68,8 +63,6 @@ public class ViewDate extends AppCompatActivity {
         lblDate.setText(displayDate);
 
         populateEventList();
-
-        intentViewEvent = new Intent(this, ViewEvent.class);
     }
 
     public void populateEventList() {
@@ -164,52 +157,20 @@ public class ViewDate extends AppCompatActivity {
         requestQueue.add(stringRequestRequest);
     }
 
-    public void passEventAndLocation(Event e) {
-        String requestURL = "https://studev.groept.be/api/a21pt411/getLocationByHallID";
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        StringRequest submitRequest = new StringRequest(Request.Method.POST, requestURL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONArray jsonArray = new JSONArray(response);
-                            JSONObject objResponse = jsonArray.getJSONObject(0);
-                            String climbinghall = objResponse.getString("hall_name");
-                            String address = objResponse.getString("address");
-                            intentViewEvent.putExtra("User", user);
-                            intentViewEvent.putExtra("Event", e);
-                            intentViewEvent.putExtra("hall_name", climbinghall);
-                            intentViewEvent.putExtra("address", address);
-                            startActivity(intentViewEvent);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("Database", "onErrorResponse: " + error.getLocalizedMessage());
-                    }
-                }
-        ) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("id", Integer.toString(e.getClimbingHallID()));
-                System.out.println("Params were passed!");
-                return params;
-            }
-        };
-        requestQueue.add(submitRequest);
+    public void passEventAndLocation(Event e, Climbinghall climbinghall) {
+        Intent intentViewEvent = new Intent(this, ViewEvent.class);
+        intentViewEvent.putExtra("User", user);
+        intentViewEvent.putExtra("Event", e);
+        intentViewEvent.putExtra("hall_name", climbinghall.getHallName());
+        intentViewEvent.putExtra("address", climbinghall.getAddress());
+        startActivity(intentViewEvent);
     }
 
     public void setAdapter() {
         adapterViewDate = new RecyclerAdapterViewDate(eventList, climbinghalls, new RecyclerAdapterViewDate.OnItemClickListener() {
             @Override
-            public void onItemClick(Event event) {
-                passEventAndLocation(event);
+            public void onItemClick(Event event, Climbinghall climbinghall) {
+                passEventAndLocation(event, climbinghall);
             }
         });
 
