@@ -41,7 +41,7 @@
             android:name=".EventViewing.AttendingEvents"
             android:exported="false" />
         <activity
-            android:name=".EventViewing.AttendingEvents$BrowseEvents"
+            android:name=".EventViewing.BrowseEvents"
             android:exported="false" />
         <activity
             android:name=".route.RouteDrawingActivity"

@@ -1,3 +1,5 @@
+package be.kuleuven.timetoclimb.EventViewing;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -120,7 +122,6 @@ public class BrowseEvents extends AppCompatActivity implements EventViewer {
                         public void onResponse(String response)
                         {
                             VolleyLog.v("Response:%n %s", response);
-                            System.out.println("Response climbinghalls: \n" + response);
                             try {
                                 JSONArray jsonArray = new JSONArray(response);
                                 // Set empty list if no attendees, otherwise add by iteration
@@ -128,7 +129,7 @@ public class BrowseEvents extends AppCompatActivity implements EventViewer {
                                 Climbinghall climbinghall = new Climbinghall(objResponse);
                                 climbinghalls.add(climbinghall);
                             } catch (JSONException e) {
-                                System.out.println("error addclimb: " + e.getLocalizedMessage());
+                                Log.d("JSON" ,e.getLocalizedMessage(), e);
                             }
                             if(finalI1 == events.size() - 1) {
                                 setAdapter();
@@ -141,7 +142,6 @@ public class BrowseEvents extends AppCompatActivity implements EventViewer {
                         public void onErrorResponse(VolleyError error)
                         {
                             Log.d("Database" ,error.getLocalizedMessage(), error);
-                            System.out.println("error: " + error.getLocalizedMessage());
                         }
                     }
             ) { //NOTE THIS PART: here we are passing the parameter to the webservice, NOT in the URL!

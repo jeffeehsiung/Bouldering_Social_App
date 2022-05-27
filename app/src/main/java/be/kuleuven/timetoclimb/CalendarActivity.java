@@ -15,6 +15,7 @@ import androidx.annotation.RequiresApi;
 import java.time.LocalDateTime;
 
 import be.kuleuven.timetoclimb.EventViewing.AttendingEvents;
+import be.kuleuven.timetoclimb.EventViewing.BrowseEvents;
 import be.kuleuven.timetoclimb.EventViewing.OrganisedEvents;
 import be.kuleuven.timetoclimb.EventViewing.ViewDate;
 
@@ -36,14 +37,17 @@ public class CalendarActivity extends Activity{
         initializeCalendar();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void initializeCalendar() {
         calendar = (CalendarView) findViewById(R.id.calendar);
-
-        // don't show week nr.
         calendar.setShowWeekNumber(false);
 
         // set first day of week to monday
         calendar.setFirstDayOfWeek(2);
+
+        // Set initial selected date to today
+        LocalDateTime nowDateTime = LocalDateTime.now();
+        selectedDate = convertToAppDate(nowDateTime.toString());
 
         // what happens on selected date change here
         calendar.setOnDateChangeListener(new OnDateChangeListener() {
