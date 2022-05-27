@@ -126,7 +126,7 @@ public class OrganisedEvents extends AppCompatActivity {
                             while(climbinghalls.size() != eventList.size()) {
                                 // do nothing
                             }
-                            setAdapter();
+                            /*setAdapter();*/
                         }
                     }
                 },
@@ -159,7 +159,7 @@ public class OrganisedEvents extends AppCompatActivity {
         startActivity(intentViewEvent);
     }
 
-    public void setAdapter() {
+    /*public void setAdapter() {
         rvUpcomingEvents = findViewById(R.id.rvUpcomingEvents);
         adapterViewDate = new RecyclerAdapterViewDate(eventList, climbinghalls, new RecyclerAdapterViewDate.OnItemClickListener() {
             @Override
@@ -173,5 +173,5 @@ public class OrganisedEvents extends AppCompatActivity {
         rvUpcomingEvents.setLayoutManager(layoutManager);
         rvUpcomingEvents.setItemAnimator(new DefaultItemAnimator());
         rvUpcomingEvents.setAdapter(adapterViewDate);
-    }
+    }*/
 }

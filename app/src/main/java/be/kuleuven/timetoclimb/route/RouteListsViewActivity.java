@@ -54,7 +54,6 @@ public class RouteListsViewActivity extends AppCompatActivity {
 
         //inflating main layout
         routeListRecyclerView = findViewById(R.id.routeListRecyclerView);
-        routeListRecyclerView.setHasFixedSize(true);
     }
 
     public void retrieveDataFromDB(String extendedUrl){
@@ -98,6 +97,7 @@ public class RouteListsViewActivity extends AppCompatActivity {
                 //configure the corresponding adapter
                 routeListRVAdapter = new RouteListRVAdapter(RouteListsViewActivity.this,routeList,routeListRecyclerView,user);
                 routeListRecyclerView.setAdapter(routeListRVAdapter);
+                routeListRecyclerView.setHasFixedSize(true);
                 //set RV layout manager as linear since we have linear multiple
                 routeListRecyclerView.setLayoutManager(new LinearLayoutManager(RouteListsViewActivity.this));
             }

@@ -60,12 +60,12 @@ public class RouteListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
 
-        if (viewHolder instanceof RouteListAdHolder || position == 0){
+        if (viewHolder instanceof RouteListAdHolder){
             //wait till there's an ad that wishes to buy this banner hahahahah
             //then we will do something for them
-            Toast.makeText(context,"unformtunately no ads yet",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context,"unformtunately no ads yet",Toast.LENGTH_SHORT).show();
         }
-        else if (viewHolder instanceof RouteListRowHolder || position == 1){
+        else if (viewHolder instanceof RouteListRowHolder){
             //get the route given from the index of the routeList populated from DB resposne
             Route route = routeList.get(position);
             ((RouteListRowHolder) viewHolder).tvHallName.setText(""+"Hall ID: " + route.getHallName());
@@ -83,7 +83,9 @@ public class RouteListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public int getItemViewType(int position) {
         if (position == 0){
+            System.out.println("getItemViewType position: " + 1);
             return 1;}
+        System.out.println("getItemViewType position: " + position % 3);
         return position % 3;
     }
 

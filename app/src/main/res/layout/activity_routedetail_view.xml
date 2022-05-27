@@ -106,7 +106,7 @@
                 android:id="@+id/commentsParentContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/descriptionEditText"
+                android:layout_below="@+id/tvDescription"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp">
 
@@ -171,7 +171,7 @@
             android:layout_gravity="center_vertical"
             android:layout_margin="@dimen/intrinsic_padding"
             android:background="@drawable/send_comment_button_bg"
-            android:enabled="false"
+            android:enabled="true"
             android:minWidth="0dp"
             android:paddingLeft="@dimen/large_intrinsic_padding"
             android:paddingRight="@dimen/large_intrinsic_padding"

@@ -49,8 +49,8 @@ public class RouteDetailRVAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         //get the route given from the index of the routeList populated from DB resposne
         CommentItem commentItem = commentItemList.get(position);
-        ((CommentItemListRowHolder)viewHolder).tvComment.setText(""+"Hall ID: " + commentItem.getDescription());
-        ((CommentItemListRowHolder)viewHolder).tvDate.setText("Route number: "+ commentItem.getCreated_datetime());
+        ((CommentItemListRowHolder)viewHolder).tvComment.setText(""+"Comment: " + commentItem.getDescription());
+        ((CommentItemListRowHolder)viewHolder).tvDate.setText("Date: "+ commentItem.getCreated_datetime());
         if (commentItem.getPicture()==null){
             Bitmap defaultBitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.user);
             ((CommentItemListRowHolder)viewHolder).ivAvatar.setImageBitmap(defaultBitmap);
