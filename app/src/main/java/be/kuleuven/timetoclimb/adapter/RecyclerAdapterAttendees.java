@@ -2,7 +2,6 @@ package be.kuleuven.timetoclimb.adapter;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,10 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
-import be.kuleuven.timetoclimb.Event;
 import be.kuleuven.timetoclimb.R;
 import be.kuleuven.timetoclimb.User;
 

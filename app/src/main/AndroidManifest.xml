@@ -99,11 +99,6 @@
         <activity
             android:name=".route.RouteCreateActivity"
             android:exported="false" />
-        <activity
-            android:name=".route.RoutDetailViewActivity"
-            android:configChanges="orientation|screenSize"
-            android:exported="false" />
-        <activity android:name=".route.RouteDetailViewActivity" />
     </application>
 
 </manifest>

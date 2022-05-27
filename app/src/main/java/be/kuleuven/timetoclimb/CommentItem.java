@@ -1,7 +1,6 @@
 package be.kuleuven.timetoclimb;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class CommentItem implements Serializable {
 

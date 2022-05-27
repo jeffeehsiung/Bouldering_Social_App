@@ -1,4 +1,4 @@
-package be.kuleuven.timetoclimb.EventViewing;
+package be.kuleuven.timetoclimb;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,14 +26,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import be.kuleuven.timetoclimb.Climbinghall;
-import be.kuleuven.timetoclimb.Event;
-import be.kuleuven.timetoclimb.R;
-import be.kuleuven.timetoclimb.User;
-import be.kuleuven.timetoclimb.ViewEvent;
 import be.kuleuven.timetoclimb.adapter.RecyclerAdapterViewDate;
 
-public class BrowseEvents extends AppCompatActivity implements EventViewer {
+public class BrowseEvents extends AppCompatActivity {
 
     private ArrayList<Event> eventList;
     private ArrayList<Climbinghall> climbinghalls;
@@ -60,7 +55,6 @@ public class BrowseEvents extends AppCompatActivity implements EventViewer {
         populateEventList();
     }
 
-    @Override
     public void populateEventList() {
         String requestURL = "https://studev.groept.be/api/a21pt411/getUpcomingEvents";
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -83,8 +77,8 @@ public class BrowseEvents extends AppCompatActivity implements EventViewer {
                                         objResponse.getString("end_datetime")
                                 );
                                 eventList.add(event);
+                                addClimbingHall(event.getClimbingHallID(), i, jsonArray.length() - 1);
                             }
-                            addClimbingHalls(eventList);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -107,63 +101,70 @@ public class BrowseEvents extends AppCompatActivity implements EventViewer {
         requestQueue.add(submitRequest);
     }
 
-    @Override
-    public void addClimbingHalls(ArrayList<Event> events) {
+    public void addClimbingHall(int id, int index, int cycles) {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         String requestURL = "https://studev.groept.be/api/a21pt411/getHallNameByID";
-        for(int i = 0; i < events.size(); i++) {
-            int finalI = i;
-            int finalI1 = i;
-            StringRequest stringRequestRequest = new StringRequest(Request.Method.POST, requestURL,
-                    new Response.Listener<String>()
+        StringRequest stringRequestRequest = new StringRequest(Request.Method.POST, requestURL,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response)
                     {
-                        @Override
-                        public void onResponse(String response)
-                        {
-                            VolleyLog.v("Response:%n %s", response);
-                            System.out.println("Response climbinghalls: \n" + response);
-                            try {
-                                JSONArray jsonArray = new JSONArray(response);
-                                // Set empty list if no attendees, otherwise add by iteration
-                                JSONObject objResponse = jsonArray.getJSONObject(0);
-                                Climbinghall climbinghall = new Climbinghall(objResponse);
-                                climbinghalls.add(climbinghall);
-                            } catch (JSONException e) {
-                                System.out.println("error addclimb: " + e.getLocalizedMessage());
-                            }
-                            if(finalI1 == events.size() - 1) {
-                                setAdapter();
-                            }
+                        VolleyLog.v("Response:%n %s", response);
+                        System.out.println("Response climbinghalls: \n" + response);
+                        try {
+                            JSONArray jsonArray = new JSONArray(response);
+                            // Set empty list if no attendees, otherwise add by iteration
+                            JSONObject objResponse = jsonArray.getJSONObject(0);
+                            Climbinghall climbinghall = new Climbinghall(objResponse);
+                            climbinghalls.add(climbinghall);
+                        } catch (JSONException e) {
+                            System.out.println("error addclimb: " + e.getLocalizedMessage());
                         }
-                    },
-                    new Response.ErrorListener()
-                    {
-                        @Override
-                        public void onErrorResponse(VolleyError error)
-                        {
-                            Log.d("Database" ,error.getLocalizedMessage(), error);
-                            System.out.println("error: " + error.getLocalizedMessage());
+                        if(index == cycles) {
+                            System.out.println("Adapter setting for attending events! (inside addClimbinghalls())");
+                            while(climbinghalls.size() != eventList.size()) {
+                                // do nothing
+                            }
+                            setAdapter();
                         }
                     }
-            ) { //NOTE THIS PART: here we are passing the parameter to the webservice, NOT in the URL!
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("id", Integer.toString(events.get(finalI).getClimbingHallID()));
-                    return params;
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error)
+                    {
+                        Log.d("Database" ,error.getLocalizedMessage(), error);
+                        System.out.println("error: " + error.getLocalizedMessage());
+                    }
                 }
-            };
-            requestQueue.add(stringRequestRequest);
-        }
+        ) { //NOTE THIS PART: here we are passing the parameter to the webservice, NOT in the URL!
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("id", Integer.toString(id));
+                return params;
+            }
+        };
+        requestQueue.add(stringRequestRequest);
     }
 
-    @Override
+    public void passEventAndLocation(Event e, Climbinghall climbinghall) {
+        Intent intentViewEvent = new Intent(this, ViewEvent.class);
+        intentViewEvent.putExtra("User", user);
+        intentViewEvent.putExtra("Event", e);
+        intentViewEvent.putExtra("hall_name", climbinghall.getHallName());
+        intentViewEvent.putExtra("address", climbinghall.getAddress());
+        startActivity(intentViewEvent);
+    }
+
     public void setAdapter() {
         rvUpcomingEvents = findViewById(R.id.rvUpcomingEvents);
         adapterViewDate = new RecyclerAdapterViewDate(eventList, climbinghalls, new RecyclerAdapterViewDate.OnItemClickListener() {
             @Override
             public void onItemClick(Event event, Climbinghall climbinghall) {
-                passEventAndClimbinghall(event, climbinghall);
+                passEventAndLocation(event, climbinghall);
             }
         });
 
@@ -172,15 +173,5 @@ public class BrowseEvents extends AppCompatActivity implements EventViewer {
         rvUpcomingEvents.setLayoutManager(layoutManager);
         rvUpcomingEvents.setItemAnimator(new DefaultItemAnimator());
         rvUpcomingEvents.setAdapter(adapterViewDate);
-    }
-
-    @Override
-    public void passEventAndClimbinghall(Event event, Climbinghall climbinghall) {
-        Intent intentViewEvent = new Intent(this, ViewEvent.class);
-        intentViewEvent.putExtra("User", user);
-        intentViewEvent.putExtra("Event", event);
-        intentViewEvent.putExtra("hall_name", climbinghall.getHallName());
-        intentViewEvent.putExtra("address", climbinghall.getAddress());
-        startActivity(intentViewEvent);
     }
 }

@@ -19,8 +19,6 @@ import java.util.List;
 
 import be.kuleuven.timetoclimb.R;
 import be.kuleuven.timetoclimb.User;
-import be.kuleuven.timetoclimb.adapter.RecyclerAdapter;
-import be.kuleuven.timetoclimb.dbConnection.DBConnector;
 import be.kuleuven.timetoclimb.toolsInterface.imageResolver;
 
 public class RouteListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements imageResolver {

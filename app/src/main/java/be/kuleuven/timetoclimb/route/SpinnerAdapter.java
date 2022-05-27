@@ -3,7 +3,6 @@ package be.kuleuven.timetoclimb.route;
 import android.content.Context;
 import android.os.Build;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
 import androidx.annotation.RequiresApi;
 
@@ -16,7 +15,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import be.kuleuven.timetoclimb.R;
 import be.kuleuven.timetoclimb.dbConnection.DBConnector;
 import be.kuleuven.timetoclimb.dbConnection.ServerCallback;
 

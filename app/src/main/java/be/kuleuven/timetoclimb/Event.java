@@ -1,8 +1,6 @@
 package be.kuleuven.timetoclimb;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 public class Event implements Serializable {
     private int eventID;
