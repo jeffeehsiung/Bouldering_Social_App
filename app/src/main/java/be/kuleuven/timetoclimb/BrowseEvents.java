@@ -27,46 +27,39 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import be.kuleuven.timetoclimb.adapter.RecyclerAdapterAttendees;
 import be.kuleuven.timetoclimb.adapter.RecyclerAdapterViewDate;
 
-public class ViewDate extends AppCompatActivity {
+public class BrowseEvents extends AppCompatActivity {
 
-    private User user;
     private ArrayList<Event> eventList;
     private ArrayList<Climbinghall> climbinghalls;
-    private TextView lblDate;
-    private RecyclerView rvEvents;
-    private String displayDate;
-    private String start;
-    private String end;
+    private String currentDateTime;
+    private User user;
+    private RecyclerView rvUpcomingEvents;
     private RecyclerAdapterViewDate adapterViewDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_browse_events);
+        rvUpcomingEvents = findViewById(R.id.rvUpcomingEvents);
 
-        setContentView(R.layout.view_date);
-        lblDate = findViewById(R.id.lblDate);
-        rvEvents = findViewById(R.id.rvEvents);
+        // Get intent extras
+        Bundle extras = getIntent().getExtras();
+        user = (User) extras.getSerializable("User");
+        currentDateTime = extras.getString("currentDateTime");
+
+        // Instantiate lists
         eventList = new ArrayList<>();
         climbinghalls = new ArrayList<>();
-        // Get data from intent
-        Bundle extras = getIntent().getExtras();
-        displayDate = extras.get("SelectedDate").toString();
-        user = (User) getIntent().getSerializableExtra("User");
 
-        // Build datetime for database extraction
-        String selectedDate = displayDate.substring(6, 10) + "-" + displayDate.substring(3, 5) + "-" + displayDate.substring(0, 2);
-        start = selectedDate + " " + "00:00:00";
-        end = selectedDate + " " + "23:59:59";
-
-        lblDate.setText(displayDate);
-
+        // Populate lists from DB
         populateEventList();
     }
 
     public void populateEventList() {
-        String requestURL = "https://studev.groept.be/api/a21pt411/getEventsOfDay";
+        String requestURL = "https://studev.groept.be/api/a21pt411/getUpcomingEvents";
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest submitRequest = new StringRequest(Request.Method.POST, requestURL,
                 new Response.Listener<String>() {
@@ -85,7 +78,7 @@ public class ViewDate extends AppCompatActivity {
                                         objResponse.getString("title"),
                                         objResponse.getString("begin_datetime"),
                                         objResponse.getString("end_datetime")
-                                        );
+                                );
                                 eventList.add(event);
                                 addClimbingHall(event.getClimbingHallID(), i, jsonArray.length() - 1);
                             }
@@ -104,8 +97,7 @@ public class ViewDate extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("beginofday", start);
-                params.put("endofday", end);
+                params.put("currentdatetime", currentDateTime);
                 return params;
             }
         };
@@ -176,8 +168,8 @@ public class ViewDate extends AppCompatActivity {
 
         // set layoutmanager, itemanimator, adapter
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        rvEvents.setLayoutManager(layoutManager);
-        rvEvents.setItemAnimator(new DefaultItemAnimator());
-        rvEvents.setAdapter(adapterViewDate);
+        rvUpcomingEvents.setLayoutManager(layoutManager);
+        rvUpcomingEvents.setItemAnimator(new DefaultItemAnimator());
+        rvUpcomingEvents.setAdapter(adapterViewDate);
     }
 }

@@ -103,6 +103,7 @@ public class EventCreator extends AppCompatActivity {
 
         // Go back to calendar
         Intent intentCalendar = new Intent(this, CalendarActivity.class);
+        intentCalendar.putExtra("User", user);
         startActivityForResult(intentCalendar,2);
     }
 
@@ -110,6 +111,7 @@ public class EventCreator extends AppCompatActivity {
         Intent intentSelectHall = new Intent(this, SelectClimbingHall.class);
         intentSelectHall.putExtra("hallName", hallName);
         intentSelectHall.putExtra("id", climbingHallID);
+        intentSelectHall.putExtra("User", user);
         startActivityForResult(intentSelectHall, 1);
     }
     @Override
@@ -120,18 +122,21 @@ public class EventCreator extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 hallName = extras.getString("hallName");
                 climbingHallID = extras.getInt("id");
+                user = (User) extras.getSerializable("User");
                 lblClimbingHall.setText(hallName);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 // Write your code if there's no result
+                user = (User) extras.getSerializable("User");
             }
         }
         if(requestCode == 2) {
             if(resultCode == Activity.RESULT_OK){
-
+                user = (User) extras.getSerializable("User");
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 // Write your code if there's no result
+                user = (User) extras.getSerializable("User");
             }
         }
     }

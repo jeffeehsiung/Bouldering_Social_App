@@ -1,6 +1,8 @@
 package be.kuleuven.timetoclimb.adapter;
 
-import android.media.Image;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +20,16 @@ import be.kuleuven.timetoclimb.R;
 
 public class RecyclerAdapterViewDate extends RecyclerView.Adapter<RecyclerAdapterViewDate.myViewHolder> {
    private ArrayList<Event> eventList;
+   private ArrayList<Climbinghall> climbinghalls;
    private final OnItemClickListener listener;
 
     public interface OnItemClickListener {
-        void onItemClick(Event event);
+        void onItemClick(Event event, Climbinghall climbinghall);
     }
 
-   public RecyclerAdapterViewDate(ArrayList<Event> eventList, OnItemClickListener listener) {
+   public RecyclerAdapterViewDate(ArrayList<Event> eventList, ArrayList<Climbinghall> climbinghalls, OnItemClickListener listener) {
        this.eventList = eventList;
+       this.climbinghalls = climbinghalls;
        this.listener = listener;
    }
 
@@ -41,10 +45,10 @@ public class RecyclerAdapterViewDate extends RecyclerView.Adapter<RecyclerAdapte
            lblClimbinghallEvent = view.findViewById(R.id.lblClimbinghallEvent);
        }
 
-       public void bind(final Event event, final RecyclerAdapterViewDate.OnItemClickListener listener) {
+       public void bind(final Event event, final Climbinghall climbinghall, final RecyclerAdapterViewDate.OnItemClickListener listener) {
            itemView.setOnClickListener(new View.OnClickListener() {
                @Override public void onClick(View v) {
-                   listener.onItemClick(event);
+                   listener.onItemClick(event, climbinghall);
                }
            });
        }
@@ -59,12 +63,17 @@ public class RecyclerAdapterViewDate extends RecyclerView.Adapter<RecyclerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerAdapterViewDate.myViewHolder holder, int position) {
-       // implement image here aswell!!!
-       String titleEvent = eventList.get(position).getTitle();
-       int climbinghallEvent = eventList.get(position).getClimbingHallID(); // implement a get climbinghall by id here!
-       holder.lblClimbinghallEvent.setText(Integer.toString(climbinghallEvent));
-       holder.lblTitleEvent.setText(titleEvent);
-       holder.bind(eventList.get(position), listener);
+        String titleEvent = eventList.get(position).getTitle();
+        holder.lblClimbinghallEvent.setText(climbinghalls.get(position).getHallName());
+
+        //set image
+        String b64String = climbinghalls.get(position).getImage();
+        byte[] imageBytes = Base64.decode( b64String, Base64.DEFAULT );
+        Bitmap bitmap = BitmapFactory.decodeByteArray( imageBytes, 0, imageBytes.length );
+        holder.imgClimbinghall.setImageBitmap(Bitmap.createScaledBitmap(bitmap, bitmap.getWidth()/3, bitmap.getHeight()/3, false));
+
+        holder.lblTitleEvent.setText(titleEvent);
+        holder.bind(eventList.get(position), climbinghalls.get(position), listener);
     }
 
     @Override

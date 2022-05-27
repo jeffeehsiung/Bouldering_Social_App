@@ -22,4 +22,27 @@
         android:layout_height="wrap_content"
         android:onClick="onBtnCreateEvent_Clicked"
         android:text="Create Event" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="87dp" />
+
+    <Button
+        android:id="@+id/btnBrowse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onButtonBrowseEvents_Clicked"
+        android:text="Browse Events" />
+
+    <Button
+        android:id="@+id/btnAttending"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Attending Events" />
+
+    <Button
+        android:id="@+id/btnOrganised"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Organised Events" />
 </LinearLayout>

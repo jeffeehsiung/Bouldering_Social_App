@@ -3,6 +3,7 @@ package be.kuleuven.timetoclimb;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -48,6 +49,7 @@ public class User implements Serializable {
                     {
                         VolleyLog.v("Response:%n %s", response);
                         System.out.println(response.toString());
+                        Toast.makeText(c, "Event added!", Toast.LENGTH_SHORT).show();
                     }
                 },
                 new Response.ErrorListener()
@@ -57,6 +59,7 @@ public class User implements Serializable {
                     {
                         Log.d("Database" ,error.getLocalizedMessage(), error);
                         System.out.println("error: " + error.getLocalizedMessage());
+                        Toast.makeText(c, "Something went wrong, please try again", Toast.LENGTH_SHORT).show();
                     }
                 }
         ) { //NOTE THIS PART: here we are passing the parameter to the webservice, NOT in the URL!

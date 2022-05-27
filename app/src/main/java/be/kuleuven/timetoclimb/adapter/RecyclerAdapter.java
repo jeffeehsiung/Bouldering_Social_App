@@ -1,10 +1,14 @@
 package be.kuleuven.timetoclimb.adapter;
 
 import android.content.ClipData;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,14 +37,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         // Add View elements
-        private TextView lblImage;
+        private ImageView imgClimbinghall;
         private TextView lblHallName;
         private TextView lblHallAdress;
 
 
         public ViewHolder(final View view) {
             super(view);
-            lblImage = view.findViewById(R.id.lblImage);
+            imgClimbinghall = view.findViewById(R.id.imgClimbingHall);
             lblHallAdress = view.findViewById(R.id.lblHallAdress);
             lblHallName = view.findViewById(R.id.lblHallName);
         }
@@ -67,6 +71,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         String hallAdress = climbinghalls.get(position).getAddress();
         holder.lblHallName.setText(hallName);
         holder.lblHallAdress.setText(hallAdress);
+
+        // Set image
+        String b64String = climbinghalls.get(position).getImage();
+        byte[] imageBytes = Base64.decode( b64String, Base64.DEFAULT );
+        Bitmap bitmap = BitmapFactory.decodeByteArray( imageBytes, 0, imageBytes.length );
+        holder.imgClimbinghall.setImageBitmap(Bitmap.createScaledBitmap(bitmap, bitmap.getWidth()/3, bitmap.getHeight()/3, false));
         holder.bind(climbinghalls.get(position), listener);
     }
 
