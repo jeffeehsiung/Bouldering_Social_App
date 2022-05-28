@@ -93,12 +93,17 @@
             android:exported="false" />
         <activity
             android:name=".route.RouteListsViewActivity"
+            android:configChanges="orientation|screenSize"
             android:exported="false"
             android:label="@string/title_activity_route_view"
             android:theme="@style/Theme.TimeToClimb.NoActionBar" />
         <activity
             android:name=".route.RouteCreateActivity"
+            android:configChanges="orientation|screenSize"
             android:exported="false" />
+        <activity android:name=".route.RouteDetailViewActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"/>
     </application>
 
 </manifest>
